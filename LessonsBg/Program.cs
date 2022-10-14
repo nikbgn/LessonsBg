@@ -1,3 +1,5 @@
+using LessonsBg.Core.Contracts;
+using LessonsBg.Core.Services;
 using LessonsBg.Data;
 
 using Microsoft.AspNetCore.Identity;
@@ -14,6 +16,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IBlogService, BlogService>();
 
 var app = builder.Build();
 

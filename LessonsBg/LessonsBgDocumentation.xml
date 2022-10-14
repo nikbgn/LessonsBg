@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LessonsBg</name>
+    </assembly>
+    <members>
+        <member name="T:LessonsBg.Controllers.BlogController">
+            <summary>
+            Blog with interesting posts.
+            </summary>
+        </member>
+        <member name="M:LessonsBg.Controllers.BlogController.Index">
+            <summary>
+            Displays a page with blog posts.
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

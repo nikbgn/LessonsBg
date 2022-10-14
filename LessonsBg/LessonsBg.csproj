@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-LessonsBg-37183DE7-8948-4B89-B23E-A9BF930B9105</UserSecretsId>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>LessonsBgDocumentation.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
