@@ -1,3 +1,16 @@
-﻿@model BlogPostDto
+﻿@model IEnumerable<BlogPostDto>
 
 <h1>@ViewData["Title"]</h1>
+
+<!--Temporary view for testing purpose. Will change later.-->
+@foreach (var item in Model)
+{
+	<div class="card" style="width: 18rem;">
+		<img src="@item.PostThumbnailURL" class="card-img-top" alt="...">
+		<div class="card-body">
+			<h5 class="card-title">@item.Title</h5>
+			<p class="card-text">@item.PostText</p>
+			<a href="#" class="btn btn-primary">Прочети повече</a>
+		</div>
+	</div>
+}
