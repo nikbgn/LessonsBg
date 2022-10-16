@@ -1,16 +1,45 @@
 ﻿@model IEnumerable<BlogPostDto>
 
-<h1>@ViewData["Title"]</h1>
 
-<!--Temporary view for testing purpose. Will change later.-->
-@foreach (var item in Model)
-{
-	<div class="card" style="width: 18rem;">
-		<img src="@item.PostThumbnailURL" class="card-img-top" alt="...">
-		<div class="card-body">
-			<h5 class="card-title">@item.Title</h5>
-			<p class="card-text">@item.PostText</p>
-			<a href="#" class="btn btn-primary">Прочети повече</a>
+<section>
+	<div class="album py-5">
+		<div class="container">
+			<h1 class="display-6">@ViewData["Title"]</h1>
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+				@foreach (var item in Model)
+				{
+					<div class="col">
+						<div class="card shadow-sm h-100">
+
+								<img src="@item.PostThumbnailURL" class="card-img-top" alt="Blog post image thumbnail.">
+							<div class="card-body">
+								<h4>@item.Title</h4>
+								@if (item.PostText.Length > 100)
+								{
+									<p class="card-text" style="white-space: nowrap; text-overflow: ellipsis; overflow:hidden;">
+										@item.PostText
+									</p>
+								}
+								else
+								{
+									<p class="card-text">
+										@item.PostText
+									</p>
+								}
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="btn-group">
+										<button type="button" class="btn btn-sm btn-outline-secondary m-1">Прочети повече</button>
+									</div>
+									<small class="text-muted">@item.CreatedOn.ToString("dd/MM/yyyy")</small>
+								</div>
+							</div>
+						</div>
+					</div>
+				}
+
+			</div>
 		</div>
 	</div>
-}
+
+</section>
+

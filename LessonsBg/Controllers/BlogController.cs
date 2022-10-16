@@ -27,7 +27,7 @@
             var blogPosts = await blogService.GetAll();
             ViewData["Title"] = "Блог";
 
-            return View(blogPosts);
+            return View(blogPosts.ToList().OrderByDescending(c=>c.CreatedOn.Day));
         }
     }
 }
