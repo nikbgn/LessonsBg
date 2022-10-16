@@ -21,4 +21,8 @@
     <ProjectReference Include="..\LessonsBg.Core\LessonsBg.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>
