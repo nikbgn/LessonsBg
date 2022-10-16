@@ -10,23 +10,64 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">LessonsBg</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg bg-success text-white navbar-dark">
+            <div class="container">
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">УРОЦИ БГ</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+
+                <div class="collapse navbar-collapse" id="navmenu">
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Уроци по
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Всички предмети</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <p class="text-center">Категории</p>
+                                <li><a class="dropdown-item" href="#">Езици</a></li>
+                                <li><a class="dropdown-item" href="#">Академични</a></li>
+                                <li><a class="dropdown-item" href="#">Компютърни системи и технологии</a></li>
+                                <li><a class="dropdown-item" href="#">Други</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Тренировки по
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Всички спортове</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Кикбокс</a></li>
+                                <li><a class="dropdown-item" href="#">Волейбол</a></li>
+                            </ul>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Blog" asp-action="Index">Интересни</a>
+                            <a class="nav-link text-light" href="#">Курсове</a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="#">Новини</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Blog" asp-action="Index">Интересни</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="#">За Сайта</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -40,10 +81,40 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - LessonsBg - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+    <footer class="text-center footer text-lg-start bg-dark text-muted">
+        <section class="p-5  bg-dark">
+            <div class="container text-center text-md-start mt-5">
+                <div class="row mt-3">
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            <i class="fas fa-gem"></i>Уроци БГ
+                        </h6>
+                        <p>
+                            Платформа за откриване на учители, школи и треньори.
+                        </p>
+                    </div>
+
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Полезни линкове<i class="bi bi-airplane text-light"></i>
+                        </h6>
+                        <p>
+                            <a href="#!" class="text-reset">Предмети</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Курсове</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Новини</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Контакти</a>
+                        </p>
+                    </div>
+        </section>
+
+
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
