@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LessonsBg.Api</name>
+    </assembly>
+    <members>
+        <member name="M:LessonsBg.Api.Controllers.BlogController.#ctor(LessonsBg.Core.Contracts.IBlogService)">
+            <summary>
+            
+            </summary>
+            <param name="_blogService"></param>
+        </member>
+        <member name="M:LessonsBg.Api.Controllers.BlogController.GetAll">
+            <summary>
+            Get all blog posts.
+            </summary>
+            <returns></returns>
+            
+        </member>
+    </members>
+</doc>
