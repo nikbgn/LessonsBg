@@ -1,8 +1,166 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Добре дошли";
 }
+<section>
+    <div class="container mt-4 text-center mb-3">
+        <h1 class="display-2"><strong>Нуждаете се от <span class="text-success"> уроци? </span></strong></h1>
+        <p class="lead">
+            При нас може да откриете <strong> учители, школи и треньори, </strong> които ще ви помогнат да научите
+            това от което се нуждаете.
+        </p>
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/images/bel.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images/math.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images/volleyball.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/images/kickbox.jpg" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!--Testimonials-->
+<section class="bg-success" style="color: #000;">
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10 col-xl-8 text-center">
+                <h3 class="fw-bold mb-4  text-light">Отзиви</h3>
+                <p class="mb-4 pb-2 mb-md-5 pb-md-0 lead  text-light">
+                    Отзиви от нашите потребители
+                </p>
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-md-4 mb-4 mb-md-0">
+                <div class="card">
+                    <div class="card-body py-4 mt-2">
+                        <div class="d-flex justify-content-center mb-4">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp"
+                                 class="rounded-circle shadow-1-strong" width="100" height="100" />
+                        </div>
+                        <h5 class="font-weight-bold">Людмила Богданова</h5>
+                        <h6 class="font-weight-bold my-2 text-primary">Учител по БЕЛ</h6>
+                        <ul class="list-unstyled d-flex justify-content-center mb-2">
+                            <li>
+                                <i class="bi bi-star-fill text-primary mx-1"></i>
+                            </li>
+
+                            <li>
+                                <i class="bi bi-star-fill text-primary mx-1"></i>
+                            </li>
+                            <li>
+                                <i class="bi bi-star-fill text-primary mx-1"></i>
+                            </li>
+                            <li>
+                                <i class="bi bi-star-fill text-primary mx-1"></i>
+                            </li>
+                            <li>
+                                <i class="bi bi-star-fill text-primary mx-1"></i>
+                            </li>
+                        </ul>
+                        <h6 class="mb-2 ">
+                            <em>
+                                УРОЦИ БГ е един прекрасен сайт, който улеснява родители, ученици и кандидат студенти
+                                за намиране на подходящия преподавател по техен избор. Прекрасен сайт, без
+                                недостатъци!
+                            </em>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4 mb-md-0">
+                <div class="card">
+                    <div class="card-body py-4 mt-2">
+                        <div class="d-flex justify-content-center mb-4">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(9).webp"
+                                 class="rounded-circle shadow-1-strong" width="100" height="100" />
+                        </div>
+                        <h5 class="font-weight-bold">Борис Апостолов</h5>
+                        <h6 class="font-weight-bold my-2 text-primary">Треньор по Волейбол</h6>
+                        <ul class="list-unstyled d-flex justify-content-center mb-2">
+                            <li>
+                                <i class="bi bi-star-fill text-primary mx-1"></i>
+                            </li>
+
+                            <li>
+                                <i class="bi bi-star-fill text-primary mx-1"></i>
+                            </li>
+                            <li>
+                                <i class="bi bi-star-fill text-primary mx-1"></i>
+                            </li>
+                            <li>
+                                <i class="bi bi-star-fill text-primary mx-1"></i>
+                            </li>
+                            <li>
+                                <i class="bi bi-star-fill text-primary mx-1"></i>
+                            </li>
+                        </ul>
+                        <h6 class="mb-2 ">
+                            <em>
+                                Изплозвам платформата УРОЦИ БГ вече 2 години. С радост тренирам много, млади и
+                                мотивирани деца, които се свързаха с мен чрез платформата. Препоръчвам този сайт на
+                                всеки треньор който търси ученици!
+                            </em>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-0">
+                <div class="card">
+                    <div class="card-body py-4 mt-2">
+                        <div class="d-flex justify-content-center mb-4">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(17).webp"
+                                 class="rounded-circle shadow-1-strong" width="100" height="100" />
+                        </div>
+                        <h5 class="font-weight-bold">Анелия Андреева</h5>
+                        <h6 class="font-weight-bold my-2 text-primary">Учител по География</h6>
+                        <ul class="list-unstyled d-flex justify-content-center mb-2">
+                            <li>
+                                <i class="bi bi-star-fill text-primary mx-1"></i>
+                            </li>
+
+                            <li>
+                                <i class="bi bi-star-fill text-primary mx-1"></i>
+                            </li>
+                            <li>
+                                <i class="bi bi-star-fill text-primary mx-1"></i>
+                            </li>
+                            <li>
+                                <i class="bi bi-star-fill text-primary mx-1"></i>
+                            </li>
+                            <li>
+                                <i class="bi bi-star-fill text-primary mx-1"></i>
+                            </li>
+                        </ul>
+                        <h6 class="mb-2 ">
+                            <em>
+                                Използвам платформата УРОЦИ БГ, защото дава възможност на младите преподаватели поле
+                                за изява и място, където да бъдат оценени. Благодаря ви за възможността да правя
+                                това, което обичам!
+                            </em>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
