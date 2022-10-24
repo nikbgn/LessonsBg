@@ -1,4 +1,4 @@
-﻿namespace LessonsBg.Data.Migrations
+﻿namespace LessonsBg.Core.Data.Migrations
 {
     using System;
 

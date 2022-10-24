@@ -2,6 +2,10 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using LessonsBg.Core.Data.Models;
+
+    using static LessonsBg.Core.Data.DataValidationConstants.BlogPostValidation;
+
     /// <summary>
     /// Blog post model
     /// </summary>
@@ -19,7 +23,7 @@
         /// </summary>
 
         [Required]
-        [StringLength(50)]
+        [StringLength(BlogTitleMaxLength, MinimumLength = BlogTitleMinLength)]
         public string Title { get; set; }
 
         /// <summary>
@@ -43,6 +47,7 @@
         /// </summary>
 
         [Required]
+        [MinLength(BlogPostTextMinLength)]
         public string PostText { get; set; }
 
 
@@ -51,11 +56,13 @@
         /// </summary>
 
         public DateTime CreatedOn { get; set; }
+
+        /// <summary>
+        /// Comments for the blog post.
+        /// </summary>
+        public IEnumerable<BlogComment> BlogComments { get; set; } = new List<BlogComment>();
+
     }
 }
 
-/*
- * Future improvements:
- *  - Author
- *  - Blog post comments?
- */
+
