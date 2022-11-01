@@ -34,6 +34,7 @@
         /// </summary>
         /// <returns>List of blog posts.</returns>
 
+        //TODO: These should come from the DB.
         public async Task<IEnumerable<BlogPostModel>> GetAll()
         {
             string dataPath = config.GetSection("DataFiles:BlogPosts").Value;
