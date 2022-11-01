@@ -1,15 +1,26 @@
 ﻿namespace LessonsBg.Core.Data
 {
+
     using LessonsBg.Core.Data.Models;
+    using LessonsBg.Core.Models;
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+
+    using Newtonsoft.Json;
+
+    using static Seeding.DataSeeder;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+
+        private readonly IConfiguration config;
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IConfiguration _config)
             : base(options)
         {
+            config = _config;
         }
 
         public DbSet<BlogPost> BlogPosts { get; set; }
@@ -23,10 +34,51 @@
         public DbSet<Training> Trainings { get; set; }
         public DbSet<TrainingType> TrainingTypes { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+
+
+        protected override async void OnModelCreating(ModelBuilder builder)
         {
-            //TODO: Seed initial data.
             base.OnModelCreating(builder);
+            //TODO: Seed initial data.
+            builder
+                .Entity<CourseType>()
+                .HasData(SeedCourseTypes());
+
+            builder
+                .Entity<SubjectType>()
+                .HasData(SeedSubjectTypes());
+
+            builder.Entity<TrainingType>()
+                .HasData(SeedTrainingTypes());
+
+            builder.Entity<FilterBadge>()
+                .HasData(SeedFilterBadges());
+
+            builder.Entity<Location>()
+                .HasData(SeedLocations());
+        }
+
+        protected List<Location> SeedLocations()
+        {
+            string dataPath = config.GetSection("DataFiles:Locations").Value;
+            string data = File.ReadAllText(dataPath);
+            
+            var locationsModel =  JsonConvert.DeserializeObject<LocationModel[]>(data);
+            var locations = new List<Location>();
+            int i = 1;
+            foreach (var location in locationsModel)
+            {
+                Location newLocation = new Location()
+                {
+                    Id = i,
+                    Name = location.Name,
+                    Region = location.Region
+                };
+                locations.Add(newLocation);
+                i++;
+            }
+            return locations;
+
         }
     }
 }

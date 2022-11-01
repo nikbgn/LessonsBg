@@ -10,7 +10,7 @@
     /// Blog post model
     /// </summary>
 
-    public class BlogPostDto
+    public class BlogPostModel
     {
         /// <summary>
         /// Blog post identifier.

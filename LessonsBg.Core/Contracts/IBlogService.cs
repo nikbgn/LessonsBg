@@ -13,6 +13,6 @@
         /// </summary>
         /// <returns>List of blog posts.</returns>
 
-        Task<IEnumerable<BlogPostDto>> GetAll();
+        Task<IEnumerable<BlogPostModel>> GetAll();
     }
 }

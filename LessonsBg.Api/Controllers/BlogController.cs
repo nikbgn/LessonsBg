@@ -29,7 +29,7 @@
         /// 
         [HttpGet]
         [Produces("application/json")]
-        [ProducesResponseType(200, StatusCode = StatusCodes.Status200OK, Type = typeof(IEnumerable<BlogPostDto>))]
+        [ProducesResponseType(200, StatusCode = StatusCodes.Status200OK, Type = typeof(IEnumerable<BlogPostModel>))]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await blogService.GetAll());

@@ -34,12 +34,12 @@
         /// </summary>
         /// <returns>List of blog posts.</returns>
 
-        public async Task<IEnumerable<BlogPostDto>> GetAll()
+        public async Task<IEnumerable<BlogPostModel>> GetAll()
         {
             string dataPath = config.GetSection("DataFiles:BlogPosts").Value;
             string data = await File.ReadAllTextAsync(dataPath);
 
-            return JsonConvert.DeserializeObject<IEnumerable<BlogPostDto>>(data);
+            return JsonConvert.DeserializeObject<IEnumerable<BlogPostModel>>(data);
         }
     }
 }

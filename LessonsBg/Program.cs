@@ -20,6 +20,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IBlogService, BlogService>();
+builder.Services.AddScoped<INewsService, NewsService>();
 
 var app = builder.Build();
 
