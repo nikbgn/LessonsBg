@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<NewsArticleModel>
 
+@{
+	ViewData["Title"] = "Новини.";
+}
+
 @if(!Model.Any()){
 	<div class="container push">
 		<h1 class="display-1 text-center">Към момента, няма новини</h1>

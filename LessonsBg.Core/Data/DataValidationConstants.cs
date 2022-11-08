@@ -30,5 +30,17 @@
 
             public const int NewsArticleTextMinLength = 150;
         }
+
+
+        public static class ApplicationUserValidation
+        {
+            public const int FirstNameMaxLength = 70;
+            public const int FirstNameMinLength = 1;
+
+            public const int LastNameMaxLength = 70;
+            public const int LastNameMinLength = 1;
+
+            public const int PasswordMinimumLength = 6;
+        }
     }
 }
