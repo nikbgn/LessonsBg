@@ -1,5 +1,6 @@
 ﻿namespace LessonsBg.Controllers
 {
+    using LessonsBg.Core.Data;
     using LessonsBg.Core.Data.Models;
     using LessonsBg.Models;
 
@@ -12,13 +13,16 @@
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         public AccountController(
             UserManager<ApplicationUser> _userManager,
-            SignInManager<ApplicationUser> _signInManager)
+            SignInManager<ApplicationUser> _signInManager,
+            RoleManager<IdentityRole> _roleManager)
         {
             userManager = _userManager;
             signInManager = _signInManager;
+            roleManager = _roleManager;
         }
 
         [HttpGet]
@@ -31,6 +35,11 @@
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            if((model.FirstName.ToLower() == "академия" || model.LastName.ToLower() == "академия") && model.RegistrationFlag != 4)
+            {
+                ModelState.AddModelError("", InvalidRegistrationAcademyError);
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -47,9 +56,12 @@
 
             var result = await userManager.CreateAsync(newUser, model.Password);
 
+            if (model.RegistrationFlag == 2) await userManager.AddToRoleAsync(newUser, RoleConstants.Teacher);
+            else if (model.RegistrationFlag == 3) await userManager.AddToRoleAsync(newUser, RoleConstants.Trainer);
+            else if (model.RegistrationFlag == 4) await userManager.AddToRoleAsync(newUser, RoleConstants.Academy);
+
             if (result.Succeeded)
             {
-                Console.WriteLine($"Account registration FLAG: {model.RegistrationFlag}");
                 await signInManager.SignInAsync(newUser, isPersistent: false);
                 return RedirectToAction("Index", "Home");
             }
@@ -90,10 +102,10 @@
                 if (result.Succeeded)
                 {
                     if (model.ReturnUrl != null) return Redirect(model.ReturnUrl);
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index", "Home");
                 }
             }
-            ModelState.AddModelError("",InvalidLogin);
+            ModelState.AddModelError("", InvalidLogin);
             return View(model);
         }
 
@@ -102,5 +114,16 @@
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        public async Task<IActionResult> CreateRoles()
+        {
+            await roleManager.CreateAsync(new IdentityRole(RoleConstants.Administrator));
+            await roleManager.CreateAsync(new IdentityRole(RoleConstants.Academy));
+            await roleManager.CreateAsync(new IdentityRole(RoleConstants.Teacher));
+            await roleManager.CreateAsync(new IdentityRole(RoleConstants.Trainer));
+
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }
