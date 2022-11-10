@@ -29,6 +29,11 @@
             public const int NewsArticleNameMinLength = 10;
 
             public const int NewsArticleTextMinLength = 150;
+
+            public const string NewsArticleNameLengthErrorMessage = "Името на новината трябва да е между {1} и {2} символа.";
+            public const string NewsArticleTextLengthErrorMessage = "Съдържанието на новината трябва да е поне {1} символа.";
+            public const string NewsArticleImageURLErrorMessage = "Картинката на новината трябва да бъде валиден URL адрес!";
+            public const string ThisFieldIsRequiredErrorMessage = "Попълването на това поле е задължително!";
         }
 
 

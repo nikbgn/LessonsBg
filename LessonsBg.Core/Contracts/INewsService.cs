@@ -19,5 +19,11 @@
         /// </summary>
         /// <returns>All news</returns>
         Task<IEnumerable<NewsArticleModel>> GetAllNewsAsync();
+
+        /// <summary>
+        /// Removes a news article.
+        /// </summary>
+        /// <param name="newsArticleId">News article ID</param>
+        Task RemoveAsync(Guid newsArticleId);
     }
 }

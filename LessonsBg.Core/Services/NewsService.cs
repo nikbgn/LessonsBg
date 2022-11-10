@@ -55,5 +55,22 @@
                         Text = n.Text
                     }).ToListAsync();
 
-    }
+		/// <summary>
+		/// Removes a news article.
+		/// </summary>
+		/// <param name="newsArticleId">News article ID</param>
+		public async Task RemoveAsync(Guid newsArticleId)
+        {
+            var articleToDelete = context.NewsArticles.FirstOrDefault(a => a.Id == newsArticleId);
+            if(articleToDelete != null)
+            {
+                context.NewsArticles.Remove(articleToDelete);
+                await context.SaveChangesAsync();
+            }
+            else
+            {
+                Console.WriteLine("XDD");
+            }
+        }
+	}
 }

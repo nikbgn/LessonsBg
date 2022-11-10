@@ -1,12 +1,20 @@
-﻿@model IEnumerable<NewsArticleModel>
+﻿@using LessonsBg.Core.Data;
+@model IEnumerable<NewsArticleModel>
 
 @{
 	ViewData["Title"] = "Новини.";
 }
 
-@if(!Model.Any()){
+@if (!Model.Any())
+{
 	<div class="container push">
 		<h1 class="display-1 text-center">Към момента, няма новини</h1>
+		@if (User.IsInRole(RoleConstants.Administrator))
+		{
+			<form class="text-center" asp-controller="News" asp-action="Add" method="get">
+				<input type="submit" class="btn btn-lg btn-success mt-3" value="Добави новина" />
+			</form>
+		}
 	</div>
 }
 else
@@ -15,6 +23,12 @@ else
 		<div class="album py-5 push">
 			<div class="container">
 				<h1 class="display-6">@ViewData["Title"]</h1>
+				@if (User.IsInRole(RoleConstants.Administrator))
+				{
+					<form asp-controller="News" asp-action="Add" method="get">
+						<input type="submit" class="btn btn-lg btn-success mt-3 mb-3" value="Добави новина" />
+					</form>
+				}
 				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
 					@foreach (var article in Model)
 					{
@@ -41,6 +55,12 @@ else
 											<button type="button" class="btn btn-sm btn-outline-secondary m-1">Прочети повече</button>
 										</div>
 										<small class="text-muted">@article.CreatedOn.ToString("dd/MM/yyyy")</small>
+										@if (User.IsInRole(RoleConstants.Administrator))
+										{
+											<form asp-route-newsArticleId="@article.Id" asp-controller="News" asp-action="Delete" method="post">
+												<input type="submit" class="btn btn-sm btn-danger m-1" value="Изтрии" />
+											</form>
+										}
 									</div>
 								</div>
 							</div>

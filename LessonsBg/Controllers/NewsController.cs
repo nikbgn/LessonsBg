@@ -1,8 +1,10 @@
 ﻿namespace LessonsBg.Controllers
 {
     using LessonsBg.Core.Contracts;
+    using LessonsBg.Core.Data;
     using LessonsBg.Core.Models;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class NewsController : Controller
@@ -21,6 +23,7 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = RoleConstants.Administrator)]
         public IActionResult Add()
         {
             var model = new NewsArticleModel();
@@ -29,6 +32,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleConstants.Administrator)]
         public async Task<IActionResult> Add(NewsArticleModel model)
         {
             ViewData["Tittle"] = "Добави новина";
@@ -40,6 +44,13 @@
 
             await newsService.AddAsync(model);
 
+            return RedirectToAction(nameof(Index));
+        }
+
+		[Authorize(Roles = RoleConstants.Administrator)]
+		public async Task<IActionResult> Delete(Guid newsArticleId)
+        {
+            await newsService.RemoveAsync(newsArticleId);
             return RedirectToAction(nameof(Index));
         }
     }
