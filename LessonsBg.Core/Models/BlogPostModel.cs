@@ -1,5 +1,6 @@
 ﻿namespace LessonsBg.Core.Models
 {
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     using LessonsBg.Core.Data.Models;
@@ -22,33 +23,37 @@
         /// Blog post title.
         /// </summary>
 
-        [Required]
-        [StringLength(BlogTitleMaxLength, MinimumLength = BlogTitleMinLength)]
-        public string Title { get; set; }
+        [Required(ErrorMessage = ThisFieldIsRequiredErrorMessage)]
+        [StringLength(BlogTitleMaxLength, MinimumLength = BlogTitleMinLength, ErrorMessage = BlogPostTitleLengthErrorMessage)]
+		[DisplayName("Заглавие")]
+		public string Title { get; set; }
 
-        /// <summary>
-        /// Blog post thumbnail image URL.
-        /// </summary>
+		/// <summary>
+		/// Blog post thumbnail image URL.
+		/// </summary>
 
-        [Required]
-        [Url]
-        public string PostThumbnailURL { get; set; }
+		[Required(ErrorMessage = ThisFieldIsRequiredErrorMessage)]
+		[Url(ErrorMessage = BlogPostThumbnailURLErrorMessage)]
+		[DisplayName("Картинка на поста")]
+		public string PostThumbnailURL { get; set; }
 
-        /// <summary>
-        /// Heading image for the blog post text.
-        /// </summary>
+		/// <summary>
+		/// Heading image for the blog post text.
+		/// </summary>
 
-        [Required]
-        [Url]
-        public string PostTextHeadingImageURL { get; set; }
+		[Required(ErrorMessage = ThisFieldIsRequiredErrorMessage)]
+		[Url(ErrorMessage = BlogPostTextHeadingImageURLErrorMessage)]
+		[DisplayName("Главна картинка на съдържанието на поста")]
+		public string PostTextHeadingImageURL { get; set; }
 
-        /// <summary>
-        /// Blog post text.
-        /// </summary>
+		/// <summary>
+		/// Blog post text.
+		/// </summary>
 
-        [Required]
-        [MinLength(BlogPostTextMinLength)]
-        public string PostText { get; set; }
+		[Required(ErrorMessage = ThisFieldIsRequiredErrorMessage)]
+		[MinLength(BlogPostTextMinLength, ErrorMessage = BlogPostTextLengthErrorMessage)]
+		[DisplayName("Съдържание на поста")]
+		public string PostText { get; set; }
 
 
         /// <summary>

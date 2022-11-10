@@ -13,6 +13,12 @@
         /// </summary>
         /// <returns>List of blog posts.</returns>
 
-        Task<IEnumerable<BlogPostModel>> GetAll();
+        Task<IEnumerable<BlogPostModel>> GetAllAsync();
+
+        /// <summary>
+        /// Adds a new blog post
+        /// </summary>
+        /// <returns></returns>
+        Task AddAsync(BlogPostModel model);
     }
 }

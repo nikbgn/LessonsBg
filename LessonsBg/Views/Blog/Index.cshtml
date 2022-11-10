@@ -14,7 +14,7 @@
 								<img src="@item.PostThumbnailURL" class="card-img-top" alt="Blog post image thumbnail.">
 							<div class="card-body">
 								<h4>@item.Title</h4>
-								@if (item.PostText.Length > 100)
+								@if (item.PostText.Length > 10)
 								{
 									<p class="card-text" style="white-space: nowrap; text-overflow: ellipsis; overflow:hidden;">
 										@item.PostText

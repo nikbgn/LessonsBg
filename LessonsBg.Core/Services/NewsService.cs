@@ -67,10 +67,6 @@
                 context.NewsArticles.Remove(articleToDelete);
                 await context.SaveChangesAsync();
             }
-            else
-            {
-                Console.WriteLine("XDD");
-            }
         }
 	}
 }

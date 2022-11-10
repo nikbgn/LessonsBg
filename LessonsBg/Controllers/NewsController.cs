@@ -27,7 +27,7 @@
         public IActionResult Add()
         {
             var model = new NewsArticleModel();
-            ViewData["Tittle"] = "Добави новина";
+            ViewData["Title"] = "Добави новина";
             return View(model);
         }
 
@@ -35,7 +35,7 @@
         [Authorize(Roles = RoleConstants.Administrator)]
         public async Task<IActionResult> Add(NewsArticleModel model)
         {
-            ViewData["Tittle"] = "Добави новина";
+            ViewData["Title"] = "Добави новина";
 
             if (!ModelState.IsValid)
             {

@@ -8,7 +8,15 @@
             public const int BlogTitleMinLength = 10;
 
             public const int BlogPostTextMinLength = 10;
-        }
+
+
+			public const string BlogPostTitleLengthErrorMessage = "Заглавието на блог поста трябва да е между {1} и {2} символа.";
+			public const string BlogPostTextLengthErrorMessage = "Съдържанието на блог поста трябва да е поне {1} символа.";
+			public const string BlogPostThumbnailURLErrorMessage = "Картинката на блог поста трябва да бъде валиден URL адрес!";
+			public const string BlogPostTextHeadingImageURLErrorMessage = "Главната картинка на блог поста трябва да бъде валиден URL адрес!";
+			public const string ThisFieldIsRequiredErrorMessage = "Попълването на това поле е задължително!";
+
+		}
         public static class BlogCommentValidation
         {
             public const int BlogCommentTextMaxLength = 150;
