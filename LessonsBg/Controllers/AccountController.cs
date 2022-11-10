@@ -4,11 +4,13 @@
     using LessonsBg.Core.Data.Models;
     using LessonsBg.Models;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     using static LessonsBg.Core.Data.ApplicationErrorMessages;
 
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
@@ -25,15 +27,30 @@
             roleManager = _roleManager;
         }
 
+
         [HttpGet]
-        public IActionResult Register()
+        [AllowAnonymous]
+		public IActionResult AccessDenied()
+		{
+			return View();
+		}
+
+		[HttpGet]
+		[AllowAnonymous]
+		public IActionResult Register()
         {
+            if(User?.Identity?.IsAuthenticated ?? false)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var model = new RegisterViewModel();
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+		[AllowAnonymous]
+		public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if((model.FirstName.ToLower() == "академия" || model.LastName.ToLower() == "академия") && model.RegistrationFlag != 4)
             {
@@ -76,9 +93,16 @@
 
 
         [HttpGet]
-        public IActionResult Login(string? returnUrl = null)
+		[AllowAnonymous]
+		public IActionResult Login(string? returnUrl = null)
         {
-            var model = new LoginViewModel()
+
+			if (User?.Identity?.IsAuthenticated ?? false)
+			{
+				return RedirectToAction("Index", "Home");
+			}
+
+			var model = new LoginViewModel()
             {
                 ReturnUrl = returnUrl
             };
@@ -86,7 +110,8 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+		[AllowAnonymous]
+		public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -115,15 +140,6 @@
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> CreateRoles()
-        {
-            await roleManager.CreateAsync(new IdentityRole(RoleConstants.Administrator));
-            await roleManager.CreateAsync(new IdentityRole(RoleConstants.Academy));
-            await roleManager.CreateAsync(new IdentityRole(RoleConstants.Teacher));
-            await roleManager.CreateAsync(new IdentityRole(RoleConstants.Trainer));
-
-            return RedirectToAction("Index", "Home");
-        }
 
     }
 }

@@ -6,6 +6,7 @@ using LessonsBg.Core.Services;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 using static LessonsBg.Core.Data.DataValidationConstants.ApplicationUserValidation;
 
@@ -30,6 +31,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
 });
 
 builder.Services.AddControllersWithViews();
@@ -38,6 +40,13 @@ builder.Services.AddScoped<IBlogService, BlogService>();
 builder.Services.AddScoped<INewsService, NewsService>();
 
 var app = builder.Build();
+
+//Check for roles existing, and create them if they do not.
+using(var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await ConfigureRolesAndAdmin(services);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -65,3 +74,20 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.Run();
+
+
+async Task ConfigureRolesAndAdmin(IServiceProvider serviceProvider)
+{
+    var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+	if (!roleManager.Roles.Any())
+	{
+		await roleManager.CreateAsync(new IdentityRole(RoleConstants.Administrator));
+		await roleManager.CreateAsync(new IdentityRole(RoleConstants.Academy));
+		await roleManager.CreateAsync(new IdentityRole(RoleConstants.Teacher));
+		await roleManager.CreateAsync(new IdentityRole(RoleConstants.Trainer));
+	}
+
+    var admin = await userManager.FindByEmailAsync("niki_admin@niki.bg");
+    await userManager.AddToRoleAsync(admin, RoleConstants.Administrator);
+}

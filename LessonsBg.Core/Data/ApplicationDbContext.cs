@@ -1,9 +1,10 @@
 ﻿namespace LessonsBg.Core.Data
 {
-
+    using LessonsBg.Core.Data.Configuration;
     using LessonsBg.Core.Data.Models;
     using LessonsBg.Core.Models;
 
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -16,12 +17,13 @@
     {
 
         private readonly IConfiguration config;
+		private readonly RoleManager<IdentityRole> roleManager;
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IConfiguration _config)
+		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IConfiguration _config)
             : base(options)
         {
             config = _config;
-        }
+		}
 
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<BlogComment> BlogComments { get; set; }
@@ -39,6 +41,8 @@
 
         protected override async void OnModelCreating(ModelBuilder builder)
         {
+
+            builder.ApplyConfiguration(new UserConfiguration());
             base.OnModelCreating(builder);
             //TODO: Seed initial data.
             builder
@@ -57,6 +61,8 @@
 
             builder.Entity<Location>()
                 .HasData(SeedLocations());
+
+            
         }
 
         protected List<Location> SeedLocations()
