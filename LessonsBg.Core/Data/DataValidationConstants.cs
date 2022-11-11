@@ -10,7 +10,7 @@
             public const int BlogPostTextMinLength = 10;
 
 
-			public const string BlogPostTitleLengthErrorMessage = "Заглавието на блог поста трябва да е между {1} и {2} символа.";
+			public const string BlogPostTitleLengthErrorMessage = "Заглавието на блог поста трябва да е между {2} и {1} символа.";
 			public const string BlogPostTextLengthErrorMessage = "Съдържанието на блог поста трябва да е поне {1} символа.";
 			public const string BlogPostThumbnailURLErrorMessage = "Картинката на блог поста трябва да бъде валиден URL адрес!";
 			public const string BlogPostTextHeadingImageURLErrorMessage = "Главната картинка на блог поста трябва да бъде валиден URL адрес!";
@@ -38,7 +38,7 @@
 
             public const int NewsArticleTextMinLength = 150;
 
-            public const string NewsArticleNameLengthErrorMessage = "Името на новината трябва да е между {1} и {2} символа.";
+            public const string NewsArticleNameLengthErrorMessage = "Името на новината трябва да е между {2} и {1} символа.";
             public const string NewsArticleTextLengthErrorMessage = "Съдържанието на новината трябва да е поне {1} символа.";
             public const string NewsArticleImageURLErrorMessage = "Картинката на новината трябва да бъде валиден URL адрес!";
             public const string ThisFieldIsRequiredErrorMessage = "Попълването на това поле е задължително!";

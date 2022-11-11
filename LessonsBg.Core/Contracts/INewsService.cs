@@ -25,5 +25,12 @@
         /// </summary>
         /// <param name="newsArticleId">News article ID</param>
         Task RemoveAsync(Guid newsArticleId);
+
+        /// <summary>
+        /// Gets a specific news article by ID.
+        /// </summary>
+        /// <param name="newsArticleId"></param>
+        /// <returns></returns>
+        Task<NewsArticleModel> GetNewsArticleAsync(Guid newsArticleId);
     }
 }

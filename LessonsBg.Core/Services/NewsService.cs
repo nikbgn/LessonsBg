@@ -56,6 +56,33 @@
                     }).ToListAsync();
 
 		/// <summary>
+		/// Gets a specific news article by ID.
+		/// </summary>
+		/// <param name="newsArticleId"></param>
+		/// <returns></returns>
+
+		public async Task<NewsArticleModel> GetNewsArticleAsync(Guid newsArticleId)
+		{
+            var newsArticle = await context.NewsArticles
+                .Where(a => a.Id == newsArticleId)
+                .Select(a => new NewsArticleModel
+                {
+                    Id = a.Id,
+                    Text = a.Text,
+                    Name = a.Name,
+                    CreatedOn = a.CreatedOn,
+                    ImageURL = a.ImageURL
+                }).FirstOrDefaultAsync();
+
+            if(newsArticle == null)
+            {
+                throw new ArgumentException("Invalid ID!");
+            }
+
+            return newsArticle;
+		}
+
+		/// <summary>
 		/// Removes a news article.
 		/// </summary>
 		/// <param name="newsArticleId">News article ID</param>

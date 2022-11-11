@@ -57,5 +57,13 @@
 
 			return RedirectToAction(nameof(Index));
 		}
+
+        [HttpGet]
+        [Route("/Blog/ViewPost/blogPostId={blogPostId}")]
+        public async Task <IActionResult> ViewPost(Guid blogPostId)
+        {
+            var post = await blogService.GetPostAsync(blogPostId);
+            return View(post);
+        }
 	}
 }

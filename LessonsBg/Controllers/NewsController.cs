@@ -53,5 +53,13 @@
             await newsService.RemoveAsync(newsArticleId);
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+		[Route("/News/ViewArticle/newsArticleId={newsArticleId}")]
+		public async Task<IActionResult> ViewArticle(Guid newsArticleId)
+        {
+            var article = await newsService.GetNewsArticleAsync(newsArticleId);
+            return View(article);
+        }
     }
 }

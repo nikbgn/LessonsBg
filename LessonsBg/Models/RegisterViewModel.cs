@@ -27,7 +27,7 @@
 
         [Required]
         [DisplayName("Фамилно име")]
-        public string LastName { get; set; }
+        public string LastName { get; set; } = "Академия";
 
         [Required]
         [Phone]

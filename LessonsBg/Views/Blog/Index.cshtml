@@ -11,7 +11,7 @@
 					<div class="col">
 						<div class="card shadow-sm h-100">
 
-								<img src="@item.PostThumbnailURL" class="card-img-top" alt="Blog post image thumbnail.">
+								<img src="@item.PostThumbnailURL" class="img-thumbnail" alt="Blog post image thumbnail.">
 							<div class="card-body">
 								<h4>@item.Title</h4>
 								@if (item.PostText.Length > 10)
@@ -28,7 +28,9 @@
 								}
 								<div class="d-flex justify-content-between align-items-center">
 									<div class="btn-group">
-										<button type="button" class="btn btn-sm btn-outline-secondary m-1">Прочети повече</button>
+										<form asp-route-blogPostId="@item.Id" asp-controller="Blog" asp-action="ViewPost" method="get">
+											<input type="submit" class="btn btn-sm btn-outline-secondary m-1" value="Прочети повече" />
+										</form>
 									</div>
 									<small class="text-muted">@item.CreatedOn.ToString("dd/MM/yyyy")</small>
 								</div>

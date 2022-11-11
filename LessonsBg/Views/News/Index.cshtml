@@ -35,7 +35,7 @@ else
 						<div class="col">
 							<div class="card shadow-sm h-100">
 
-								<img src="@article.ImageURL" class="card-img-top" alt="News article thumbnail.">
+								<img src="@article.ImageURL" class="img-thumbnail" alt="News article thumbnail.">
 								<div class="card-body">
 									<h4>@article.Name</h4>
 									@if (article.Text.Length > 100)
@@ -52,7 +52,9 @@ else
 									}
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
-											<button type="button" class="btn btn-sm btn-outline-secondary m-1">Прочети повече</button>
+											<form asp-route-newsArticleId="@article.Id" asp-controller="News" asp-action="ViewArticle" method="get">
+												<input type="submit" class="btn btn-sm btn-outline-secondary m-1" value="Прочети повече" />
+											</form>
 										</div>
 										<small class="text-muted">@article.CreatedOn.ToString("dd/MM/yyyy")</small>
 										@if (User.IsInRole(RoleConstants.Administrator))
