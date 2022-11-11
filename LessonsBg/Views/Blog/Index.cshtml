@@ -1,47 +1,75 @@
-﻿@model IEnumerable<BlogPostModel>
+﻿@using LessonsBg.Core.Data;
+@model IEnumerable<BlogPostModel>
 
 
-<section>
-	<div class="album py-5 push">
-		<div class="container">
-			<h1 class="display-6">@ViewData["Title"]</h1>
-			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-				@foreach (var item in Model)
+
+@if (!Model.Any())
+{
+	<div class="container push">
+		<h1 class="display-1 text-center">Към момента, няма блог постове</h1>
+		@if (User.IsInRole(RoleConstants.Administrator))
+		{
+			<form class="text-center" asp-controller="Blog" asp-action="Add" method="get">
+				<input type="submit" class="btn btn-lg btn-success mt-3" value="Добави блог пост" />
+			</form>
+		}
+	</div>
+}
+else
+{
+	<section>
+		<div class="album py-5 push">
+			<div class="container">
+				<h1 class="display-6">@ViewData["Title"]</h1>
+				@if (User.IsInRole(RoleConstants.Administrator))
 				{
-					<div class="col">
-						<div class="card shadow-sm h-100">
+					<form asp-controller="Blog" asp-action="Add" method="get">
+						<input type="submit" class="btn btn-lg btn-success mt-3 mb-3" value="Добави блог пост" />
+					</form>
+				}
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+					@foreach (var item in Model)
+					{
+						<div class="col">
+							<div class="card shadow-sm h-100">
 
-								<img src="@item.PostThumbnailURL" class="img-thumbnail" alt="Blog post image thumbnail.">
-							<div class="card-body">
-								<h4>@item.Title</h4>
-								@if (item.PostText.Length > 10)
-								{
-									<p class="card-text" style="white-space: nowrap; text-overflow: ellipsis; overflow:hidden;">
-										@item.PostText
-									</p>
-								}
-								else
-								{
-									<p class="card-text">
-										@item.PostText
-									</p>
-								}
-								<div class="d-flex justify-content-between align-items-center">
-									<div class="btn-group">
-										<form asp-route-blogPostId="@item.Id" asp-controller="Blog" asp-action="ViewPost" method="get">
-											<input type="submit" class="btn btn-sm btn-outline-secondary m-1" value="Прочети повече" />
-										</form>
+								<img src="@item.PostThumbnailURL" class="card-img-top" alt="Blog post image thumbnail.">
+								<div class="card-body">
+									<h4>@item.Title</h4>
+									@if (item.PostText.Length > 10)
+									{
+										<p class="card-text" style="white-space: nowrap; text-overflow: ellipsis; overflow:hidden;">
+											@item.PostText
+										</p>
+									}
+									else
+									{
+										<p class="card-text">
+											@item.PostText
+										</p>
+									}
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="btn-group">
+											<form asp-route-blogPostId="@item.Id" asp-controller="Blog" asp-action="ViewPost" method="get">
+												<input type="submit" class="btn btn-sm btn-outline-secondary m-1" value="Прочети повече" />
+											</form>
+										</div>
+										<small class="text-muted">@item.CreatedOn.ToString("dd/MM/yyyy")</small>
+										@if (User.IsInRole(RoleConstants.Administrator))
+										{
+											<form asp-route-blogPostId="@item.Id" asp-controller="Blog" asp-action="Delete" method="post">
+												<input type="submit" class="btn btn-sm btn-danger m-1" value="Изтрии" />
+											</form>
+										}
 									</div>
-									<small class="text-muted">@item.CreatedOn.ToString("dd/MM/yyyy")</small>
 								</div>
 							</div>
 						</div>
-					</div>
-				}
+					}
 
+				</div>
 			</div>
 		</div>
-	</div>
 
-</section>
-
+	</section>
+}

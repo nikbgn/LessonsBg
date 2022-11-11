@@ -11,10 +11,7 @@
 	<img class="img-fluid" src="@Model.PostTextHeadingImageURL" alt="Главна картинка на поста."/>
 	<p class="mt-3">@Model.PostText</p>
 	<div>
-		<h1 class="display-5 mt-3 mb-3">Коментари:</h1>
-		@if (!Model.BlogComments.Any())
-		{
-			<h3>Няма коментари!</h3>
-		}
+		<h1 class="display-5 mt-3 mb-3">Коментари (@Model.BlogComments.Count()):</h1>
+		<partial name="_AddCommentToBlogPartial" model="new BlogCommentModel()"/>
 	</div>
 </div>

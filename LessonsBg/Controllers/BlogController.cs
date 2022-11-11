@@ -65,5 +65,12 @@
             var post = await blogService.GetPostAsync(blogPostId);
             return View(post);
         }
+
+        [Authorize(Roles = RoleConstants.Administrator)]
+        public async Task<IActionResult> Delete(Guid blogPostId) 
+        {
+            await blogService.RemoveAsync(blogPostId);
+            return RedirectToAction(nameof(Index));
+        }
 	}
 }
