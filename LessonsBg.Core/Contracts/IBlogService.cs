@@ -34,5 +34,21 @@
         /// <param name="blogPostId"></param>
         /// <returns></returns>
         Task<BlogPostModel> GetPostAsync(Guid blogPostId);
+
+        /// <summary>
+        /// Adds a comment to a blog post
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="authorId"></param>
+        /// <param name="blogPostId"></param>
+        /// <returns></returns>
+        Task AddCommentAsync(BlogCommentModel model, string authorId, Guid blogPostId);
+
+        /// <summary>
+        /// Deletes a comment from a blog post
+        /// </summary>
+        /// <param name="blogPostId"></param>
+        /// <returns></returns>
+        Task DeleteCommentAsync(Guid blogPostId, int commentId);
     }
 }

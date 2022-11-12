@@ -44,7 +44,6 @@
 
             builder.ApplyConfiguration(new UserConfiguration());
             base.OnModelCreating(builder);
-            //TODO: Seed initial data.
             builder
                 .Entity<CourseType>()
                 .HasData(SeedCourseTypes());

@@ -1,5 +1,7 @@
 ﻿namespace LessonsBg.Controllers
 {
+    using System.Security.Claims;
+
     using LessonsBg.Core.Contracts;
     using LessonsBg.Core.Data;
     using LessonsBg.Core.Models;
@@ -70,6 +72,22 @@
         public async Task<IActionResult> Delete(Guid blogPostId) 
         {
             await blogService.RemoveAsync(blogPostId);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [Authorize]
+		public async Task<IActionResult> AddComment(BlogCommentModel model ,string authorId, Guid blogPostId)
+        {
+            authorId = User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+			await blogService.AddCommentAsync(model,authorId,blogPostId);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [Authorize(Roles = RoleConstants.Administrator)]
+        public async Task<IActionResult> RemoveComment(Guid blogPostId, int commentId)
+        {
+            await blogService.DeleteCommentAsync(blogPostId, commentId);
             return RedirectToAction(nameof(Index));
         }
 	}

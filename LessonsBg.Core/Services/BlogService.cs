@@ -1,6 +1,7 @@
 ﻿namespace LessonsBg.Core.Services
 {
 	using System.Collections.Generic;
+	using System.ComponentModel.Design;
 	using System.Threading.Tasks;
 
 	using LessonsBg.Core.Contracts;
@@ -50,8 +51,68 @@
 				PostTextHeadingImageURL = model.PostTextHeadingImageURL
 			};
 
-			await context.AddAsync(blogPost);
+			await context.BlogPosts.AddAsync(blogPost);
 			await context.SaveChangesAsync();
+		}
+
+
+		/// <summary>
+		/// Adds a comment to a blog post
+		/// </summary>
+		/// <param name="model"></param>
+		/// <param name="authorId"></param>
+		/// <param name="blogPostId"></param>
+		/// <returns></returns>
+
+		public async Task AddCommentAsync(BlogCommentModel model, string authorId, Guid blogPostId)
+		{
+			var author = await context.Users.FirstOrDefaultAsync(u => u.Id == authorId);
+			var blogPost = await context.BlogPosts.FirstOrDefaultAsync(bp => bp.Id == blogPostId);
+
+			if(blogPost != null && author != null) 
+			{
+				var comment = new BlogComment()
+				{
+					CommentText = model.CommentText,
+					AuthorId = authorId,
+					BlogPostId = blogPostId,
+					CreatedOn = DateTime.Now,
+					Author = author,
+					BlogPost = blogPost
+				};
+
+				await context.BlogComments.AddAsync(comment);
+				await context.SaveChangesAsync();
+			}
+			else
+			{
+				throw new ArgumentNullException("Invalid author id or blog post id");
+			}
+
+		}
+
+
+
+		/// <summary>
+		/// Deletes a comment from a blog post
+		/// </summary>
+		/// <param name="blogPostId"></param>
+		/// <returns></returns>
+
+		public async Task DeleteCommentAsync(Guid blogPostId, int commentId)
+		{
+			var comment = await context.BlogComments.FirstOrDefaultAsync(c => c.BlogPostId == blogPostId && c.Id == commentId);
+
+			if(comment == null)
+			{
+				throw new ArgumentException("Comment does not exist");
+			}
+
+			context.BlogComments.Remove(comment);
+			await context.SaveChangesAsync();
+
+
+
 		}
 
 		/// <summary>
@@ -82,6 +143,7 @@
 		{
 			var postComments = await context.BlogComments
 				.Where(bc => bc.BlogPostId == blogPostId)
+				.Include(a => a.Author)
 				.ToListAsync();
 
 			var post = await context.BlogPosts
