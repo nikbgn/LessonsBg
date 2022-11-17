@@ -27,6 +27,7 @@
 
         public async Task AddAsync(NewsArticleModel newsArticleModel)
         {
+
             var newsArticle = new NewsArticle()
             {
                 Name = newsArticleModel.Name,

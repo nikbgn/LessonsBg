@@ -11,7 +11,6 @@
 
     using Newtonsoft.Json;
 
-    using static Seeding.DataSeeder;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -43,20 +42,12 @@
         {
 
             builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new CourseTypeConfiguration());
+            builder.ApplyConfiguration(new SubjectTypeConfiguration());
+            builder.ApplyConfiguration(new TrainingTypeConfiguration());
+            builder.ApplyConfiguration(new FilterBadgeConfiguration());
+
             base.OnModelCreating(builder);
-            builder
-                .Entity<CourseType>()
-                .HasData(SeedCourseTypes());
-
-            builder
-                .Entity<SubjectType>()
-                .HasData(SeedSubjectTypes());
-
-            builder.Entity<TrainingType>()
-                .HasData(SeedTrainingTypes());
-
-            builder.Entity<FilterBadge>()
-                .HasData(SeedFilterBadges());
 
             builder.Entity<Location>()
                 .HasData(SeedLocations());

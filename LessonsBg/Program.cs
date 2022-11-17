@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
-using static LessonsBg.Core.Data.DataValidationConstants.ApplicationUserValidation;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,10 +20,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = false;
-    options.Password.RequireDigit = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequiredLength = PasswordMinimumLength;
+    options.SignIn.RequireConfirmedAccount = builder.Configuration.GetValue<bool>("Identity:RequireConfirmedAccount");
+    options.Password.RequireDigit = builder.Configuration.GetValue<bool>("Identity:RequireDigit"); 
+    options.Password.RequireNonAlphanumeric = builder.Configuration.GetValue<bool>("Identity:RequireNonAlphanumeric"); 
+    options.Password.RequiredLength = builder.Configuration.GetValue<int>("Identity:RequiredLength"); 
 })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -35,9 +35,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddControllersWithViews();
-
-builder.Services.AddScoped<IBlogService, BlogService>();
-builder.Services.AddScoped<INewsService, NewsService>();
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
@@ -51,7 +49,7 @@ using(var scope = app.Services.CreateScope())
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
+    app.UseDeveloperExceptionPage();
 }
 else
 {
