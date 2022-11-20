@@ -4,6 +4,7 @@ using LessonsBg.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LessonsBg.Core.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221120113901_UserChange")]
+    partial class UserChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasIndex("FilterBadgesId");
 
-                    b.ToTable("CourseFilterBadge", (string)null);
+                    b.ToTable("CourseFilterBadge");
                 });
 
             modelBuilder.Entity("LessonsBg.Core.Data.Models.ApplicationUser", b =>
@@ -145,7 +147,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("ApplicationUserSubject", (string)null);
+                    b.ToTable("ApplicationUserSubject");
                 });
 
             modelBuilder.Entity("LessonsBg.Core.Data.Models.BlogComment", b =>
@@ -182,7 +184,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasIndex("BlogPostId");
 
-                    b.ToTable("BlogComments", (string)null);
+                    b.ToTable("BlogComments");
 
                     b.HasComment("Comments under a blog post.");
                 });
@@ -221,7 +223,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BlogPosts", (string)null);
+                    b.ToTable("BlogPosts");
 
                     b.HasComment("Blog posts.");
                 });
@@ -278,7 +280,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Courses", (string)null);
+                    b.ToTable("Courses");
 
                     b.HasComment("Courses");
                 });
@@ -299,7 +301,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CourseTypes", (string)null);
+                    b.ToTable("CourseTypes");
 
                     b.HasComment("Course type");
 
@@ -342,7 +344,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FilterBadges", (string)null);
+                    b.ToTable("FilterBadges");
 
                     b.HasComment("Filter badge that helps show, who is a course appropriate for.");
 
@@ -405,7 +407,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations", (string)null);
+                    b.ToTable("Locations");
 
                     b.HasComment("Locations (cities in Bulgaria and their regions).");
 
@@ -1983,7 +1985,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("NewsArticles", (string)null);
+                    b.ToTable("NewsArticles");
 
                     b.HasComment("News article");
                 });
@@ -2008,7 +2010,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasIndex("SubjectTypeId");
 
-                    b.ToTable("Subjects", (string)null);
+                    b.ToTable("Subjects");
 
                     b.HasComment("Subjects");
 
@@ -2055,7 +2057,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubjectTypes", (string)null);
+                    b.ToTable("SubjectTypes");
 
                     b.HasComment("Subject type");
 
@@ -2102,7 +2104,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasIndex("TrainingTypeId");
 
-                    b.ToTable("Trainings", (string)null);
+                    b.ToTable("Trainings");
 
                     b.HasComment("Trainings");
                 });
@@ -2123,7 +2125,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TrainingTypes", (string)null);
+                    b.ToTable("TrainingTypes");
 
                     b.HasComment("Training type");
 

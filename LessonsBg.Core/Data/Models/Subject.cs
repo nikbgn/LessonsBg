@@ -22,6 +22,8 @@
         [ForeignKey(nameof(SubjectTypeId))]
         public SubjectType SubjectType { get; set; } = null!;
 
+        public List<ApplicationUserSubject> ApplicationUsersSubjects { get; set; } = new List<ApplicationUserSubject>();
+
 
     }
 }

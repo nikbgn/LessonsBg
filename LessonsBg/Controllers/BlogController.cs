@@ -6,6 +6,7 @@
     using LessonsBg.Core.Data;
     using LessonsBg.Core.Models;
     using LessonsBg.Core.Services;
+    using LessonsBg.Extensions;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -78,7 +79,7 @@
         [Authorize]
 		public async Task<IActionResult> AddComment(BlogCommentModel model ,string authorId, Guid blogPostId)
         {
-            authorId = User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+            authorId = User.Id();
 
 			await blogService.AddCommentAsync(model,authorId,blogPostId);
             return RedirectToAction(nameof(Index));

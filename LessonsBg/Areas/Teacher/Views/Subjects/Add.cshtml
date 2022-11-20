@@ -1,0 +1,29 @@
+﻿@using LessonsBg.Core.Models;
+@model IEnumerable<SubjectModel>
+
+@{
+	ViewData["Title"] = "Добави предмети";
+}
+
+<div class="text-center  push">
+	<h1 class="display-3">Учебни предмети</h1>
+	@foreach (var item in Model)
+	{
+		<div class="card text-center bg-info mt-2">
+			<div class="card-body">
+
+				<h5 class="card-title">@item.Name</h5>
+
+			</div>
+
+			<form class="input-group-sm"  asp-route-sId="@item.Id" asp-area="Teacher" asp-controller="Subjects" asp-action="Add" method="post">
+				<input type="submit" value="Добави" class="btn btn-success mb-3 p-2" />
+			</form>
+		</div>
+	}
+</div>
+
+
+
+
+

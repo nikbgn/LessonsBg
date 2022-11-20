@@ -10,29 +10,6 @@
     [ApiController]
     public class BlogController : ControllerBase
     {
-        private readonly IBlogService blogService;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="_blogService"></param>
-
-        public BlogController(IBlogService _blogService)
-        {
-            blogService = _blogService;
-        }
-
-        /// <summary>
-        /// Get all blog posts.
-        /// </summary>
-        /// <returns></returns>
-        /// 
-        [HttpGet]
-        [Produces("application/json")]
-        [ProducesResponseType(200, StatusCode = StatusCodes.Status200OK, Type = typeof(IEnumerable<BlogPostModel>))]
-        public async Task<IActionResult> GetAll()
-        {
-            return Ok(await blogService.GetAll());
-        }
     }
 }

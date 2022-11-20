@@ -4,6 +4,7 @@ using LessonsBg.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LessonsBg.Core.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221119145932_MappingTableTest")]
+    partial class MappingTableTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasIndex("FilterBadgesId");
 
-                    b.ToTable("CourseFilterBadge", (string)null);
+                    b.ToTable("CourseFilterBadge");
                 });
 
             modelBuilder.Entity("LessonsBg.Core.Data.Models.ApplicationUser", b =>
@@ -114,9 +116,9 @@ namespace LessonsBg.Core.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "73a8535a-fb83-4ff4-ad4f-b90a6aa59c1b",
+                            Id = "cbc5295a-e900-4e4a-a96b-2d47368f6e36",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "60486b65-28e3-46eb-ad18-407bd8a152b7",
+                            ConcurrencyStamp = "8fc728f4-f843-4592-a423-762f022ae857",
                             Email = "niki_admin@niki.bg",
                             EmailConfirmed = true,
                             FirstName = "Николай",
@@ -124,10 +126,10 @@ namespace LessonsBg.Core.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "NIKI_ADMIN@NIKI.BG",
                             NormalizedUserName = "NIKI_ADMIN@NIKI.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAED9mKNargMVezm3j1SFsxc4rTt04UQdQEQmdxg/Zgl5nzwtlZtyqWcOJ/RheRdo6TQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHrd9hR0RQ4kU3TN4X+TPStdsv4QM2C7eCv0CR+QPVd+iP3435ow6tiWMmzsFteiAw==",
                             PhoneNumber = "0896782014",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "06dd30b6-3c0f-44ea-9891-06d208e4aa3d",
+                            SecurityStamp = "9089744d-b423-43b1-9cfc-8f06d988bf63",
                             TwoFactorEnabled = false,
                             UserName = "niki_admin@niki.bg"
                         });
@@ -145,7 +147,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("ApplicationUserSubject", (string)null);
+                    b.ToTable("ApplicationUserSubject");
                 });
 
             modelBuilder.Entity("LessonsBg.Core.Data.Models.BlogComment", b =>
@@ -182,7 +184,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasIndex("BlogPostId");
 
-                    b.ToTable("BlogComments", (string)null);
+                    b.ToTable("BlogComments");
 
                     b.HasComment("Comments under a blog post.");
                 });
@@ -221,7 +223,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BlogPosts", (string)null);
+                    b.ToTable("BlogPosts");
 
                     b.HasComment("Blog posts.");
                 });
@@ -278,7 +280,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Courses", (string)null);
+                    b.ToTable("Courses");
 
                     b.HasComment("Courses");
                 });
@@ -299,7 +301,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CourseTypes", (string)null);
+                    b.ToTable("CourseTypes");
 
                     b.HasComment("Course type");
 
@@ -342,7 +344,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FilterBadges", (string)null);
+                    b.ToTable("FilterBadges");
 
                     b.HasComment("Filter badge that helps show, who is a course appropriate for.");
 
@@ -405,7 +407,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations", (string)null);
+                    b.ToTable("Locations");
 
                     b.HasComment("Locations (cities in Bulgaria and their regions).");
 
@@ -1983,7 +1985,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("NewsArticles", (string)null);
+                    b.ToTable("NewsArticles");
 
                     b.HasComment("News article");
                 });
@@ -2008,32 +2010,32 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasIndex("SubjectTypeId");
 
-                    b.ToTable("Subjects", (string)null);
+                    b.ToTable("Subjects");
 
                     b.HasComment("Subjects");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0716ddc0-3ffe-462f-a10a-a99bf3560b91"),
+                            Id = new Guid("c64745eb-e0e0-47ff-a70d-709d8dc10515"),
                             Name = "Math",
                             SubjectTypeId = 1
                         },
                         new
                         {
-                            Id = new Guid("39fee1bf-9acb-4ff2-89c8-d3f07f195995"),
+                            Id = new Guid("e39ed3a9-8938-412b-8026-ec0dc1d8b261"),
                             Name = "Bulgarian Language",
                             SubjectTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("7ce4ad31-09e2-4676-ac01-ace5ebd9e2be"),
+                            Id = new Guid("430dc2fa-440c-461d-b147-69ec260077ea"),
                             Name = "English Language",
                             SubjectTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("24e6559d-9f5e-447f-88fe-b9f865e412dd"),
+                            Id = new Guid("c8c9632d-2966-452c-afb4-a2315f99e120"),
                             Name = "Informational Technologies",
                             SubjectTypeId = 3
                         });
@@ -2055,7 +2057,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubjectTypes", (string)null);
+                    b.ToTable("SubjectTypes");
 
                     b.HasComment("Subject type");
 
@@ -2102,7 +2104,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasIndex("TrainingTypeId");
 
-                    b.ToTable("Trainings", (string)null);
+                    b.ToTable("Trainings");
 
                     b.HasComment("Trainings");
                 });
@@ -2123,7 +2125,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TrainingTypes", (string)null);
+                    b.ToTable("TrainingTypes");
 
                     b.HasComment("Training type");
 

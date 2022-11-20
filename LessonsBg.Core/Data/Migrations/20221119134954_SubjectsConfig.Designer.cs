@@ -4,6 +4,7 @@ using LessonsBg.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LessonsBg.Core.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221119134954_SubjectsConfig")]
+    partial class SubjectsConfig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasIndex("FilterBadgesId");
 
-                    b.ToTable("CourseFilterBadge", (string)null);
+                    b.ToTable("CourseFilterBadge");
                 });
 
             modelBuilder.Entity("LessonsBg.Core.Data.Models.ApplicationUser", b =>
@@ -114,9 +116,9 @@ namespace LessonsBg.Core.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "73a8535a-fb83-4ff4-ad4f-b90a6aa59c1b",
+                            Id = "1fb45ac3-ff78-46b9-9682-f06bd1b2e69b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "60486b65-28e3-46eb-ad18-407bd8a152b7",
+                            ConcurrencyStamp = "78eccb2f-2f97-4ba6-8a4f-f55b0a366a59",
                             Email = "niki_admin@niki.bg",
                             EmailConfirmed = true,
                             FirstName = "Николай",
@@ -124,28 +126,13 @@ namespace LessonsBg.Core.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "NIKI_ADMIN@NIKI.BG",
                             NormalizedUserName = "NIKI_ADMIN@NIKI.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAED9mKNargMVezm3j1SFsxc4rTt04UQdQEQmdxg/Zgl5nzwtlZtyqWcOJ/RheRdo6TQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOWL9aEYv2WJrPEhPhmLI4mYH40dZh6ONwRgvxlEABhwLJArkkQUAUWJ0UiaPSwBaA==",
                             PhoneNumber = "0896782014",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "06dd30b6-3c0f-44ea-9891-06d208e4aa3d",
+                            SecurityStamp = "7b52b990-b605-452c-bfc1-88fbbbe4fba7",
                             TwoFactorEnabled = false,
                             UserName = "niki_admin@niki.bg"
                         });
-                });
-
-            modelBuilder.Entity("LessonsBg.Core.Data.Models.ApplicationUserSubject", b =>
-                {
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid>("SubjectId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ApplicationUserId", "SubjectId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("ApplicationUserSubject", (string)null);
                 });
 
             modelBuilder.Entity("LessonsBg.Core.Data.Models.BlogComment", b =>
@@ -182,7 +169,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasIndex("BlogPostId");
 
-                    b.ToTable("BlogComments", (string)null);
+                    b.ToTable("BlogComments");
 
                     b.HasComment("Comments under a blog post.");
                 });
@@ -221,7 +208,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BlogPosts", (string)null);
+                    b.ToTable("BlogPosts");
 
                     b.HasComment("Blog posts.");
                 });
@@ -278,7 +265,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Courses", (string)null);
+                    b.ToTable("Courses");
 
                     b.HasComment("Courses");
                 });
@@ -299,7 +286,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CourseTypes", (string)null);
+                    b.ToTable("CourseTypes");
 
                     b.HasComment("Course type");
 
@@ -342,7 +329,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FilterBadges", (string)null);
+                    b.ToTable("FilterBadges");
 
                     b.HasComment("Filter badge that helps show, who is a course appropriate for.");
 
@@ -405,7 +392,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations", (string)null);
+                    b.ToTable("Locations");
 
                     b.HasComment("Locations (cities in Bulgaria and their regions).");
 
@@ -1983,7 +1970,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("NewsArticles", (string)null);
+                    b.ToTable("NewsArticles");
 
                     b.HasComment("News article");
                 });
@@ -1994,6 +1981,9 @@ namespace LessonsBg.Core.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Primary key.");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -2006,34 +1996,36 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.HasIndex("SubjectTypeId");
 
-                    b.ToTable("Subjects", (string)null);
+                    b.ToTable("Subjects");
 
                     b.HasComment("Subjects");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0716ddc0-3ffe-462f-a10a-a99bf3560b91"),
+                            Id = new Guid("614f6927-7bc5-4f4e-83d9-e28949f2f4b8"),
                             Name = "Math",
                             SubjectTypeId = 1
                         },
                         new
                         {
-                            Id = new Guid("39fee1bf-9acb-4ff2-89c8-d3f07f195995"),
+                            Id = new Guid("e87ab44c-0c99-491c-b07b-222958db4aec"),
                             Name = "Bulgarian Language",
                             SubjectTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("7ce4ad31-09e2-4676-ac01-ace5ebd9e2be"),
+                            Id = new Guid("80cf63a8-18f0-4fb9-a99b-75fd5d5541d7"),
                             Name = "English Language",
                             SubjectTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("24e6559d-9f5e-447f-88fe-b9f865e412dd"),
+                            Id = new Guid("81df911b-3df5-4295-8deb-7ad44e2dbac3"),
                             Name = "Informational Technologies",
                             SubjectTypeId = 3
                         });
@@ -2055,7 +2047,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubjectTypes", (string)null);
+                    b.ToTable("SubjectTypes");
 
                     b.HasComment("Subject type");
 
@@ -2102,7 +2094,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasIndex("TrainingTypeId");
 
-                    b.ToTable("Trainings", (string)null);
+                    b.ToTable("Trainings");
 
                     b.HasComment("Trainings");
                 });
@@ -2123,7 +2115,7 @@ namespace LessonsBg.Core.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TrainingTypes", (string)null);
+                    b.ToTable("TrainingTypes");
 
                     b.HasComment("Training type");
 
@@ -2292,25 +2284,6 @@ namespace LessonsBg.Core.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LessonsBg.Core.Data.Models.ApplicationUserSubject", b =>
-                {
-                    b.HasOne("LessonsBg.Core.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("ApplicationUsersSubjects")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LessonsBg.Core.Data.Models.Subject", "Subject")
-                        .WithMany("ApplicationUsersSubjects")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("Subject");
-                });
-
             modelBuilder.Entity("LessonsBg.Core.Data.Models.BlogComment", b =>
                 {
                     b.HasOne("LessonsBg.Core.Data.Models.ApplicationUser", "Author")
@@ -2359,6 +2332,10 @@ namespace LessonsBg.Core.Data.Migrations
 
             modelBuilder.Entity("LessonsBg.Core.Data.Models.Subject", b =>
                 {
+                    b.HasOne("LessonsBg.Core.Data.Models.ApplicationUser", null)
+                        .WithMany("Subjects")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("LessonsBg.Core.Data.Models.SubjectType", "SubjectType")
                         .WithMany("Subjects")
                         .HasForeignKey("SubjectTypeId")
@@ -2436,11 +2413,11 @@ namespace LessonsBg.Core.Data.Migrations
 
             modelBuilder.Entity("LessonsBg.Core.Data.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("ApplicationUsersSubjects");
-
                     b.Navigation("BlogComments");
 
                     b.Navigation("Courses");
+
+                    b.Navigation("Subjects");
 
                     b.Navigation("Trainings");
                 });
@@ -2453,11 +2430,6 @@ namespace LessonsBg.Core.Data.Migrations
             modelBuilder.Entity("LessonsBg.Core.Data.Models.CourseType", b =>
                 {
                     b.Navigation("Courses");
-                });
-
-            modelBuilder.Entity("LessonsBg.Core.Data.Models.Subject", b =>
-                {
-                    b.Navigation("ApplicationUsersSubjects");
                 });
 
             modelBuilder.Entity("LessonsBg.Core.Data.Models.SubjectType", b =>

@@ -1,0 +1,40 @@
+﻿@using LessonsBg.Core.Data;
+@{
+	ViewData["Title"] = "Настройки";
+}
+
+<h1 class="text-center mt-5">Общи настройки</h1>
+
+<div class="row push">
+	<div class="col-md-4 offset-md-4">
+		<hr />
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<div class="text-center mb-3">
+			<a class="btn btn-success" asp-controller="Account" asp-action="ChangeEmail">Промяна на е-майл.</a>
+		</div>
+		<div class="text-center mb-3">
+			<a class="btn btn-success" asp-controller="Account" asp-action="ChangeEmail">Промяна на парола.</a>
+		</div>
+		<div class="text-center mb-3">
+			<a class="btn btn-success" asp-controller="Account" asp-action="ChangeEmail">Промяна на телефонен номер.</a>
+		</div>
+		<div class="text-center mb-3">
+			<a class="btn btn-success" asp-controller="Account" asp-action="ChangeEmail">Промяна на профилна снимка.</a>
+		</div>
+		<div class="text-center mb-3">
+			<a class="btn btn-success" asp-controller="Account" asp-action="ChangeEmail">Промяна на описание на профила.</a>
+		</div>
+		@if (User.IsInRole(RoleConstants.Teacher))
+		{
+			<h1 class="text-center">За учители:</h1>
+			<hr />
+			<div class="text-center mb-3">
+				<p class="text-opacity-75">От тук можете да изберете учебните предмети по които можете да преподавате. </p>
+				<a class="btn btn-success" asp-area="Teacher" asp-controller="Account" asp-action="ChangeEmail">Мойте предмети.</a>
+			</div>
+		}
+
+
+	</div>
+</div>
+

@@ -9,6 +9,8 @@
 		{
 			services.AddScoped<IBlogService, BlogService>();
 			services.AddScoped<INewsService, NewsService>();
+			services.AddScoped<ISubjectsService, SubjectsService>();
+			services.AddScoped<ITeacherService, TeacherService>();
 
 			return services;
 		}

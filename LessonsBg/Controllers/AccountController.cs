@@ -140,6 +140,21 @@
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public IActionResult Manage()
+        {
+            //TODO:
+            return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult ChangeEmail()
+        {
+            //TODO:
+            return View();
+        }
+
 
     }
 }

@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonsBg", "LessonsBg\LessonsBg.csproj", "{B7CE163C-3A72-4CC6-BE66-5AA1BD2D37FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonsBg", "LessonsBg\LessonsBg.csproj", "{B7CE163C-3A72-4CC6-BE66-5AA1BD2D37FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonsBg.Core", "LessonsBg.Core\LessonsBg.Core.csproj", "{98A4264B-CC28-4E35-BF3E-BC359C2C8DF3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonsBg.Api", "LessonsBg.Api\LessonsBg.Api.csproj", "{B28FEDD5-8E8E-4220-A757-0B5949CFCF07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LessonsBg.Core", "LessonsBg.Core\LessonsBg.Core.csproj", "{98A4264B-CC28-4E35-BF3E-BC359C2C8DF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{98A4264B-CC28-4E35-BF3E-BC359C2C8DF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98A4264B-CC28-4E35-BF3E-BC359C2C8DF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98A4264B-CC28-4E35-BF3E-BC359C2C8DF3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B28FEDD5-8E8E-4220-A757-0B5949CFCF07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B28FEDD5-8E8E-4220-A757-0B5949CFCF07}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B28FEDD5-8E8E-4220-A757-0B5949CFCF07}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B28FEDD5-8E8E-4220-A757-0B5949CFCF07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

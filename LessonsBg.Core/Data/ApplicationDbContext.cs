@@ -46,14 +46,19 @@
             builder.ApplyConfiguration(new SubjectTypeConfiguration());
             builder.ApplyConfiguration(new TrainingTypeConfiguration());
             builder.ApplyConfiguration(new FilterBadgeConfiguration());
+            builder.ApplyConfiguration(new SubjectConfiguration());
 
             base.OnModelCreating(builder);
 
             builder.Entity<Location>()
                 .HasData(SeedLocations());
 
-            
-        }
+
+			builder.Entity<ApplicationUserSubject>()
+	            .HasKey(x => new { x.ApplicationUserId, x.SubjectId });
+
+
+		}
 
         protected List<Location> SeedLocations()
         {
