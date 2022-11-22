@@ -55,5 +55,6 @@
 
         [Comment("Filter badges that help with showing who is this course appropriate for.")]
         public IEnumerable<FilterBadge> FilterBadges { get; set; } = new List<FilterBadge>();
-    }
+
+	}
 }

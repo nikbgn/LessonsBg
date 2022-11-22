@@ -57,6 +57,10 @@
 			builder.Entity<ApplicationUserSubject>()
 	            .HasKey(x => new { x.ApplicationUserId, x.SubjectId });
 
+			builder.Entity<ApplicationUserTraining>()
+	            .HasKey(x => new { x.ApplicationUserId, x.TrainingId });
+
+
 
 		}
 

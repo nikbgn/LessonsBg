@@ -25,3 +25,8 @@ body {
 .push {
     min-height: calc(100vh - 70px);
 }
+
+.avatar-image-size{
+    height:75px;
+    width:75px;
+}

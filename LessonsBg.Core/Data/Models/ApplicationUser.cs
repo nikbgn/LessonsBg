@@ -8,7 +8,6 @@
 
     public class ApplicationUser : IdentityUser
     {
-        //TODO: Migration not yet applied be aware!
 
         [Required]
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
@@ -18,10 +17,13 @@
         [StringLength(LastNameMaxLength, MinimumLength = LastNameMinLength)]
         public string LastName { get; set; } = null!;
 
+        [Required]
+        [Url]
+        public string ProfileImage { get; set; } = null!;
+
 
         public IEnumerable<BlogComment> BlogComments { get; set; } = new List<BlogComment>();
-        public IEnumerable<Course> Courses { get; set; } = new List<Course>();
 		public List<ApplicationUserSubject> ApplicationUsersSubjects { get; set; } = new List<ApplicationUserSubject>();
-		public IEnumerable<Training> Trainings { get; set; } = new List<Training>();
+		public List<ApplicationUserTraining> ApplicationUsersTrainings { get; set; } = new List<ApplicationUserTraining>();
     }
 }

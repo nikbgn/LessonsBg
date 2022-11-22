@@ -20,5 +20,8 @@
 
         [ForeignKey(nameof(TrainingTypeId))]
         public TrainingType TrainingType { get; set; } = null!;
-    }
+
+        [Comment("Mapping table")]
+		public List<ApplicationUserTraining> ApplicationUsersTrainings { get; set; } = new List<ApplicationUserTraining>();
+	}
 }

@@ -1,0 +1,18 @@
+﻿@model List<AllLessonsModel>
+
+@{
+	ViewData["Title"] = "Всички предмети";
+}
+
+<div class="container push">
+	@foreach (var item in Model)
+	{
+		<h1>@item.SubjectTypeName</h1>
+		<form method="post">
+			@foreach (var subjectName in item.SubjectsOfSubjectTypeName)
+			{
+				<input type="submit" value="@subjectName" class="btn btn-success" asp-area="" asp-controller="Lessons" asp-action="LessonsFor" asp-route-subjectName="@subjectName" />
+			}
+		</form>
+	}
+</div>

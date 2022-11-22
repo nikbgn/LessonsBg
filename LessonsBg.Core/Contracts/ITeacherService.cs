@@ -23,5 +23,8 @@
 
 
 		public Task<IEnumerable<SubjectModel>> GetTeacherSubjectsAsync(string teacherId);
+
+
+		public Task<IEnumerable<TeacherCardModel>> GetTeachersCardsForSubjectAsync(string subjectName);
 	}
 }

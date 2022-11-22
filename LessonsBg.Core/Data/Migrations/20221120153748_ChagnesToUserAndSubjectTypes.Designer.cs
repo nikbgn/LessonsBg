@@ -4,6 +4,7 @@ using LessonsBg.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LessonsBg.Core.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221120153748_ChagnesToUserAndSubjectTypes")]
+    partial class ChagnesToUserAndSubjectTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,10 +91,6 @@ namespace LessonsBg.Core.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ProfileImage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -118,9 +116,9 @@ namespace LessonsBg.Core.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "34731f1c-a3c0-485b-a0da-abc5cb2f90d9",
+                            Id = "845d0b5e-2c47-41a9-989d-95afcdb7edac",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1b0d2206-77ef-4f57-a6d7-70488e3593ba",
+                            ConcurrencyStamp = "5476ce8c-99be-4d94-9e9c-a88f379e0706",
                             Email = "niki_admin@niki.bg",
                             EmailConfirmed = true,
                             FirstName = "Николай",
@@ -128,11 +126,10 @@ namespace LessonsBg.Core.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "NIKI_ADMIN@NIKI.BG",
                             NormalizedUserName = "NIKI_ADMIN@NIKI.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAECsXFKOs4DYZB9VyXqhqHGG8rjVkepwMQz+SZ2tLH+9++BUm/EGh7yVlRjFSDWKM/Q==",
-                            PhoneNumber = "0891111111",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOIcrA37iKHgcv0JX1JW6cZiqgFMFEAB8/p047bL3uws/Z1UE6SCVxldQedr2v6aUQ==",
+                            PhoneNumber = "0896782014",
                             PhoneNumberConfirmed = true,
-                            ProfileImage = "https://i.imgur.com/zqWjZFV.png",
-                            SecurityStamp = "8a243895-c32d-4092-bfe1-65f9c94c6011",
+                            SecurityStamp = "bf5c124d-72eb-4c3b-af06-3c82ff7036e8",
                             TwoFactorEnabled = false,
                             UserName = "niki_admin@niki.bg"
                         });
@@ -2035,25 +2032,25 @@ namespace LessonsBg.Core.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8a5ec07d-fb4c-429f-869b-46daeee25cb6"),
+                            Id = new Guid("796e81b0-19bb-49eb-b3d3-fa28611953c5"),
                             Name = "Математика",
                             SubjectTypeId = 1
                         },
                         new
                         {
-                            Id = new Guid("160a6416-3a61-415f-82e1-e55c03fb8006"),
+                            Id = new Guid("f9caa58d-cc09-493f-a63a-8e9026f001b7"),
                             Name = "Български език",
                             SubjectTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("b53606df-3802-4d1f-8073-cdc72ccc9f5e"),
+                            Id = new Guid("d911612e-e4ff-49a7-b84a-be8bf7ef2657"),
                             Name = "Английски език",
                             SubjectTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("c958e0a6-2423-40e0-a071-5d499d299e82"),
+                            Id = new Guid("29c95f37-0968-4859-b363-ebba8627cf79"),
                             Name = "Информационни технологии",
                             SubjectTypeId = 3
                         });

@@ -27,8 +27,9 @@
 				Email = "niki_admin@niki.bg",
 				NormalizedEmail = "NIKI_ADMIN@NIKI.BG",
 				EmailConfirmed = true,
-				PhoneNumber = "0896782014",
-				PhoneNumberConfirmed = true
+				PhoneNumber = "0891111111",
+				PhoneNumberConfirmed = true,
+				ProfileImage = "https://i.imgur.com/zqWjZFV.png"
 			};
 
 			adminUser.PasswordHash = hasher.HashPassword(adminUser, "Adminche@123");

@@ -49,6 +49,20 @@
 
 		}
 
+		public async Task<IEnumerable<TeacherCardModel>> GetTeachersCardsForSubjectAsync(string subjectName)
+			=> await context.Users
+				.Include(u => u.ApplicationUsersSubjects)
+				.Where(u => u.ApplicationUsersSubjects
+				.Any(s => s.Subject.Name== subjectName))
+				.Select(u => new TeacherCardModel
+				{
+					FirstName = u.FirstName,
+					LastName = u.LastName,
+					PhoneNumber = u.PhoneNumber,
+					ProfileImage = u.ProfileImage
+				})
+				.ToListAsync();
+
 		public async Task<IEnumerable<SubjectModel>> GetTeacherSubjectsAsync(string teacherId)
 		{
 			var teacher = await context.Users

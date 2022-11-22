@@ -68,8 +68,9 @@
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 PhoneNumber = model.PhoneNumber,
-                UserName = model.Email
-            };
+                UserName = model.Email,
+                ProfileImage = "https://i.imgur.com/zqWjZFV.png"
+			};
 
             var result = await userManager.CreateAsync(newUser, model.Password);
 

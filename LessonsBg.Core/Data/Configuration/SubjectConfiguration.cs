@@ -19,26 +19,26 @@
 				new Subject()
 				{
 					Id = Guid.NewGuid(),
-					Name = "Math",
+					Name = "Математика",
 					SubjectTypeId = 1
 				},
 				new Subject()
 				{
 					Id = Guid.NewGuid(),
-					Name = "Bulgarian Language",
+					Name = "Български език",
 					SubjectTypeId = 2
 				},
 				new Subject()
 				{
 					Id = Guid.NewGuid(),
-					Name = "English Language",
-					SubjectTypeId = 3
+					Name = "Английски език",
+					SubjectTypeId = 2
 				},
 				new Subject()
 				{
 					Id = Guid.NewGuid(),
-					Name = "Informational Technologies",
-					SubjectTypeId = 4
+					Name = "Информационни технологии",
+					SubjectTypeId = 3
 				},
 			};
 
