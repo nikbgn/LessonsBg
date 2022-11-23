@@ -37,7 +37,19 @@
 			</div>
 
 		}
+		@if (User.IsInRole(RoleConstants.Trainer))
+		{
+			<h1 class="text-center">За треньори:</h1>
+			<hr />
+			<div class="text-center mb-3">
+				<p class="text-opacity-75">От тук можете да изберете спортовете който можете да преподавате като треньор. </p>
+				<a class="btn btn-success" asp-area="Trainer" asp-controller="Trainings" asp-action="Add">Добави спортове.</a>
+			</div>
+			<div class="text-center mb-3">
+				<a class="btn btn-success" asp-area="Trainer" asp-controller="Trainings" asp-action="MyTrainings">Мойте спортове.</a>
+			</div>
 
+		}
 
 	</div>
 </div>

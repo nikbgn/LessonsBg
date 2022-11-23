@@ -18,12 +18,12 @@
 				new TrainingType()
 				{
 					Id = 1,
-					Type = "Air sport"
+					Type = "Combat sport"
 				},
 				new TrainingType()
 				{
 					Id = 2,
-					Type = "Combat sport"
+					Type = "Ball sport"
 				}
 			};
 

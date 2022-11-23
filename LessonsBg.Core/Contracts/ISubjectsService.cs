@@ -13,7 +13,7 @@
 		/// Gets all subjects
 		/// </summary>
 		/// <returns>All subjects</returns>
-		Task<IEnumerable<SubjectModel>> GetAllSubjectsAsync();
+		public Task<IEnumerable<SubjectModel>> GetAllSubjectsAsync();
 
 		/// <summary>
 		/// Gets all subject type names

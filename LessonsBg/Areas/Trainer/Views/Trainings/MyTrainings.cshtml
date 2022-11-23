@@ -1,0 +1,23 @@
+﻿@model IEnumerable<TrainingModel>
+
+@{
+    ViewData["Title"] = "Мойте спортове";
+}
+
+<div class="text-center  push">
+    <h1 class="display-3">Мойте спортове</h1>
+    @foreach (var training in Model)
+    {
+        <div class="card text-center bg-info mt-2">
+            <div class="card-body">
+                <h5 class="card-title mt-1">@training.Name</h5>
+            </div>
+
+            <form class="input-group-sm" asp-route-trainingId="@training.Id" asp-area="Trainer" asp-controller="Trainings" asp-action="Remove" method="post">
+                <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Премахни" />
+            </form>
+        </div>
+    }
+</div>
+
+

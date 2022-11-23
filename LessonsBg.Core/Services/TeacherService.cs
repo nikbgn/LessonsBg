@@ -53,7 +53,7 @@
 			=> await context.Users
 				.Include(u => u.ApplicationUsersSubjects)
 				.Where(u => u.ApplicationUsersSubjects
-				.Any(s => s.Subject.Name== subjectName))
+				.Any(s => s.Subject.Name == subjectName))
 				.Select(u => new TeacherCardModel
 				{
 					FirstName = u.FirstName,

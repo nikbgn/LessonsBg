@@ -47,6 +47,7 @@
             builder.ApplyConfiguration(new TrainingTypeConfiguration());
             builder.ApplyConfiguration(new FilterBadgeConfiguration());
             builder.ApplyConfiguration(new SubjectConfiguration());
+            builder.ApplyConfiguration(new TrainingConfiguration());
 
             base.OnModelCreating(builder);
 
