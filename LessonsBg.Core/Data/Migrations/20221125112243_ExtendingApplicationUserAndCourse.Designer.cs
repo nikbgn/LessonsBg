@@ -4,6 +4,7 @@ using LessonsBg.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LessonsBg.Core.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221125112243_ExtendingApplicationUserAndCourse")]
+    partial class ExtendingApplicationUserAndCourse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,21 @@ namespace LessonsBg.Core.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("CourseFilterBadge", b =>
+                {
+                    b.Property<Guid>("CoursesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("FilterBadgesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CoursesId", "FilterBadgesId");
+
+                    b.HasIndex("FilterBadgesId");
+
+                    b.ToTable("CourseFilterBadge");
+                });
 
             modelBuilder.Entity("LessonsBg.Core.Data.Models.ApplicationUser", b =>
                 {
@@ -103,9 +120,9 @@ namespace LessonsBg.Core.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2d984ec9-da7a-46cf-9f9f-8fd2eb617520",
+                            Id = "05d1c478-9ba2-42db-a320-dfc3e2e9b305",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f17841d7-c679-4006-aecc-8ee4f040f0c6",
+                            ConcurrencyStamp = "92d4a079-8775-4fac-9340-414034d93af3",
                             Email = "niki_admin@niki.bg",
                             EmailConfirmed = true,
                             FirstName = "Николай",
@@ -113,11 +130,11 @@ namespace LessonsBg.Core.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "NIKI_ADMIN@NIKI.BG",
                             NormalizedUserName = "NIKI_ADMIN@NIKI.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAEI+RWUrwsvwlLBwuknfyGIdq2FLaWIy/dZ7ZhHp8oOMfA3ANYnVES1Z4Ro1LFc34WQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEKnYlfN0JAjO9dk2P7vsg0uKeawL4lbGNSJKhBdvk/mDKaY8xvpe/k9qJ6Wk4Pp2g==",
                             PhoneNumber = "0891111111",
                             PhoneNumberConfirmed = true,
                             ProfileImage = "https://i.imgur.com/zqWjZFV.png",
-                            SecurityStamp = "bb6f6f1b-2ff1-47a0-9d0c-55308b9ce64f",
+                            SecurityStamp = "0200e11c-43a6-43fa-9a48-0b65a4dfc3b4",
                             TwoFactorEnabled = false,
                             UserName = "niki_admin@niki.bg"
                         });
@@ -274,8 +291,7 @@ namespace LessonsBg.Core.Data.Migrations
                         .HasComment("Type of the course.");
 
                     b.Property<int>("LocationId")
-                        .HasColumnType("int")
-                        .HasComment("Location of the course.");
+                        .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -340,6 +356,64 @@ namespace LessonsBg.Core.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("LessonsBg.Core.Data.Models.FilterBadge", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("Primary key.");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("FilterBadgeType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("FilterBadge type.");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FilterBadges");
+
+                    b.HasComment("Filter badge that helps show, who is a course appropriate for.");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FilterBadgeType = "1-4 Grade"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FilterBadgeType = "5-8 Grade"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FilterBadgeType = "9-12 Grade"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FilterBadgeType = "University Students"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FilterBadgeType = "Elderly"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            FilterBadgeType = "Online"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            FilterBadgeType = "Onsite"
+                        });
+                });
+
             modelBuilder.Entity("LessonsBg.Core.Data.Models.Location", b =>
                 {
                     b.Property<int>("Id")
@@ -369,1548 +443,1542 @@ namespace LessonsBg.Core.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Онлайн",
-                            Region = "Онлайн"
-                        },
-                        new
-                        {
-                            Id = 2,
                             Name = "Айтос",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 2,
                             Name = "Аксаково",
                             Region = "Варна"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 3,
                             Name = "Алфатар",
                             Region = "Силистра"
                         },
                         new
                         {
-                            Id = 5,
+                            Id = 4,
                             Name = "Антоново",
                             Region = "Търговище"
                         },
                         new
                         {
-                            Id = 6,
+                            Id = 5,
                             Name = "Априлци",
                             Region = "Ловеч"
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 6,
                             Name = "Ардино",
                             Region = "Кърджали"
                         },
                         new
                         {
-                            Id = 8,
+                            Id = 7,
                             Name = "Асеновград",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 9,
+                            Id = 8,
                             Name = "Ахелой",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 10,
+                            Id = 9,
                             Name = "Ахтопол",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 11,
+                            Id = 10,
                             Name = "Балчик",
                             Region = "Добрич"
                         },
                         new
                         {
-                            Id = 12,
+                            Id = 11,
                             Name = "Банкя",
                             Region = "София град"
                         },
                         new
                         {
-                            Id = 13,
+                            Id = 12,
                             Name = "Банско",
                             Region = "Благоевград"
                         },
                         new
                         {
-                            Id = 14,
+                            Id = 13,
                             Name = "Баня",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 15,
+                            Id = 14,
                             Name = "Батак",
                             Region = "Пазарджик"
                         },
                         new
                         {
-                            Id = 16,
+                            Id = 15,
                             Name = "Батановци",
                             Region = "Перник"
                         },
                         new
                         {
-                            Id = 17,
+                            Id = 16,
                             Name = "Белене",
                             Region = "Плевен"
                         },
                         new
                         {
-                            Id = 18,
+                            Id = 17,
                             Name = "Белица",
                             Region = "Благоевград"
                         },
                         new
                         {
-                            Id = 19,
+                            Id = 18,
                             Name = "Белово",
                             Region = "Пазарджик"
                         },
                         new
                         {
-                            Id = 20,
+                            Id = 19,
                             Name = "Белоградчик",
                             Region = "Видин"
                         },
                         new
                         {
-                            Id = 21,
+                            Id = 20,
                             Name = "Белослав",
                             Region = "Варна"
                         },
                         new
                         {
-                            Id = 22,
+                            Id = 21,
                             Name = "Берковица",
                             Region = "Монтана"
                         },
                         new
                         {
-                            Id = 23,
+                            Id = 22,
                             Name = "Благоевград",
                             Region = "Благоевград"
                         },
                         new
                         {
-                            Id = 24,
+                            Id = 23,
                             Name = "Бобов дол",
                             Region = "Кюстендил"
                         },
                         new
                         {
-                            Id = 25,
+                            Id = 24,
                             Name = "Бобошево",
                             Region = "Кюстендил"
                         },
                         new
                         {
-                            Id = 26,
+                            Id = 25,
                             Name = "Божурище",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 27,
+                            Id = 26,
                             Name = "Бойчиновци",
                             Region = "Монтана"
                         },
                         new
                         {
-                            Id = 28,
+                            Id = 27,
                             Name = "Болярово",
                             Region = "Ямбол"
                         },
                         new
                         {
-                            Id = 29,
+                            Id = 28,
                             Name = "Борово",
                             Region = "Русе"
                         },
                         new
                         {
-                            Id = 30,
+                            Id = 29,
                             Name = "Ботевград",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 31,
+                            Id = 30,
                             Name = "Брацигово",
                             Region = "Пазарджик"
                         },
                         new
                         {
-                            Id = 32,
+                            Id = 31,
                             Name = "Брегово",
                             Region = "Видин"
                         },
                         new
                         {
-                            Id = 33,
+                            Id = 32,
                             Name = "Брезник",
                             Region = "Перник"
                         },
                         new
                         {
-                            Id = 34,
+                            Id = 33,
                             Name = "Брезово",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 35,
+                            Id = 34,
                             Name = "Брусарци",
                             Region = "Монтана"
                         },
                         new
                         {
-                            Id = 36,
+                            Id = 35,
                             Name = "Бургас",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 37,
+                            Id = 36,
                             Name = "Бухово",
                             Region = "София град"
                         },
                         new
                         {
-                            Id = 38,
+                            Id = 37,
                             Name = "Българово",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 39,
+                            Id = 38,
                             Name = "Бяла",
                             Region = "Варна"
                         },
                         new
                         {
-                            Id = 40,
+                            Id = 39,
                             Name = "Бяла",
                             Region = "Русе"
                         },
                         new
                         {
-                            Id = 41,
+                            Id = 40,
                             Name = "Бяла Слатина",
                             Region = "Враца"
                         },
                         new
                         {
-                            Id = 42,
+                            Id = 41,
                             Name = "Бяла Черква",
                             Region = "Велико Търново"
                         },
                         new
                         {
-                            Id = 43,
+                            Id = 42,
                             Name = "Варна",
                             Region = "Варна"
                         },
                         new
                         {
-                            Id = 44,
+                            Id = 43,
                             Name = "Велики Преслав",
                             Region = "Шумен"
                         },
                         new
                         {
-                            Id = 45,
+                            Id = 44,
                             Name = "Велико Търново",
                             Region = "Велико Търново"
                         },
                         new
                         {
-                            Id = 46,
+                            Id = 45,
                             Name = "Велинград",
                             Region = "Пазарджик"
                         },
                         new
                         {
-                            Id = 47,
+                            Id = 46,
                             Name = "Ветово",
                             Region = "Русе"
                         },
                         new
                         {
-                            Id = 48,
+                            Id = 47,
                             Name = "Ветрен",
                             Region = "Пазарджик"
                         },
                         new
                         {
-                            Id = 49,
+                            Id = 48,
                             Name = "Видин",
                             Region = "Видин"
                         },
                         new
                         {
-                            Id = 50,
+                            Id = 49,
                             Name = "Враца",
                             Region = "Враца"
                         },
                         new
                         {
-                            Id = 51,
+                            Id = 50,
                             Name = "Вълчедръм",
                             Region = "Монтана"
                         },
                         new
                         {
-                            Id = 52,
+                            Id = 51,
                             Name = "Вълчи дол",
                             Region = "Варна"
                         },
                         new
                         {
-                            Id = 53,
+                            Id = 52,
                             Name = "Върбица",
                             Region = "Шумен"
                         },
                         new
                         {
-                            Id = 54,
+                            Id = 53,
                             Name = "Вършец",
                             Region = "Монтана"
                         },
                         new
                         {
-                            Id = 55,
+                            Id = 54,
                             Name = "Габрово",
                             Region = "Габрово"
                         },
                         new
                         {
-                            Id = 56,
+                            Id = 55,
                             Name = "Генерал Тошево",
                             Region = "Добрич"
                         },
                         new
                         {
-                            Id = 57,
+                            Id = 56,
                             Name = "Главиница",
                             Region = "Силистра"
                         },
                         new
                         {
-                            Id = 58,
+                            Id = 57,
                             Name = "Глоджево",
                             Region = "Русе"
                         },
                         new
                         {
-                            Id = 59,
+                            Id = 58,
                             Name = "Годеч",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 60,
+                            Id = 59,
                             Name = "Горна Оряховица",
                             Region = "Велико Търново"
                         },
                         new
                         {
-                            Id = 61,
+                            Id = 60,
                             Name = "Гоце Делчев",
                             Region = "Благоевград"
                         },
                         new
                         {
-                            Id = 62,
+                            Id = 61,
                             Name = "Грамада",
                             Region = "Видин"
                         },
                         new
                         {
-                            Id = 63,
+                            Id = 62,
                             Name = "Гулянци",
                             Region = "Плевен"
                         },
                         new
                         {
-                            Id = 64,
+                            Id = 63,
                             Name = "Гурково",
                             Region = "Стара Загора"
                         },
                         new
                         {
-                            Id = 65,
+                            Id = 64,
                             Name = "Гълъбово",
                             Region = "Стара Загора"
                         },
                         new
                         {
-                            Id = 66,
+                            Id = 65,
                             Name = "Две могили",
                             Region = "Русе"
                         },
                         new
                         {
-                            Id = 67,
+                            Id = 66,
                             Name = "Дебелец",
                             Region = "Велико Търново"
                         },
                         new
                         {
-                            Id = 68,
+                            Id = 67,
                             Name = "Девин",
                             Region = "Смолян"
                         },
                         new
                         {
-                            Id = 69,
+                            Id = 68,
                             Name = "Девня",
                             Region = "Варна"
                         },
                         new
                         {
-                            Id = 70,
+                            Id = 69,
                             Name = "Джебел",
                             Region = "Кърджали"
                         },
                         new
                         {
-                            Id = 71,
+                            Id = 70,
                             Name = "Димитровград",
                             Region = "Хасково"
                         },
                         new
                         {
-                            Id = 72,
+                            Id = 71,
                             Name = "Димово",
                             Region = "Видин"
                         },
                         new
                         {
-                            Id = 73,
+                            Id = 72,
                             Name = "Добринище",
                             Region = "Благоевград"
                         },
                         new
                         {
-                            Id = 74,
+                            Id = 73,
                             Name = "Добрич",
                             Region = "Добрич"
                         },
                         new
                         {
-                            Id = 75,
+                            Id = 74,
                             Name = "Долна баня",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 76,
+                            Id = 75,
                             Name = "Долна Митрополия",
                             Region = "Плевен"
                         },
                         new
                         {
-                            Id = 77,
+                            Id = 76,
                             Name = "Долна Оряховица",
                             Region = "Велико Търново"
                         },
                         new
                         {
-                            Id = 78,
+                            Id = 77,
                             Name = "Долни Дъбник",
                             Region = "Плевен"
                         },
                         new
                         {
-                            Id = 79,
+                            Id = 78,
                             Name = "Долни чифлик",
                             Region = "Варна"
                         },
                         new
                         {
-                            Id = 80,
+                            Id = 79,
                             Name = "Доспат",
                             Region = "Смолян"
                         },
                         new
                         {
-                            Id = 81,
+                            Id = 80,
                             Name = "Драгоман",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 82,
+                            Id = 81,
                             Name = "Дряново",
                             Region = "Габрово"
                         },
                         new
                         {
-                            Id = 83,
+                            Id = 82,
                             Name = "Дулово",
                             Region = "Силистра"
                         },
                         new
                         {
-                            Id = 84,
+                            Id = 83,
                             Name = "Дунавци",
                             Region = "Видин"
                         },
                         new
                         {
-                            Id = 85,
+                            Id = 84,
                             Name = "Дупница",
                             Region = "Кюстендил"
                         },
                         new
                         {
-                            Id = 86,
+                            Id = 85,
                             Name = "Дългопол",
                             Region = "Варна"
                         },
                         new
                         {
-                            Id = 87,
+                            Id = 86,
                             Name = "Елена",
                             Region = "Велико Търново"
                         },
                         new
                         {
-                            Id = 88,
+                            Id = 87,
                             Name = "Елин Пелин",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 89,
+                            Id = 88,
                             Name = "Елхово",
                             Region = "Ямбол"
                         },
                         new
                         {
-                            Id = 90,
+                            Id = 89,
                             Name = "Етрополе",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 91,
+                            Id = 90,
                             Name = "Завет",
                             Region = "Разград"
                         },
                         new
                         {
-                            Id = 92,
+                            Id = 91,
                             Name = "Земен",
                             Region = "Перник"
                         },
                         new
                         {
-                            Id = 93,
+                            Id = 92,
                             Name = "Златарица",
                             Region = "Велико Търново"
                         },
                         new
                         {
-                            Id = 94,
+                            Id = 93,
                             Name = "Златица",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 95,
+                            Id = 94,
                             Name = "Златоград",
                             Region = "Смолян"
                         },
                         new
                         {
-                            Id = 96,
+                            Id = 95,
                             Name = "Ивайловград",
                             Region = "Хасково"
                         },
                         new
                         {
-                            Id = 97,
+                            Id = 96,
                             Name = "Игнатиево",
                             Region = "Варна"
                         },
                         new
                         {
-                            Id = 98,
+                            Id = 97,
                             Name = "Искър",
                             Region = "Плевен"
                         },
                         new
                         {
-                            Id = 99,
+                            Id = 98,
                             Name = "Исперих",
                             Region = "Разград"
                         },
                         new
                         {
-                            Id = 100,
+                            Id = 99,
                             Name = "Ихтиман",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 101,
+                            Id = 100,
                             Name = "Каблешково",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 102,
+                            Id = 101,
                             Name = "Каварна",
                             Region = "Добрич"
                         },
                         new
                         {
-                            Id = 103,
+                            Id = 102,
                             Name = "Казанлък",
                             Region = "Стара Загора"
                         },
                         new
                         {
-                            Id = 104,
+                            Id = 103,
                             Name = "Калофер",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 105,
+                            Id = 104,
                             Name = "Камено",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 106,
+                            Id = 105,
                             Name = "Каолиново",
                             Region = "Шумен"
                         },
                         new
                         {
-                            Id = 107,
+                            Id = 106,
                             Name = "Карлово",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 108,
+                            Id = 107,
                             Name = "Карнобат",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 109,
+                            Id = 108,
                             Name = "Каспичан",
                             Region = "Шумен"
                         },
                         new
                         {
-                            Id = 110,
+                            Id = 109,
                             Name = "Кермен",
                             Region = "Сливен"
                         },
                         new
                         {
-                            Id = 111,
+                            Id = 110,
                             Name = "Килифарево",
                             Region = "Велико Търново"
                         },
                         new
                         {
-                            Id = 112,
+                            Id = 111,
                             Name = "Китен",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 113,
+                            Id = 112,
                             Name = "Клисура",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 114,
+                            Id = 113,
                             Name = "Кнежа",
                             Region = "Плевен"
                         },
                         new
                         {
-                            Id = 115,
+                            Id = 114,
                             Name = "Козлодуй",
                             Region = "Враца"
                         },
                         new
                         {
-                            Id = 116,
+                            Id = 115,
                             Name = "Койнаре",
                             Region = "Плевен"
                         },
                         new
                         {
-                            Id = 117,
+                            Id = 116,
                             Name = "Копривщица",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 118,
+                            Id = 117,
                             Name = "Костандово",
                             Region = "Пазарджик"
                         },
                         new
                         {
-                            Id = 119,
+                            Id = 118,
                             Name = "Костенец",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 120,
+                            Id = 119,
                             Name = "Костинброд",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 121,
+                            Id = 120,
                             Name = "Котел",
                             Region = "Сливен"
                         },
                         new
                         {
-                            Id = 122,
+                            Id = 121,
                             Name = "Кочериново",
                             Region = "Кюстендил"
                         },
                         new
                         {
-                            Id = 123,
+                            Id = 122,
                             Name = "Кресна",
                             Region = "Благоевград"
                         },
                         new
                         {
-                            Id = 124,
+                            Id = 123,
                             Name = "Криводол",
                             Region = "Враца"
                         },
                         new
                         {
-                            Id = 125,
+                            Id = 124,
                             Name = "Кричим",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 126,
+                            Id = 125,
                             Name = "Крумовград",
                             Region = "Кърджали"
                         },
                         new
                         {
-                            Id = 127,
+                            Id = 126,
                             Name = "Крън",
                             Region = "Стара Загора"
                         },
                         new
                         {
-                            Id = 128,
+                            Id = 127,
                             Name = "Кубрат",
                             Region = "Разград"
                         },
                         new
                         {
-                            Id = 129,
+                            Id = 128,
                             Name = "Куклен",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 130,
+                            Id = 129,
                             Name = "Кула",
                             Region = "Видин"
                         },
                         new
                         {
-                            Id = 131,
+                            Id = 130,
                             Name = "Кърджали",
                             Region = "Кърджали"
                         },
                         new
                         {
-                            Id = 132,
+                            Id = 131,
                             Name = "Кюстендил",
                             Region = "Кюстендил"
                         },
                         new
                         {
-                            Id = 133,
+                            Id = 132,
                             Name = "Левски",
                             Region = "Плевен"
                         },
                         new
                         {
-                            Id = 134,
+                            Id = 133,
                             Name = "Летница",
                             Region = "Ловеч"
                         },
                         new
                         {
-                            Id = 135,
+                            Id = 134,
                             Name = "Ловеч",
                             Region = "Ловеч"
                         },
                         new
                         {
-                            Id = 136,
+                            Id = 135,
                             Name = "Лозница",
                             Region = "Разград"
                         },
                         new
                         {
-                            Id = 137,
+                            Id = 136,
                             Name = "Лом",
                             Region = "Монтана"
                         },
                         new
                         {
-                            Id = 138,
+                            Id = 137,
                             Name = "Луковит",
                             Region = "Ловеч"
                         },
                         new
                         {
-                            Id = 139,
+                            Id = 138,
                             Name = "Лъки",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 140,
+                            Id = 139,
                             Name = "Любимец",
                             Region = "Хасково"
                         },
                         new
                         {
-                            Id = 141,
+                            Id = 140,
                             Name = "Лясковец",
                             Region = "Велико Търново"
                         },
                         new
                         {
-                            Id = 142,
+                            Id = 141,
                             Name = "Мадан",
                             Region = "Смолян"
                         },
                         new
                         {
-                            Id = 143,
+                            Id = 142,
                             Name = "Маджарово",
                             Region = "Хасково"
                         },
                         new
                         {
-                            Id = 144,
+                            Id = 143,
                             Name = "Малко Търново",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 145,
+                            Id = 144,
                             Name = "Мартен",
                             Region = "Русе"
                         },
                         new
                         {
-                            Id = 146,
+                            Id = 145,
                             Name = "Мездра",
                             Region = "Враца"
                         },
                         new
                         {
-                            Id = 147,
+                            Id = 146,
                             Name = "Мелник",
                             Region = "Благоевград"
                         },
                         new
                         {
-                            Id = 148,
+                            Id = 147,
                             Name = "Меричлери",
                             Region = "Хасково"
                         },
                         new
                         {
-                            Id = 149,
+                            Id = 148,
                             Name = "Мизия",
                             Region = "Враца"
                         },
                         new
                         {
-                            Id = 150,
+                            Id = 149,
                             Name = "Момин проход",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 151,
+                            Id = 150,
                             Name = "Момчилград",
                             Region = "Кърджали"
                         },
                         new
                         {
-                            Id = 152,
+                            Id = 151,
                             Name = "Монтана",
                             Region = "Монтана"
                         },
                         new
                         {
-                            Id = 153,
+                            Id = 152,
                             Name = "Мъглиж",
                             Region = "Стара Загора"
                         },
                         new
                         {
-                            Id = 154,
+                            Id = 153,
                             Name = "Неделино",
                             Region = "Смолян"
                         },
                         new
                         {
-                            Id = 155,
+                            Id = 154,
                             Name = "Несебър",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 156,
+                            Id = 155,
                             Name = "Николаево",
                             Region = "Стара Загора"
                         },
                         new
                         {
-                            Id = 157,
+                            Id = 156,
                             Name = "Никопол",
                             Region = "Плевен"
                         },
                         new
                         {
-                            Id = 158,
+                            Id = 157,
                             Name = "Нова Загора",
                             Region = "Сливен"
                         },
                         new
                         {
-                            Id = 159,
+                            Id = 158,
                             Name = "Нови Искър",
                             Region = "София град"
                         },
                         new
                         {
-                            Id = 160,
+                            Id = 159,
                             Name = "Нови пазар",
                             Region = "Шумен"
                         },
                         new
                         {
-                            Id = 161,
+                            Id = 160,
                             Name = "Обзор",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 162,
+                            Id = 161,
                             Name = "Омуртаг",
                             Region = "Търговище"
                         },
                         new
                         {
-                            Id = 163,
+                            Id = 162,
                             Name = "Опака",
                             Region = "Търговище"
                         },
                         new
                         {
-                            Id = 164,
+                            Id = 163,
                             Name = "Оряхово",
                             Region = "Враца"
                         },
                         new
                         {
-                            Id = 165,
+                            Id = 164,
                             Name = "Павел баня",
                             Region = "Стара Загора"
                         },
                         new
                         {
-                            Id = 166,
+                            Id = 165,
                             Name = "Павликени",
                             Region = "Велико Търново"
                         },
                         new
                         {
-                            Id = 167,
+                            Id = 166,
                             Name = "Пазарджик",
                             Region = "Пазарджик"
                         },
                         new
                         {
-                            Id = 168,
+                            Id = 167,
                             Name = "Панагюрище",
                             Region = "Пазарджик"
                         },
                         new
                         {
-                            Id = 169,
+                            Id = 168,
                             Name = "Перник",
                             Region = "Перник"
                         },
                         new
                         {
-                            Id = 170,
+                            Id = 169,
                             Name = "Перущица",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 171,
+                            Id = 170,
                             Name = "Петрич",
                             Region = "Благоевград"
                         },
                         new
                         {
-                            Id = 172,
+                            Id = 171,
                             Name = "Пещера",
                             Region = "Пазарджик"
                         },
                         new
                         {
-                            Id = 173,
+                            Id = 172,
                             Name = "Пирдоп",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 174,
+                            Id = 173,
                             Name = "Плачковци",
                             Region = "Габрово"
                         },
                         new
                         {
-                            Id = 175,
+                            Id = 174,
                             Name = "Плевен",
                             Region = "Плевен"
                         },
                         new
                         {
-                            Id = 176,
+                            Id = 175,
                             Name = "Плиска",
                             Region = "Шумен"
                         },
                         new
                         {
-                            Id = 177,
+                            Id = 176,
                             Name = "Пловдив",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 178,
+                            Id = 177,
                             Name = "Полски Тръмбеш",
                             Region = "Велико Търново"
                         },
                         new
                         {
-                            Id = 179,
+                            Id = 178,
                             Name = "Поморие",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 180,
+                            Id = 179,
                             Name = "Попово",
                             Region = "Търговище"
                         },
                         new
                         {
-                            Id = 181,
+                            Id = 180,
                             Name = "Пордим",
                             Region = "Плевен"
                         },
                         new
                         {
-                            Id = 182,
+                            Id = 181,
                             Name = "Правец",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 183,
+                            Id = 182,
                             Name = "Приморско",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 184,
+                            Id = 183,
                             Name = "Провадия",
                             Region = "Варна"
                         },
                         new
                         {
-                            Id = 185,
+                            Id = 184,
                             Name = "Първомай",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 186,
+                            Id = 185,
                             Name = "Раднево",
                             Region = "Стара Загора"
                         },
                         new
                         {
-                            Id = 187,
+                            Id = 186,
                             Name = "Радомир",
                             Region = "Перник"
                         },
                         new
                         {
-                            Id = 188,
+                            Id = 187,
                             Name = "Разград",
                             Region = "Разград"
                         },
                         new
                         {
-                            Id = 189,
+                            Id = 188,
                             Name = "Разлог",
                             Region = "Благоевград"
                         },
                         new
                         {
-                            Id = 190,
+                            Id = 189,
                             Name = "Ракитово",
                             Region = "Пазарджик"
                         },
                         new
                         {
-                            Id = 191,
+                            Id = 190,
                             Name = "Раковски",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 192,
+                            Id = 191,
                             Name = "Рила",
                             Region = "Кюстендил"
                         },
                         new
                         {
-                            Id = 193,
+                            Id = 192,
                             Name = "Роман",
                             Region = "Враца"
                         },
                         new
                         {
-                            Id = 194,
+                            Id = 193,
                             Name = "Рудозем",
                             Region = "Смолян"
                         },
                         new
                         {
-                            Id = 195,
+                            Id = 194,
                             Name = "Русе",
                             Region = "Русе"
                         },
                         new
                         {
-                            Id = 196,
+                            Id = 195,
                             Name = "Садово",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 197,
+                            Id = 196,
                             Name = "Самоков",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 198,
+                            Id = 197,
                             Name = "Сандански",
                             Region = "Благоевград"
                         },
                         new
                         {
-                            Id = 199,
+                            Id = 198,
                             Name = "Сапарева баня",
                             Region = "Кюстендил"
                         },
                         new
                         {
-                            Id = 200,
+                            Id = 199,
                             Name = "Свети Влас",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 201,
+                            Id = 200,
                             Name = "Свиленград",
                             Region = "Хасково"
                         },
                         new
                         {
-                            Id = 202,
+                            Id = 201,
                             Name = "Свищов",
                             Region = "Велико Търново"
                         },
                         new
                         {
-                            Id = 203,
+                            Id = 202,
                             Name = "Своге",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 204,
+                            Id = 203,
                             Name = "Севлиево",
                             Region = "Габрово"
                         },
                         new
                         {
-                            Id = 205,
+                            Id = 204,
                             Name = "Сеново",
                             Region = "Русе"
                         },
                         new
                         {
-                            Id = 206,
+                            Id = 205,
                             Name = "Септември",
                             Region = "Пазарджик"
                         },
                         new
                         {
-                            Id = 207,
+                            Id = 206,
                             Name = "Силистра",
                             Region = "Силистра"
                         },
                         new
                         {
-                            Id = 208,
+                            Id = 207,
                             Name = "Симеоновград",
                             Region = "Хасково"
                         },
                         new
                         {
-                            Id = 209,
+                            Id = 208,
                             Name = "Симитли",
                             Region = "Благоевград"
                         },
                         new
                         {
-                            Id = 210,
+                            Id = 209,
                             Name = "Славяново",
                             Region = "Плевен"
                         },
                         new
                         {
-                            Id = 211,
+                            Id = 210,
                             Name = "Сливен",
                             Region = "Сливен"
                         },
                         new
                         {
-                            Id = 212,
+                            Id = 211,
                             Name = "Сливница",
                             Region = "Софийска"
                         },
                         new
                         {
-                            Id = 213,
+                            Id = 212,
                             Name = "Сливо поле",
                             Region = "Русе"
                         },
                         new
                         {
-                            Id = 214,
+                            Id = 213,
                             Name = "Смолян",
                             Region = "Смолян"
                         },
                         new
                         {
-                            Id = 215,
+                            Id = 214,
                             Name = "Смядово",
                             Region = "Шумен"
                         },
                         new
                         {
-                            Id = 216,
+                            Id = 215,
                             Name = "Созопол",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 217,
+                            Id = 216,
                             Name = "Сопот",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 218,
+                            Id = 217,
                             Name = "София",
                             Region = "София град"
                         },
                         new
                         {
-                            Id = 219,
+                            Id = 218,
                             Name = "Средец",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 220,
+                            Id = 219,
                             Name = "Стамболийски",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 221,
+                            Id = 220,
                             Name = "Стара Загора",
                             Region = "Стара Загора"
                         },
                         new
                         {
-                            Id = 222,
+                            Id = 221,
                             Name = "Стражица",
                             Region = "Велико Търново"
                         },
                         new
                         {
-                            Id = 223,
+                            Id = 222,
                             Name = "Стралджа",
                             Region = "Ямбол"
                         },
                         new
                         {
-                            Id = 224,
+                            Id = 223,
                             Name = "Стрелча",
                             Region = "Пазарджик"
                         },
                         new
                         {
-                            Id = 225,
+                            Id = 224,
                             Name = "Суворово",
                             Region = "Варна"
                         },
                         new
                         {
-                            Id = 226,
+                            Id = 225,
                             Name = "Сунгурларе",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 227,
+                            Id = 226,
                             Name = "Сухиндол",
                             Region = "Велико Търново"
                         },
                         new
                         {
-                            Id = 228,
+                            Id = 227,
                             Name = "Съединение",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 229,
+                            Id = 228,
                             Name = "Сърница",
                             Region = "Пазарджик"
                         },
                         new
                         {
-                            Id = 230,
+                            Id = 229,
                             Name = "Твърдица",
                             Region = "Сливен"
                         },
                         new
                         {
-                            Id = 231,
+                            Id = 230,
                             Name = "Тервел",
                             Region = "Добрич"
                         },
                         new
                         {
-                            Id = 232,
+                            Id = 231,
                             Name = "Тетевен",
                             Region = "Ловеч"
                         },
                         new
                         {
-                            Id = 233,
+                            Id = 232,
                             Name = "Тополовград",
                             Region = "Хасково"
                         },
                         new
                         {
-                            Id = 234,
+                            Id = 233,
                             Name = "Троян",
                             Region = "Ловеч"
                         },
                         new
                         {
-                            Id = 235,
+                            Id = 234,
                             Name = "Трън",
                             Region = "Перник"
                         },
                         new
                         {
-                            Id = 236,
+                            Id = 235,
                             Name = "Тръстеник",
                             Region = "Плевен"
                         },
                         new
                         {
-                            Id = 237,
+                            Id = 236,
                             Name = "Трявна",
                             Region = "Габрово"
                         },
                         new
                         {
-                            Id = 238,
+                            Id = 237,
                             Name = "Тутракан",
                             Region = "Силистра"
                         },
                         new
                         {
-                            Id = 239,
+                            Id = 238,
                             Name = "Търговище",
                             Region = "Търговище"
                         },
                         new
                         {
-                            Id = 240,
+                            Id = 239,
                             Name = "Угърчин",
                             Region = "Ловеч"
                         },
                         new
                         {
-                            Id = 241,
+                            Id = 240,
                             Name = "Хаджидимово",
                             Region = "Благоевград"
                         },
                         new
                         {
-                            Id = 242,
+                            Id = 241,
                             Name = "Харманли",
                             Region = "Хасково"
                         },
                         new
                         {
-                            Id = 243,
+                            Id = 242,
                             Name = "Хасково",
                             Region = "Хасково"
                         },
                         new
                         {
-                            Id = 244,
+                            Id = 243,
                             Name = "Хисаря",
                             Region = "Пловдив"
                         },
                         new
                         {
-                            Id = 245,
+                            Id = 244,
                             Name = "Цар Калоян",
                             Region = "Разград"
                         },
                         new
                         {
-                            Id = 246,
+                            Id = 245,
                             Name = "Царево",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 247,
+                            Id = 246,
                             Name = "Чепеларе",
                             Region = "Смолян"
                         },
                         new
                         {
-                            Id = 248,
+                            Id = 247,
                             Name = "Червен бряг",
                             Region = "Плевен"
                         },
                         new
                         {
-                            Id = 249,
+                            Id = 248,
                             Name = "Черноморец",
                             Region = "Бургас"
                         },
                         new
                         {
-                            Id = 250,
+                            Id = 249,
                             Name = "Чипровци",
                             Region = "Монтана"
                         },
                         new
                         {
-                            Id = 251,
+                            Id = 250,
                             Name = "Чирпан",
                             Region = "Стара Загора"
                         },
                         new
                         {
-                            Id = 252,
+                            Id = 251,
                             Name = "Шабла",
                             Region = "Добрич"
                         },
                         new
                         {
-                            Id = 253,
+                            Id = 252,
                             Name = "Шивачево",
                             Region = "Сливен"
                         },
                         new
                         {
-                            Id = 254,
+                            Id = 253,
                             Name = "Шипка",
                             Region = "Стара Загора"
                         },
                         new
                         {
-                            Id = 255,
+                            Id = 254,
                             Name = "Шумен",
                             Region = "Шумен"
                         },
                         new
                         {
-                            Id = 256,
+                            Id = 255,
                             Name = "Ябланица",
                             Region = "Ловеч"
                         },
                         new
                         {
-                            Id = 257,
+                            Id = 256,
                             Name = "Якоруда",
                             Region = "Благоевград"
                         },
                         new
                         {
-                            Id = 258,
+                            Id = 257,
                             Name = "Ямбол",
                             Region = "Ямбол"
                         });
@@ -1977,25 +2045,25 @@ namespace LessonsBg.Core.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b64e00e8-2e9e-49b0-9a2d-3dcb70ab1792"),
+                            Id = new Guid("5aa70a84-b7a5-4318-a67f-61470d5b97a7"),
                             Name = "Математика",
                             SubjectTypeId = 1
                         },
                         new
                         {
-                            Id = new Guid("af058689-555f-4a84-8f97-b65502872936"),
+                            Id = new Guid("032a6096-68a9-4ff8-9799-a52b02204541"),
                             Name = "Български език",
                             SubjectTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("b4724278-9583-4a00-a6d4-4ec6c10f33a9"),
+                            Id = new Guid("f39841b1-ecbb-4af4-80da-f34bdca81324"),
                             Name = "Английски език",
                             SubjectTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("78d6acf2-6620-4a97-8df7-7bd42badcb00"),
+                            Id = new Guid("88eebfc1-abcf-442b-8786-85e6a9caf14d"),
                             Name = "Информационни технологии",
                             SubjectTypeId = 3
                         });
@@ -2066,37 +2134,37 @@ namespace LessonsBg.Core.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f7a2aec3-a0e5-4b23-aeea-433873599ae8"),
+                            Id = new Guid("e07ccfba-38fb-4d6f-84ce-413dbfba1ccd"),
                             Name = "Карате",
                             TrainingTypeId = 1
                         },
                         new
                         {
-                            Id = new Guid("527c995a-59ee-4457-8d75-865b223e1040"),
+                            Id = new Guid("57c8e529-03fd-44e5-8d0a-7a49ad910cb5"),
                             Name = "Кикбокс",
                             TrainingTypeId = 1
                         },
                         new
                         {
-                            Id = new Guid("ec5f561b-4543-44b0-8e85-174eed7b7de6"),
+                            Id = new Guid("461bbd67-9718-4d69-a261-435fdb5f3b0d"),
                             Name = "Таекуондо",
                             TrainingTypeId = 1
                         },
                         new
                         {
-                            Id = new Guid("9e566812-55a2-4169-8385-b1cc4ec215e7"),
+                            Id = new Guid("8fa288e2-3254-4aeb-8d01-7cf5adaadede"),
                             Name = "Баскетбол",
                             TrainingTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("3842a18b-e8dd-4144-b499-fc6d74797f4a"),
+                            Id = new Guid("95792df9-85ff-44e1-8f10-69ef684fb7ae"),
                             Name = "Футбол",
                             TrainingTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("d64af173-07e1-45d2-b7b3-f35cddd6bf66"),
+                            Id = new Guid("c7bd6821-a680-4b9a-813d-eaca5d691b2c"),
                             Name = "Волейбол",
                             TrainingTypeId = 2
                         });
@@ -2270,6 +2338,21 @@ namespace LessonsBg.Core.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("CourseFilterBadge", b =>
+                {
+                    b.HasOne("LessonsBg.Core.Data.Models.Course", null)
+                        .WithMany()
+                        .HasForeignKey("CoursesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LessonsBg.Core.Data.Models.FilterBadge", null)
+                        .WithMany()
+                        .HasForeignKey("FilterBadgesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LessonsBg.Core.Data.Models.ApplicationUserCourse", b =>

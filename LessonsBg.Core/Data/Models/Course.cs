@@ -24,13 +24,6 @@
         [Comment("Course image.")]
         public string CourseImageURL { get; set; } = null!;
 
-        [Required]
-        [Comment("Author ID.")]
-        public string AuthorId { get; set; } = null!;
-
-        [ForeignKey(nameof(AuthorId))]
-        public ApplicationUser Author { get; set; } = null!;
-
         [Comment("Type of the course.")]
         public int CourseTypeId { get; set; } 
 
@@ -38,10 +31,15 @@
         public CourseType CourseType { get; set; } = null!;
 
         [Phone]
+        [RegularExpression("(\\+)?(359|0)8[789]\\d{1}(|-| )\\d{3}(|-| )\\d{3}")]
         [Comment("Phone number to call if you are interested in the course.")]
         public string PhoneNumber { get; set; } = null!;
 
+
         [Comment("Location of the course.")]
+        public int LocationId { get; set; }
+
+        [ForeignKey(nameof(LocationId))]
         public Location Location { get; set; } = null!;
 
         [Url]
@@ -53,8 +51,7 @@
         [Comment("Description of the course.")]
         public string CourseDescription { get; set; } = null!;
 
-        [Comment("Filter badges that help with showing who is this course appropriate for.")]
-        public IEnumerable<FilterBadge> FilterBadges { get; set; } = new List<FilterBadge>();
+		public List<ApplicationUserCourse> ApplicationUsersCourses { get; set; } = new List<ApplicationUserCourse>();
 
 	}
 }

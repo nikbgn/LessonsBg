@@ -5,7 +5,11 @@
 
     public class LocationModel
     {
-        [Required]
+		[Required]
+		[Comment("Identifier.")]
+		public int Id { get; set; }
+
+		[Required]
         [Comment("City name.")]
         public string Name { get; set; } = null!;
 

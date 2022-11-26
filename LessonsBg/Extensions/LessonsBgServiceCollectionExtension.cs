@@ -16,6 +16,11 @@
 			services.AddScoped<ITrainingsService, TrainingsService>();
 			services.AddScoped<ITrainerService, TrainerService>();
 
+			services.AddScoped<IAcademyService, AcademyService>();
+			services.AddScoped<ILocationService, LocationService>();
+
+			services.AddScoped<ICourseService, CourseService>();
+
 			return services;
 		}
 	}

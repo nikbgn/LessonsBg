@@ -25,5 +25,6 @@
         public IEnumerable<BlogComment> BlogComments { get; set; } = new List<BlogComment>();
 		public List<ApplicationUserSubject> ApplicationUsersSubjects { get; set; } = new List<ApplicationUserSubject>();
 		public List<ApplicationUserTraining> ApplicationUsersTrainings { get; set; } = new List<ApplicationUserTraining>();
+		public List<ApplicationUserCourse> ApplicationUsersCourses { get; set; } = new List<ApplicationUserCourse>();
     }
 }

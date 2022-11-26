@@ -36,7 +36,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddApplicationServices();
-
+builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 var app = builder.Build();
 
 //Check for roles existing, and create them if they do not.
@@ -72,6 +72,10 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
 	name: "Trainer",
+	pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+	name: "Academy",
 	pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(

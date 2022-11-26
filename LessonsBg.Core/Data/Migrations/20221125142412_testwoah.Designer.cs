@@ -4,6 +4,7 @@ using LessonsBg.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LessonsBg.Core.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221125142412_testwoah")]
+    partial class testwoah
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,9 +105,9 @@ namespace LessonsBg.Core.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2d984ec9-da7a-46cf-9f9f-8fd2eb617520",
+                            Id = "34825817-a942-4df0-89de-8cac85eec704",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f17841d7-c679-4006-aecc-8ee4f040f0c6",
+                            ConcurrencyStamp = "a9c8495d-8cfe-48d7-9196-25fd3f1efbbe",
                             Email = "niki_admin@niki.bg",
                             EmailConfirmed = true,
                             FirstName = "Николай",
@@ -113,11 +115,11 @@ namespace LessonsBg.Core.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "NIKI_ADMIN@NIKI.BG",
                             NormalizedUserName = "NIKI_ADMIN@NIKI.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAEI+RWUrwsvwlLBwuknfyGIdq2FLaWIy/dZ7ZhHp8oOMfA3ANYnVES1Z4Ro1LFc34WQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBGhLtoYWxjMhJi7UoNIXhP75rWQKa7VZYEpo9+k8en9dttY3LslnXgtWbT9Sw4uZQ==",
                             PhoneNumber = "0891111111",
                             PhoneNumberConfirmed = true,
                             ProfileImage = "https://i.imgur.com/zqWjZFV.png",
-                            SecurityStamp = "bb6f6f1b-2ff1-47a0-9d0c-55308b9ce64f",
+                            SecurityStamp = "def990fb-f8fd-4834-af08-e72745bd4f84",
                             TwoFactorEnabled = false,
                             UserName = "niki_admin@niki.bg"
                         });
@@ -274,8 +276,7 @@ namespace LessonsBg.Core.Data.Migrations
                         .HasComment("Type of the course.");
 
                     b.Property<int>("LocationId")
-                        .HasColumnType("int")
-                        .HasComment("Location of the course.");
+                        .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -1977,25 +1978,25 @@ namespace LessonsBg.Core.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b64e00e8-2e9e-49b0-9a2d-3dcb70ab1792"),
+                            Id = new Guid("f0007e1d-7a23-4b2f-98a1-d1374323b2f8"),
                             Name = "Математика",
                             SubjectTypeId = 1
                         },
                         new
                         {
-                            Id = new Guid("af058689-555f-4a84-8f97-b65502872936"),
+                            Id = new Guid("044b480e-64a3-41d0-8f01-dd7822b57c4e"),
                             Name = "Български език",
                             SubjectTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("b4724278-9583-4a00-a6d4-4ec6c10f33a9"),
+                            Id = new Guid("63cdcafb-a535-4481-9df2-1409b824b5d2"),
                             Name = "Английски език",
                             SubjectTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("78d6acf2-6620-4a97-8df7-7bd42badcb00"),
+                            Id = new Guid("a4f0d0c3-1904-46e1-b4ca-3fe372854094"),
                             Name = "Информационни технологии",
                             SubjectTypeId = 3
                         });
@@ -2066,37 +2067,37 @@ namespace LessonsBg.Core.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f7a2aec3-a0e5-4b23-aeea-433873599ae8"),
+                            Id = new Guid("a6133e3a-6733-4ea9-ad95-4c0ea98d9d80"),
                             Name = "Карате",
                             TrainingTypeId = 1
                         },
                         new
                         {
-                            Id = new Guid("527c995a-59ee-4457-8d75-865b223e1040"),
+                            Id = new Guid("486d0aa9-db2e-4bd1-a920-a0f5bebe2b46"),
                             Name = "Кикбокс",
                             TrainingTypeId = 1
                         },
                         new
                         {
-                            Id = new Guid("ec5f561b-4543-44b0-8e85-174eed7b7de6"),
+                            Id = new Guid("db007776-3019-48b4-84e8-a3ef7ae11d5d"),
                             Name = "Таекуондо",
                             TrainingTypeId = 1
                         },
                         new
                         {
-                            Id = new Guid("9e566812-55a2-4169-8385-b1cc4ec215e7"),
+                            Id = new Guid("4aadab05-193c-4fb8-a5be-15840da3f4b5"),
                             Name = "Баскетбол",
                             TrainingTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("3842a18b-e8dd-4144-b499-fc6d74797f4a"),
+                            Id = new Guid("ceb2dc00-70fc-4500-a97d-a5f2c9c6a121"),
                             Name = "Футбол",
                             TrainingTypeId = 2
                         },
                         new
                         {
-                            Id = new Guid("d64af173-07e1-45d2-b7b3-f35cddd6bf66"),
+                            Id = new Guid("53be7d57-8523-4175-a481-275352978ca9"),
                             Name = "Волейбол",
                             TrainingTypeId = 2
                         });

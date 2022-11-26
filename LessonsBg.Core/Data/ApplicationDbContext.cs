@@ -28,7 +28,6 @@
         public DbSet<BlogComment> BlogComments { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<CourseType> CourseTypes { get; set; }
-        public DbSet<FilterBadge> FilterBadges { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<SubjectType> SubjectTypes { get; set; }
@@ -45,7 +44,6 @@
             builder.ApplyConfiguration(new CourseTypeConfiguration());
             builder.ApplyConfiguration(new SubjectTypeConfiguration());
             builder.ApplyConfiguration(new TrainingTypeConfiguration());
-            builder.ApplyConfiguration(new FilterBadgeConfiguration());
             builder.ApplyConfiguration(new SubjectConfiguration());
             builder.ApplyConfiguration(new TrainingConfiguration());
 
@@ -61,6 +59,9 @@
 			builder.Entity<ApplicationUserTraining>()
 	            .HasKey(x => new { x.ApplicationUserId, x.TrainingId });
 
+			builder.Entity<ApplicationUserCourse>()
+	            .HasKey(x => new { x.ApplicationUserId, x.CourseId });
+
 
 
 		}
@@ -72,7 +73,16 @@
             
             var locationsModel =  JsonConvert.DeserializeObject<LocationModel[]>(data);
             var locations = new List<Location>();
-            int i = 1;
+
+            var onlineLocation = new Location()
+            {
+                Id = 1,
+                Name = "Онлайн",
+                Region = "Онлайн"
+            };
+            locations.Add(onlineLocation);
+
+            int i = 2;
             foreach (var location in locationsModel)
             {
                 Location newLocation = new Location()
