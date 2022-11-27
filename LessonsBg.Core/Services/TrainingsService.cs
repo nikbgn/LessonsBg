@@ -18,7 +18,11 @@
             context = _context;
         }
 
-        public async Task<List<AllTrainingsModel>> GetAllSportsAsync(List<string> trainingTypes)
+		/// <summary>
+		/// Gets all sports
+		/// </summary>
+
+		public async Task<List<AllTrainingsModel>> GetAllSportsAsync(List<string> trainingTypes)
 		{
 			var allTrainigs = new List<AllTrainingsModel>();
 
@@ -39,6 +43,11 @@
 			return allTrainigs;
 		}
 
+		/// <summary>
+		/// Gets all trainings
+		/// </summary>
+		/// <returns>All trainings</returns>
+
 		public async Task<IEnumerable<TrainingModel>> GetAllTrainingsAsync()
 			=> await context
 				.Trainings
@@ -51,11 +60,23 @@
 				})
 				.ToListAsync();
 
+
+		/// <summary>
+		/// Gets all trainings names
+		/// </summary>
+		/// <returns></returns>
+
 		public async Task<List<string>> GetAllTrainingsNamesAsync()
 			=> await context
 				.Trainings
 				.Select(t => t.Name)
 				.ToListAsync();
+
+
+		/// <summary>
+		/// Gets all training type names
+		/// </summary>
+		/// <returns>List of all training type names</returns>
 
 		public async Task<List<string>> GetAllTrainingTypesNamesAsync()
 			=> await context

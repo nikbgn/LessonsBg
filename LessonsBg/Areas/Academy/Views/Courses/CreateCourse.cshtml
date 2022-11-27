@@ -2,10 +2,20 @@
 
 @{
 	ViewData["Title"] = "Създай нов курс";
+	var attentionCard = new AttentionCardModel
+	{
+		Title = "Липсва вид на курса?",
+		CardText = "Ако смятате, че курсът който предлагате не приспада към нито една от опциите за \"Вид на курса\", моля изпратете ни съобщение на \"support@uroci-bg.bg\". :)"
+	};
 }
 
 <div class="container push">
-	<h2 class="text-center mt-5">@ViewBag.Title</h2>
+	<div class="mt-3 text-center">
+		<partial name="_AttentionOrangeCardPartial"
+				 model="attentionCard" />
+	</div>
+
+	<h2 class="text-center mt-2">@ViewBag.Title</h2>
 	<hr />
 
 	<div class="row">

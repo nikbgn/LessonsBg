@@ -23,6 +23,7 @@
 		/// Creates a course.
 		/// </summary>
 		/// <param name="academyId">The identifier of the academy that is creating the course.</param>s
+		
 		public async Task CreateCourse(string academyId, CreateCourseModel model, LocationModel locationModel, CourseTypeModel courseTypeModel)
 		{
 			var academy = await context.Users.Include(c => c.ApplicationUsersCourses).FirstOrDefaultAsync(a => a.Id == academyId);

@@ -20,6 +20,10 @@
 		}
 
 
+		/// <summary>
+		/// Gets locations.
+		/// </summary>
+
 		public async Task<IEnumerable<LocationModel>> GetLocationsAsync()
 			=> await context
 				.Locations
@@ -30,6 +34,12 @@
 					Region = l.Region
 				}).ToListAsync();
 
+		/// <summary>
+		/// Gets location by ID.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		
 		public async Task<LocationModel> GetLocationByIdAsync(int id)
 		{
 			//Fix The instance of entity type 'Location' cannot be tracked because another instance with the same key value for {'Id'} is already being tracked. error by adding as no tracking.

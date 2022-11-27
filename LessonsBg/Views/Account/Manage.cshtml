@@ -21,9 +21,7 @@
 		<div class="text-center mb-3">
 			<a class="btn btn-success" asp-controller="Account" asp-action="ChangeEmail">Промяна на профилна снимка.</a>
 		</div>
-		<div class="text-center mb-3">
-			<a class="btn btn-success" asp-controller="Account" asp-action="ChangeEmail">Промяна на описание на профила.</a>
-		</div>
+
 		@if (User.IsInRole(RoleConstants.Teacher))
 		{
 			<h1 class="text-center">За учители:</h1>
@@ -33,7 +31,7 @@
 				<a class="btn btn-success" asp-area="Teacher" asp-controller="Subjects" asp-action="Add">Добави предмети.</a>
 			</div>
 			<div class="text-center mb-3">
-				<a class="btn btn-success" asp-area="Teacher" asp-controller="Subjects" asp-action="MySubjects">Мойте предмети.</a>
+				<a class="btn btn-success" asp-area="Teacher" asp-controller="Subjects" asp-action="MySubjects">Моите предмети.</a>
 			</div>
 
 		}
@@ -42,11 +40,24 @@
 			<h1 class="text-center">За треньори:</h1>
 			<hr />
 			<div class="text-center mb-3">
-				<p class="text-opacity-75">От тук можете да изберете спортовете който можете да преподавате като треньор. </p>
+				<p class="text-opacity-75">От тук можете да изберете спортовете които можете да преподавате като треньор. </p>
 				<a class="btn btn-success" asp-area="Trainer" asp-controller="Trainings" asp-action="Add">Добави спортове.</a>
 			</div>
 			<div class="text-center mb-3">
-				<a class="btn btn-success" asp-area="Trainer" asp-controller="Trainings" asp-action="MyTrainings">Мойте спортове.</a>
+				<a class="btn btn-success" asp-area="Trainer" asp-controller="Trainings" asp-action="MyTrainings">Моите спортове.</a>
+			</div>
+
+		}
+		@if (User.IsInRole(RoleConstants.Academy))
+		{
+			<h1 class="text-center">За академии:</h1>
+			<hr />
+			<div class="text-center mb-3">
+				<p class="text-opacity-75">От тук можете да създавате курсове. </p>
+				<a class="btn btn-success" asp-area="Academy" asp-controller="Courses" asp-action="CreateCourse">Добави курс.</a>
+			</div>
+			<div class="text-center mb-3">
+				<a class="btn btn-success" asp-area="Academy" asp-controller="Courses" asp-action="MyTrainings">Моите курсове.</a>
 			</div>
 
 		}

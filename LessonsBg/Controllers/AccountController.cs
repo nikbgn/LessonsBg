@@ -123,7 +123,6 @@
 
             if (user != null)
             {
-                //TODO: Persistance false by default, since remember me form is not added yet.
                 var result = await signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
@@ -144,7 +143,6 @@
         [HttpGet]
         public IActionResult Manage()
         {
-            //TODO:
             return View();
         }
 
@@ -152,7 +150,6 @@
         [HttpGet]
         public IActionResult ChangeEmail()
         {
-            //TODO:
             return View();
         }
 

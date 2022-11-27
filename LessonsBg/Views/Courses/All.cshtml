@@ -1,0 +1,44 @@
+﻿@model IEnumerable<CourseModel>
+@{
+	ViewData["Title"] = "Курсове";
+}
+
+@if (!Model.Any())
+{
+	<div class="container push">
+		<h1 class="display-1">Към момента няма курсове.</h1>
+	</div>
+}
+else
+{
+	<div class="album py-5 push">
+		<div class="container">
+			<h1 class="display-6">@ViewData["Title"]</h1>
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+				@foreach (var course in Model)
+				{
+					<div class="col">
+						<div class="card shadow-sm h-100">
+
+							<img src="@course.CourseImageURL" class="card-img-top" alt="Course Image Thumbnail">
+							<div class="card-body">
+								<h4>@course.CourseName</h4>
+								<p class="card-text text-muted" style="white-space: nowrap; text-overflow: ellipsis; overflow:hidden;">
+									@course.CourseDescription
+								</p>
+								@if (course.Website != null)
+								{
+									<p class="card-text text-muted">@course.Website</p>
+								}
+								<p class="card-text text-muted">@course.PhoneNumber</p>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+}
+
+
+

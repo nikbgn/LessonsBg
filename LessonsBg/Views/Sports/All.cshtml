@@ -2,9 +2,18 @@
 
 @{
 	ViewData["Title"] = "Всички спортове";
+	var attentionCard = new AttentionCardModel
+	{
+		Title = "Липсва спорт?",
+		CardText = "Ако имате интерес към някой спорт, а него го няма, моля пишете ни на \"support@uroci-bg.bg\"."
+	};
 }
 
 <div class="container push">
+	<div class="mt-3 mb-1 text-center">
+		<partial name="_AttentionOrangeCardPartial"
+				 model="attentionCard" />
+	</div>
 	@foreach (var item in Model)
 	{
 			<h1>@item.TrainingTypeName</h1>

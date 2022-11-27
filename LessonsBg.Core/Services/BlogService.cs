@@ -1,7 +1,6 @@
 ﻿namespace LessonsBg.Core.Services
 {
 	using System.Collections.Generic;
-	using System.ComponentModel.Design;
 	using System.Threading.Tasks;
 
 	using LessonsBg.Core.Contracts;

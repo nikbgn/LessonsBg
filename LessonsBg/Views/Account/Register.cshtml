@@ -1,6 +1,11 @@
 ﻿@model RegisterViewModel;
 @{
     ViewData["Title"] = "Регистрация";
+    var attentionCard = new AttentionCardModel
+    {
+        Title = "Внимание",
+        CardText = "Ако желаете да регистрирате академия, моля попълнете \"академия\" в полето за фамилно име."
+    };
 }
 
 <h1 class="text-center mt-5">@ViewData["Title"]</h1>
@@ -10,10 +15,10 @@
         <form id="registerForm" method="post">
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="alert alert-warning" role="alert">
-                <h3>Внимание</h3>
-                Ако желаете да регистрирате академия, моля попълнете "академия" в полето за фамилно име.
-            </div>
+            <partial 
+                name="_AttentionOrangeCardPartial"
+                model="attentionCard"
+             />
             <div class="text-center mb-3">
                 <label asp-for="@Model.FirstName"></label>
                 <input class="form-control " placeholder="Вашето име / Име на академия" aria-required="true" asp-for="@Model.FirstName" />

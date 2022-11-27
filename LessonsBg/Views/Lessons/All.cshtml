@@ -2,9 +2,18 @@
 
 @{
 	ViewData["Title"] = "Всички предмети";
+	var attentionCard = new AttentionCardModel
+	{
+		Title = "Липсват учебни предмети?",
+		CardText = "Ако имате интерес към учебен предмет, а него го няма, моля пишете ни на \"support@uroci-bg.bg\"."
+	};
 }
 
 <div class="container push">
+	<div class="mt-3 mb-1 text-center">
+		<partial name="_AttentionOrangeCardPartial"
+				 model="attentionCard" />
+	</div>
 	@foreach (var item in Model)
 	{
 		<h1>@item.SubjectTypeName</h1>

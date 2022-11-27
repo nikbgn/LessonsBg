@@ -25,6 +25,7 @@
 		/// <summary>
 		/// Adds a subject to the teachers collection of subjects that he can teach.
 		/// </summary>
+		
 		public async Task AddSubjectToSubjectsCollectionAsync(Guid subjectId, string teacherId)
 		{
 			var subject = await context.Subjects.Include(s => s.ApplicationUsersSubjects).FirstOrDefaultAsync(s => s.Id == subjectId);
@@ -49,6 +50,10 @@
 
 		}
 
+		/// <summary>
+		/// Gets information needed to fill a teacher card for illustration purposes
+		/// </summary>
+		
 		public async Task<IEnumerable<TeacherCardModel>> GetTeachersCardsForSubjectAsync(string subjectName)
 			=> await context.Users
 				.Include(u => u.ApplicationUsersSubjects)
@@ -62,6 +67,10 @@
 					ProfileImage = u.ProfileImage
 				})
 				.ToListAsync();
+
+		/// <summary>
+		/// Gets teacher's subjects
+		/// </summary>
 
 		public async Task<IEnumerable<SubjectModel>> GetTeacherSubjectsAsync(string teacherId)
 		{
@@ -86,6 +95,7 @@
 		/// <summary>
 		/// Removes a subject from the teachers collection of subjects that he can teach.
 		/// </summary>
+		
 		public async Task RemoveSubjectFromSubjectsCollectionAsync(Guid subjectId, string teacherId)
 		{
 			var teacher = await context.Users

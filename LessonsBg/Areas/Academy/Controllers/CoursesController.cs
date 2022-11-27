@@ -57,7 +57,7 @@
 			}
 			var academy = User.Id();
 			var location = await locationService.GetLocationByIdAsync(model.CourseModel.LocationId);
-			var courseType = await courseService.GetCourseTypeById(model.CourseModel.CourseTypeId);
+			var courseType = await courseService.GetCourseTypeByIdAsync(model.CourseModel.CourseTypeId);
 			await academyService.CreateCourse(academy,model,location,courseType);
 			return Ok();
 		}

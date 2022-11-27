@@ -3,13 +3,19 @@
 
 @{
 	ViewData["Title"] = "Добави спорт";
+	var attentionCard = new AttentionCardModel
+	{
+		Title = "Добавяне на спорт",
+		CardText = "От тук можете да изберете спортове по които можете да преподавате."
+	};
 }
 
 <div class="text-center container push">
-	<div class="alert alert-warning mb-3 mt-3" role="alert">
-		<h3>Добавяне на спорт</h3>
-		<p>От тук можете да изберете спортове по който можете да преподавате.</p>
+	<div class="mt-3 text-center">
+		<partial name="_AttentionOrangeCardPartial"
+				 model="attentionCard" />
 	</div>
+
 	@foreach (var item in Model)
 	{
 			<div class="card text-center bg-info mt-2">

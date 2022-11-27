@@ -8,8 +8,23 @@
 
 	public interface ICourseService
 	{
-		public Task<CourseTypeModel> GetCourseTypeById(int id);
+		/// <summary>
+		/// Gets a course type by ID.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		public Task<CourseTypeModel> GetCourseTypeByIdAsync(int id);
 
+		/// <summary>
+		/// Gets course types.
+		/// </summary>
+		/// <returns></returns>
 		public Task<IEnumerable<CourseTypeModel>> GetCourseTypesAsync();
+
+		/// <summary>
+		/// Gets all courses.
+		/// </summary>
+		/// <returns></returns>
+		public Task<IEnumerable<CourseModel>> GetAllCoursesAsync();
 	}
 }

@@ -21,6 +21,10 @@
 			context = _context;
 		}
 
+		/// <summary>
+		/// Adds a training to the trainer's collection of sports that he can teach.
+		/// </summary>
+
 		public async Task AddTrainingToTrainingsCollectionAsync(Guid trainingId, string trainerId)
 		{
 			var training = await context.Trainings.Include(t => t.ApplicationUsersTrainings).FirstOrDefaultAsync(t => t.Id == trainingId);
@@ -43,6 +47,10 @@
 			}
 		}
 
+		/// <summary>
+		/// Gets information needed to fill a trainer card for illustration purposes
+		/// </summary>
+
 		public async Task<IEnumerable<TrainerCardModel>> GetTrainersCardsForTrainingAsync(string trainingName)
 			=> await context.Users
 				.Include(u => u.ApplicationUsersTrainings)
@@ -56,6 +64,10 @@
 					ProfileImage = u.ProfileImage
 				})
 				.ToListAsync();
+
+		/// <summary>
+		/// Gets trainer's sports
+		/// </summary>
 
 		public async Task<IEnumerable<TrainingModel>> GetTrainerTrainingsAsync(string trainerId)
 		{
@@ -76,6 +88,10 @@
 					Name = t.Training.Name
 				});
 		}
+
+		/// <summary>
+		/// Removes a training from the trainer's collection of sports that he can teach.
+		/// </summary>
 
 		public async Task RemoveTrainingFromTrainingsCollectionAsync(Guid trainingId, string trainerId)
 		{

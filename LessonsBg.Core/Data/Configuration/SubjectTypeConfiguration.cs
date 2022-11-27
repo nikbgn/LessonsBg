@@ -18,17 +18,17 @@
 				 new SubjectType()
 				{
 					Id = 1,
-					Type = "Academic"
+					Type = "Академични"
 				},
 				new SubjectType()
 				{
 					Id = 2,
-					Type = "Language"
+					Type = "Езици"
 				},
 				new SubjectType()
 				{
 					Id = 3,
-					Type = "IT"
+					Type = "ИТ"
 				}
 			};
 			return subjectTypes;

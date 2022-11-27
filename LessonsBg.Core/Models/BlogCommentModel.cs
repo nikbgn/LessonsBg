@@ -9,8 +9,11 @@
 		[Required]
 		public int Id { get; set; }
 
-		[Required]
-		[StringLength(BlogCommentTextMaxLength, MinimumLength = BlogCommentTextMinLength)]
+		[Required(ErrorMessage = ThisFieldIsRequiredErrorMessage)]
+		[StringLength(
+			BlogCommentTextMaxLength, 
+			MinimumLength = BlogCommentTextMinLength,
+			ErrorMessage = BlogCommentLengthErrorMessage)]
 		public string CommentText { get; set; } = null!;
 
 		[Required]
