@@ -1,0 +1,76 @@
+﻿@model CreateCourseModel
+
+@{
+	ViewData["Title"] = "Промяна на информация за курс";
+}
+
+<div class="container push">
+
+	<h2 class="text-center mt-2">@ViewBag.Title</h2>
+	<hr />
+
+	<div class="row">
+		<div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+			<form method="post">
+				@Html.HiddenFor(c => c.CourseModel.Id)
+				<div class="mb-3">
+					<label asp-for="@Model.CourseModel.CourseName" class="form-label"></label>
+					<input asp-for="@Model.CourseModel.CourseName" class="form-control" aria-required="true" />
+					<span asp-validation-for="CourseModel.CourseName" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="@Model.CourseModel.CourseDescription" class="form-label"></label>
+					<textarea asp-for="@Model.CourseModel.CourseDescription" class="form-control" aria-required="true"></textarea>
+					<span asp-validation-for="CourseModel.CourseDescription" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="@Model.CourseModel.CourseImageURL" class="form-label"></label>
+					<input asp-for="@Model.CourseModel.CourseImageURL" class="form-control" aria-required="true" />
+					<span asp-validation-for="CourseModel.CourseImageURL" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<label asp-for="@Model.CourseModel.Website" class="form-label"></label>
+					<input asp-for="@Model.CourseModel.Website" class="form-control" aria-required="true" />
+					<span asp-validation-for="CourseModel.Website" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label asp-for="@Model.CourseModel.PhoneNumber" class="form-label"></label>
+					<input asp-for="@Model.CourseModel.PhoneNumber" class="form-control" aria-required="true" />
+					<span asp-validation-for="CourseModel.PhoneNumber" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label asp-for="CourseModel.CourseTypeId"></label>
+					<select asp-for="CourseModel.CourseTypeId" class="form-select">
+						@foreach (var courseType in Model.CourseTypes)
+						{
+							<option value="@courseType.Id">@courseType.Type</option>
+						}
+					</select>
+				</div>
+
+				<div class="mb-3">
+					<label asp-for="CourseModel.LocationId"></label>
+					<select asp-for="CourseModel.LocationId" class="form-select">
+						@foreach (var location in Model.Locations)
+						{
+							<option value="@location.Id">@location.Name</option>
+						}
+					</select>
+				</div>
+
+
+
+				<div class="mb-3">
+					<input class="btn btn-success" type="submit" value="Добави" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

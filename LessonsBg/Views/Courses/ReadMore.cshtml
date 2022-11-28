@@ -1,0 +1,35 @@
+﻿@model ReadMoreCourseModel
+@{
+	ViewData["Title"] = Model.CourseModel.CourseName;
+}
+
+<div class="container push text-center">
+	<h1 class="mt-5">@Model.CourseModel.CourseName</h1>
+	<img src="@Model.CourseModel.CourseImageURL" class="img-fluid w-50 mt-2"/>
+	<hr />
+	<h3>За курса:</h3>
+	<p class="fw-bold">@Model.CourseModel.CourseDescription</p>
+
+	<table class="table table-info">
+		<tr class="table-info">
+			<th>Локация</th>
+			<th>Вид курс</th>
+			<th>Телефон за връзка</th>
+			@if (Model.CourseModel.Website != null)
+			{
+				<th>Уебсайт за повече информация</th>
+			}
+		</tr>
+		<tr class="table-info">
+			<td>@Model.LocationModel.Name , @Model.LocationModel.Region</td>
+			<td>@Model.CourseTypeModel.Type</td>
+			<td>@Model.CourseModel.PhoneNumber</td>
+			@if (Model.CourseModel.Website != null)
+			{
+				<th>@Model.CourseModel.Website</th>
+			}
+		</tr>
+	</table>
+
+	
+</div>

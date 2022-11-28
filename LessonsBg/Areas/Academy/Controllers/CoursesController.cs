@@ -55,11 +55,48 @@
 			{
 				return View(model);
 			}
+
 			var academy = User.Id();
 			var location = await locationService.GetLocationByIdAsync(model.CourseModel.LocationId);
 			var courseType = await courseService.GetCourseTypeByIdAsync(model.CourseModel.CourseTypeId);
 			await academyService.CreateCourse(academy,model,location,courseType);
-			return Ok();
+			return RedirectToAction(nameof(MyCourses));
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> MyCourses()
+		{
+			var academyId = User.Id();
+			var myCourses = await academyService.GetAcademyCoursesAsync(academyId);
+			return View(myCourses);
+		}
+
+		[HttpGet]
+		[Route("/Academy/Courses/EditCourse/{courseId}")]
+		public async Task<IActionResult> EditCourse(Guid courseId)
+		{
+			var course = await courseService.GetCourseByIdAsync(courseId);
+			var locations = await locationService.GetLocationsAsync();
+			var courseTypes = await courseService.GetCourseTypesAsync();
+
+			var model = new CreateCourseModel()
+			{
+				CourseModel = course,
+				Locations = locations,
+				CourseTypes = courseTypes
+			};
+
+			return View(model);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> EditCourse(CreateCourseModel model)
+		{
+			await academyService.EditCourseAsync(model);
+			return RedirectToAction(nameof(MyCourses));
+		}
+
+
+
 	}
 }

@@ -36,18 +36,9 @@ else
 								<img src="@item.PostThumbnailURL" class="card-img-top" alt="Blog post image thumbnail.">
 								<div class="card-body">
 									<h4>@item.Title</h4>
-									@if (item.PostText.Length > 10)
-									{
-										<p class="card-text" style="white-space: nowrap; text-overflow: ellipsis; overflow:hidden;">
+									<p class="card-text" style="white-space: nowrap; text-overflow: ellipsis; overflow:hidden;">
 											@item.PostText
-										</p>
-									}
-									else
-									{
-										<p class="card-text">
-											@item.PostText
-										</p>
-									}
+									</p>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
 											<form asp-route-blogPostId="@item.Id" asp-controller="Blog" asp-action="ViewPost" method="get">

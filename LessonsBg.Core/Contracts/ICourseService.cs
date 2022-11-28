@@ -26,5 +26,20 @@
 		/// </summary>
 		/// <returns></returns>
 		public Task<IEnumerable<CourseModel>> GetAllCoursesAsync();
+
+		/// <summary>
+		/// Gets all information about a specific course by ID.
+		/// </summary>
+		/// <param name="courseId">Course ID.</param>
+
+		public Task<ReadMoreCourseModel> GetCourseInDepthInfoById(Guid courseId);
+
+		/// <summary>
+		/// Gets a course by ID.
+		/// </summary>
+		/// <param name="courseId">Course ID.</param>
+		/// <returns></returns>
+
+		public Task<CourseModel> GetCourseByIdAsync(Guid courseId);
 	}
 }

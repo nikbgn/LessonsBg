@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<CourseModel>
 @{
-	ViewData["Title"] = "Курсове";
+	ViewData["Title"] = "Моите курсове";
 }
 
 @if (!Model.Any())
 {
 	<div class="container push">
-		<h1 class="display-1">Към момента няма курсове.</h1>
+		<h1 class="display-1">Нямате добавени курсове</h1>
 	</div>
 }
 else
@@ -34,8 +34,8 @@ else
 							</div>
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
-									<form asp-route-courseId="@course.Id" asp-controller="Courses" asp-action="ReadMore" method="get">
-										<input type="submit" class="btn btn-sm btn-success m-1" value="Допълнителна информация за курса" />
+									<form asp-route-courseId="@course.Id" asp-area="Academy" asp-controller="Courses" asp-action="EditCourse" method="get">
+										<input type="submit" class="btn btn-sm btn-success m-1" value="Промени информацията за курса" />
 									</form>
 								</div>
 							</div>
