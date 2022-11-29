@@ -13,13 +13,13 @@
 			<a class="btn btn-success" asp-controller="Account" asp-action="ChangeEmail">Промяна на е-майл.</a>
 		</div>
 		<div class="text-center mb-3">
-			<a class="btn btn-success" asp-controller="Account" asp-action="ChangeEmail">Промяна на парола.</a>
+			<a class="btn btn-success" asp-controller="Account" asp-action="ChangePassword">Промяна на парола.</a>
 		</div>
 		<div class="text-center mb-3">
-			<a class="btn btn-success" asp-controller="Account" asp-action="ChangeEmail">Промяна на телефонен номер.</a>
+			<a class="btn btn-success" asp-controller="Account" asp-action="ChangePhoneNumber">Промяна на телефонен номер.</a>
 		</div>
 		<div class="text-center mb-3">
-			<a class="btn btn-success" asp-controller="Account" asp-action="ChangeEmail">Промяна на профилна снимка.</a>
+			<a class="btn btn-success" asp-controller="Account" asp-action="ChangeAccountProfileImage">Промяна на профилна снимка.</a>
 		</div>
 
 		@if (User.IsInRole(RoleConstants.Teacher))

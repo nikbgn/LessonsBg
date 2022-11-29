@@ -1,7 +1,9 @@
 ﻿namespace LessonsBg.Controllers
 {
+    using LessonsBg.Core.Contracts;
     using LessonsBg.Core.Data;
     using LessonsBg.Core.Data.Models;
+    using LessonsBg.Extensions;
     using LessonsBg.Models;
 
     using Microsoft.AspNetCore.Authorization;
@@ -16,15 +18,18 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IAccountService accountService;
 
         public AccountController(
             UserManager<ApplicationUser> _userManager,
             SignInManager<ApplicationUser> _signInManager,
-            RoleManager<IdentityRole> _roleManager)
+            RoleManager<IdentityRole> _roleManager,
+            IAccountService _accountService)
         {
             userManager = _userManager;
             signInManager = _signInManager;
             roleManager = _roleManager;
+			accountService = _accountService;
         }
 
 
@@ -77,6 +82,8 @@
             if (model.RegistrationFlag == 2) await userManager.AddToRoleAsync(newUser, RoleConstants.Teacher);
             else if (model.RegistrationFlag == 3) await userManager.AddToRoleAsync(newUser, RoleConstants.Trainer);
             else if (model.RegistrationFlag == 4) await userManager.AddToRoleAsync(newUser, RoleConstants.Academy);
+
+   
 
             if (result.Succeeded)
             {
@@ -150,9 +157,117 @@
         [HttpGet]
         public IActionResult ChangeEmail()
         {
-            return View();
+            var model = new ChangeEmailViewModel();
+            return View(model);
+        }
+
+		[HttpPost]
+		public async Task<IActionResult> ChangeEmail(ChangeEmailViewModel model)
+		{
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                var currentUser = await userManager.FindByIdAsync(User.Id());
+                var token = await userManager.GenerateChangeEmailTokenAsync(currentUser, model.NewEmail);
+                await userManager.ChangeEmailAsync(currentUser, model.NewEmail, token);
+            }
+            catch (Exception ex)
+            {
+                //Log error
+                return BadRequest();
+            }
+			return RedirectToAction(nameof(Manage));
+		}
+
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            var model = new ChangePasswordViewModel();
+            return View(model);
+        }
+
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
+			try
+			{
+				var currentUser = await userManager.FindByIdAsync(User.Id());
+                await userManager.ChangePasswordAsync(currentUser, model.OldPassword, model.Password);
+			}
+			catch (Exception ex)
+			{
+				//Log error
+				return BadRequest();
+			}
+			return RedirectToAction(nameof(Manage));
+		}
+
+
+        [HttpGet]
+        public IActionResult ChangePhoneNumber()
+        {
+            var model = new ChangePhoneNumberViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePhoneNumber(ChangePhoneNumberViewModel model)
+        {
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
+
+			try
+			{
+				var currentUser = await userManager.FindByIdAsync(User.Id());
+                var token = await userManager.GenerateChangePhoneNumberTokenAsync(currentUser, model.NewPhoneNumber);
+                await userManager.ChangePhoneNumberAsync(currentUser, model.NewPhoneNumber, token);
+			}
+			catch (Exception ex)
+			{
+				//Log error
+				return BadRequest();
+			}
+			return RedirectToAction(nameof(Manage));
+		}
+
+
+        [HttpGet]
+        public IActionResult ChangeAccountProfileImage()
+        {
+            var model = new ChangeAccountProfileImageViewModel();
+            return View(model);
         }
 
 
-    }
+		[HttpPost]
+		public async Task<IActionResult> ChangeAccountProfileImage(ChangeAccountProfileImageViewModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
+
+			try
+			{
+                await accountService.ChangeUserProfileImageAsync(User.Id(), model.NewImage);
+			}
+			catch (Exception ex)
+			{
+				//Log error
+				return BadRequest();
+			}
+			return RedirectToAction(nameof(Manage));
+		}
+
+	}
 }

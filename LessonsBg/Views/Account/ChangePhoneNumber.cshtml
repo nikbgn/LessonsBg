@@ -1,7 +1,7 @@
-﻿@model ChangeEmailViewModel
+﻿@model ChangePhoneNumberViewModel
 
 @{
-	ViewData["Title"] = "Промяна на имейл";
+	ViewData["Title"] = "Промяна на телефонен номер";
 }
 
 <div class="row">
@@ -9,11 +9,11 @@
 		<div class="container push text-center">
 			<h1 class="mt-5 display-1">@ViewData["Title"]</h1>
 			<hr />
-			<form asp-area="" asp-controller="Account" asp-action="ChangeEmail" method="post">
+			<form asp-area="" asp-controller="Account" asp-action="ChangePhoneNumber" method="post">
 				<div class="mb-3 mt-3">
-					<label asp-for="@Model.NewEmail" class="fw-bold"></label>
-					<input asp-for="@Model.NewEmail" class="form-control" aria-required="true" />
-					<span asp-validation-for="@Model.NewEmail" class="text-danger"></span>
+					<label asp-for="@Model.NewPhoneNumber" class="fw-bold"></label>
+					<input asp-for="@Model.NewPhoneNumber" class="form-control" aria-required="true" />
+					<span asp-validation-for="@Model.NewPhoneNumber" class="text-danger"></span>
 				</div>
 				<div class="mb-3">
 					<input class="btn btn-success" type="submit" value="Промени" />

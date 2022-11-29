@@ -20,6 +20,7 @@
 			services.AddScoped<ILocationService, LocationService>();
 
 			services.AddScoped<ICourseService, CourseService>();
+			services.AddScoped<IAccountService, AccountService>();
 
 			return services;
 		}
