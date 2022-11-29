@@ -126,7 +126,7 @@
 					Id = bp.Id,
 					Title = bp.Title,
 					PostThumbnailURL = bp.PostThumbnailURL,
-					PostText = bp.PostText.Substring(0, 10),
+					PostText = bp.PostText,
 					CreatedOn = bp.CreatedOn
 				}).ToListAsync();
 
@@ -157,6 +157,7 @@
 					CreatedOn = bp.CreatedOn,
 					BlogComments = postComments
 				}).FirstOrDefaultAsync();
+
 
 			if(post == null)
 			{

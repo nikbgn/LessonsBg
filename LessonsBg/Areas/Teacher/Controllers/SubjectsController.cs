@@ -2,8 +2,6 @@
 {
 	using LessonsBg.Core.Contracts;
 	using LessonsBg.Core.Data;
-	using LessonsBg.Core.Models;
-	using LessonsBg.Core.Services;
 	using LessonsBg.Extensions;
 
 	using Microsoft.AspNetCore.Authorization;
@@ -25,7 +23,7 @@
 
 		[HttpGet]
 		public async Task<IActionResult> Add()
-		
+
 		{
 			var subjects = await subjectsService.GetAllSubjectsAsync();
 			return View(subjects);

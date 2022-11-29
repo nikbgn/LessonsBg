@@ -46,15 +46,27 @@
         /// <returns>All news</returns>
 
         public async Task<IEnumerable<NewsArticleModel>> GetAllNewsAsync()
-            => await context.NewsArticles
-                    .Select(n => new NewsArticleModel()
-                    {
-                        Id = n.Id,
-                        Name = n.Name,
-                        ImageURL = n.ImageURL,
-                        CreatedOn = n.CreatedOn,
-                        Text = n.Text
-                    }).ToListAsync();
+		{
+            try
+            {
+				var news = await context.NewsArticles
+						.Select(n => new NewsArticleModel()
+						{
+							Id = n.Id,
+							Name = n.Name,
+							ImageURL = n.ImageURL,
+							CreatedOn = n.CreatedOn,
+							Text = n.Text
+						}).ToListAsync();
+
+                return news;
+			}
+            catch (Exception)
+            {
+
+                throw new ApplicationException("Something went wrong while getting all news.");
+            }
+		}
 
 		/// <summary>
 		/// Gets a specific news article by ID.

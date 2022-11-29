@@ -1,8 +1,6 @@
 ﻿namespace LessonsBg.Controllers
 {
 	using LessonsBg.Core.Contracts;
-	using LessonsBg.Core.Data.Models;
-	using LessonsBg.Core.Services;
 
 	using Microsoft.AspNetCore.Mvc;
 
@@ -11,26 +9,29 @@
 
 		private readonly ICourseService courseService;
 		private readonly ILocationService locationService;
+		private readonly ILogger<CoursesController> logger;
 
-		public CoursesController(ICourseService _courseService, ILocationService _locationService)
+		public CoursesController(
+			ICourseService _courseService,
+			ILocationService _locationService,
+			ILogger<CoursesController> _logger
+			)
 		{
 			courseService = _courseService;
 			locationService = _locationService;
+			logger = _logger;
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> All()
 		{
+
 			try
 			{
 				var courses = await courseService.GetAllCoursesAsync();
 				return View(courses);
 			}
-			catch (Exception ex)
-			{
-				return BadRequest();
-			}
-
+			catch (Exception ex) { logger.LogError($"ERROR MESSAGE: {ex.Message}"); return BadRequest(); }
 		}
 
 
@@ -49,11 +50,7 @@
 				course.CourseTypeModel = courseType;
 				return View(course);
 			}
-			catch (Exception ex)
-			{
-				//LOG exception message!
-				return BadRequest();
-			}
+			catch (Exception ex) { logger.LogError($"ERROR MESSAGE: {ex.Message}"); return BadRequest(); }
 
 		}
 	}

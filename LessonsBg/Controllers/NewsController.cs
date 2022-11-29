@@ -1,65 +1,94 @@
 ﻿namespace LessonsBg.Controllers
 {
-    using LessonsBg.Core.Contracts;
-    using LessonsBg.Core.Data;
-    using LessonsBg.Core.Models;
+	using LessonsBg.Core.Contracts;
+	using LessonsBg.Core.Data;
+	using LessonsBg.Core.Models;
 
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.Authorization;
+	using Microsoft.AspNetCore.Mvc;
 
-    public class NewsController : Controller
-    {
-        private readonly INewsService newsService;
+	public class NewsController : Controller
+	{
+		private readonly INewsService newsService;
+		private readonly ILogger<NewsController> logger;
 
-        public NewsController(INewsService _newsService)
-        {
-            newsService = _newsService;
-        }
+		public NewsController(INewsService _newsService, ILogger<NewsController> _logger)
+		{
+			newsService = _newsService;
+			logger = _logger;
+		}
 
-        public async Task<IActionResult> Index()
-        {
-            var news = await newsService.GetAllNewsAsync();
-            return View(news);
-        }
+		[HttpGet]
+		public async Task<IActionResult> Index()
+		{
+			try
+			{
+				var news = await newsService.GetAllNewsAsync();
 
-        [HttpGet]
-        [Authorize(Roles = RoleConstants.Administrator)]
-        public IActionResult Add()
-        {
-            var model = new NewsArticleModel();
-            ViewData["Title"] = "Добави новина";
-            return View(model);
-        }
+				news = news
+					.OrderByDescending(a => a.CreatedOn.Day)
+					.ThenByDescending(a => a.CreatedOn.Month)
+					.ThenByDescending(a => a.CreatedOn.Year)
+					.ToList();
 
-        [HttpPost]
-        [Authorize(Roles = RoleConstants.Administrator)]
-        public async Task<IActionResult> Add(NewsArticleModel model)
-        {
-            ViewData["Title"] = "Добави новина";
+				return View(news);	
+			}
+			catch (Exception ex) { logger.LogError($"ERROR MESSAGE: {ex.Message}"); return BadRequest(); }
+		}
 
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+		[HttpGet]
+		[Authorize(Roles = RoleConstants.Administrator)]
+		public IActionResult Add()
+		{
+			try
+			{
+				var model = new NewsArticleModel();
+				ViewData["Title"] = "Добави новина";
+				return View(model);
+			}
+			catch (Exception ex) { logger.LogError($"ERROR MESSAGE: {ex.Message}"); return BadRequest(); }
+		}
 
-            await newsService.AddAsync(model);
+		[HttpPost]
+		[Authorize(Roles = RoleConstants.Administrator)]
+		public async Task<IActionResult> Add(NewsArticleModel model)
+		{
+			ViewData["Title"] = "Добави новина";
 
-            return RedirectToAction(nameof(Index));
-        }
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
+
+			try
+			{
+				await newsService.AddAsync(model);
+				return RedirectToAction(nameof(Index));
+			}
+			catch (Exception ex) { logger.LogError($"ERROR MESSAGE: {ex.Message}"); return BadRequest(); }
+		}
 
 		[Authorize(Roles = RoleConstants.Administrator)]
 		public async Task<IActionResult> Delete(Guid newsArticleId)
-        {
-            await newsService.RemoveAsync(newsArticleId);
-            return RedirectToAction(nameof(Index));
-        }
+		{
+			try
+			{
+				await newsService.RemoveAsync(newsArticleId);
+				return RedirectToAction(nameof(Index));
+			}
+			catch (Exception ex) { logger.LogError($"ERROR MESSAGE: {ex.Message}"); return BadRequest(); }
+		}
 
-        [HttpGet]
+		[HttpGet]
 		[Route("/News/ViewArticle/newsArticleId={newsArticleId}")]
 		public async Task<IActionResult> ViewArticle(Guid newsArticleId)
-        {
-            var article = await newsService.GetNewsArticleAsync(newsArticleId);
-            return View(article);
-        }
-    }
+		{
+			try
+			{
+				var article = await newsService.GetNewsArticleAsync(newsArticleId);
+				return View(article);
+			}
+			catch (Exception ex) { logger.LogError($"ERROR MESSAGE: {ex.Message}"); return BadRequest(); }
+		}
+	}
 }

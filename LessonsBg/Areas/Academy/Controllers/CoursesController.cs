@@ -18,7 +18,7 @@
 		private readonly ICourseService courseService;
 
 		public CoursesController(
-			IAcademyService _academyService, 
+			IAcademyService _academyService,
 			ILocationService _locationService,
 			ICourseService _courseService)
 		{
@@ -47,10 +47,10 @@
 		[HttpPost]
 		public async Task<IActionResult> CreateCourse(CreateCourseModel model)
 		{
-			
+
 			model.Locations = await locationService.GetLocationsAsync();
 			model.CourseTypes = await courseService.GetCourseTypesAsync();
-			
+
 			if (!ModelState.IsValid)
 			{
 				return View(model);
@@ -59,7 +59,7 @@
 			var academy = User.Id();
 			var location = await locationService.GetLocationByIdAsync(model.CourseModel.LocationId);
 			var courseType = await courseService.GetCourseTypeByIdAsync(model.CourseModel.CourseTypeId);
-			await academyService.CreateCourse(academy,model,location,courseType);
+			await academyService.CreateCourse(academy, model, location, courseType);
 			return RedirectToAction(nameof(MyCourses));
 		}
 
