@@ -36,43 +36,55 @@
 		public async Task<IActionResult> CreateCourse()
 		{
 
-			var locations = await locationService.GetLocationsAsync();
-			var courseTypes = await courseService.GetCourseTypesAsync();
-
-			var model = new CreateCourseModel()
+			try
 			{
-				CourseModel = new CourseModel(),
-				Locations = locations,
-				CourseTypes = courseTypes
-			};
-			return View(model);
+				var locations = await locationService.GetLocationsAsync();
+				var courseTypes = await courseService.GetCourseTypesAsync();
+
+				var model = new CreateCourseModel()
+				{
+					CourseModel = new CourseModel(),
+					Locations = locations,
+					CourseTypes = courseTypes
+				};
+				return View(model);
+			}
+			catch (Exception ex) { logger.LogError($"ERROR MESSAGE: {ex.Message}"); return BadRequest(); }
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> CreateCourse(CreateCourseModel model)
 		{
 
-			model.Locations = await locationService.GetLocationsAsync();
-			model.CourseTypes = await courseService.GetCourseTypesAsync();
-
-			if (!ModelState.IsValid)
+			try
 			{
-				return View(model);
-			}
+				model.Locations = await locationService.GetLocationsAsync();
+				model.CourseTypes = await courseService.GetCourseTypesAsync();
 
-			var academy = User.Id();
-			var location = await locationService.GetLocationByIdAsync(model.CourseModel.LocationId);
-			var courseType = await courseService.GetCourseTypeByIdAsync(model.CourseModel.CourseTypeId);
-			await academyService.CreateCourse(academy, model, location, courseType);
-			return RedirectToAction(nameof(MyCourses));
+				if (!ModelState.IsValid)
+				{
+					return View(model);
+				}
+
+				var academy = User.Id();
+				var location = await locationService.GetLocationByIdAsync(model.CourseModel.LocationId);
+				var courseType = await courseService.GetCourseTypeByIdAsync(model.CourseModel.CourseTypeId);
+				await academyService.CreateCourse(academy, model, location, courseType);
+				return RedirectToAction(nameof(MyCourses));
+			}
+			catch (Exception ex) { logger.LogError($"ERROR MESSAGE: {ex.Message}"); return BadRequest(); }
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> MyCourses()
 		{
-			var academyId = User.Id();
-			var myCourses = await academyService.GetAcademyCoursesAsync(academyId);
-			return View(myCourses);
+			try
+			{
+				var academyId = User.Id();
+				var myCourses = await academyService.GetAcademyCoursesAsync(academyId);
+				return View(myCourses);
+			}
+			catch (Exception ex) { logger.LogError($"ERROR MESSAGE: {ex.Message}"); return BadRequest(); }
 		}
 
 		[HttpGet]
@@ -109,8 +121,12 @@
 		[HttpPost]
 		public async Task<IActionResult> EditCourse(CreateCourseModel model)
 		{
-			await academyService.EditCourseAsync(model);
-			return RedirectToAction(nameof(MyCourses));
+			try
+			{
+				await academyService.EditCourseAsync(model);
+				return RedirectToAction(nameof(MyCourses));
+			}
+			catch (Exception ex) { logger.LogError($"ERROR MESSAGE: {ex.Message}"); return BadRequest(); }
 		}
 
 		[Route("/Academy/Courses/Delete/{courseId}")]

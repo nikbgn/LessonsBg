@@ -5,14 +5,21 @@
 	using LessonsBg.Core.Contracts;
 	using LessonsBg.Core.Data;
 
+	using Microsoft.Extensions.Logging;
+
 	public class AccountService : IAccountService
 	{
 
 		private readonly ApplicationDbContext context;
+		private readonly ILogger<AccountService> logger;
 
-		public AccountService(ApplicationDbContext _context)
+		public AccountService(
+			ApplicationDbContext _context,
+			ILogger<AccountService> _logger
+			)
 		{
 			context = _context;
+			logger = _logger;
 		}
 
 		/// <summary>
@@ -35,8 +42,8 @@
 			}
 			catch (Exception ex)
 			{
-				//Log exception.
-				throw new ApplicationException("Something went wrong, while trying to change the user's profile image.");
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Failed changing the user profile image.", ex);
 			}
 		}
 	}

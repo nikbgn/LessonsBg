@@ -8,15 +8,20 @@
 	using LessonsBg.Core.Models;
 
 	using Microsoft.EntityFrameworkCore;
+	using Microsoft.Extensions.Logging;
 
 	public class LocationService : ILocationService
 	{
 
 		private readonly ApplicationDbContext context;
+		private readonly ILogger<LocationService> logger;
 
-		public LocationService(ApplicationDbContext _context)
+		public LocationService(
+			ApplicationDbContext _context,
+			ILogger<LocationService> _logger)
 		{
 			context = _context;
+			logger = _logger;
 		}
 
 
@@ -25,14 +30,24 @@
 		/// </summary>
 
 		public async Task<IEnumerable<LocationModel>> GetLocationsAsync()
-			=> await context
-				.Locations
-				.Select(l => new LocationModel
-				{
-					Id = l.Id,
-					Name = l.Name,
-					Region = l.Region
-				}).ToListAsync();
+		{
+			try
+			{
+				return await context
+					.Locations
+					.Select(l => new LocationModel
+					{
+						Id = l.Id,
+						Name = l.Name,
+						Region = l.Region
+					}).ToListAsync();
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Failed getting locations.", ex);
+			}
+		}
 
 		/// <summary>
 		/// Gets location by ID.

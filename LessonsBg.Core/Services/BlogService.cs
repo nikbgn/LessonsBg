@@ -1,36 +1,42 @@
 ﻿namespace LessonsBg.Core.Services
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+	using System.Collections.Generic;
+	using System.Threading.Tasks;
 
-    using LessonsBg.Core.Contracts;
-    using LessonsBg.Core.Data;
-    using LessonsBg.Core.Data.Models;
-    using LessonsBg.Core.Models.Blog;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
+	using LessonsBg.Core.Contracts;
+	using LessonsBg.Core.Data;
+	using LessonsBg.Core.Data.Models;
+	using LessonsBg.Core.Models.Blog;
+
+	using Microsoft.EntityFrameworkCore;
+	using Microsoft.Extensions.Configuration;
+	using Microsoft.Extensions.Logging;
 
 
 
-    /// <summary>
-    /// Manipulates blog post data.
-    /// </summary>
+	/// <summary>
+	/// Manipulates blog post data.
+	/// </summary>
 
-    public class BlogService : IBlogService
+	public class BlogService : IBlogService
 	{
 		private readonly IConfiguration config;
 		private readonly ApplicationDbContext context;
+		private readonly ILogger<BlogService> logger;
 
 		/// <summary>
 		/// Inversion of control.
 		/// </summary>
 		/// <param name="_config">Application configuration.</param>
 
-		public BlogService(IConfiguration _config,
-			ApplicationDbContext _context)
+		public BlogService(
+			IConfiguration _config,
+			ApplicationDbContext _context,
+			ILogger<BlogService> _logger)
 		{
 			config = _config;
 			context = _context;
+			logger = _logger;
 		}
 
 		/// <summary>
@@ -40,17 +46,26 @@
 
 		public async Task AddAsync(BlogPostModel model)
 		{
-			var blogPost = new BlogPost()
+			try
 			{
-				Title = model.Title,
-				PostText = model.PostText,
-				CreatedOn = DateTime.Now,
-				PostThumbnailURL = model.PostThumbnailURL,
-				PostTextHeadingImageURL = model.PostTextHeadingImageURL
-			};
+				var blogPost = new BlogPost()
+				{
+					Title = model.Title,
+					PostText = model.PostText,
+					CreatedOn = DateTime.Now,
+					PostThumbnailURL = model.PostThumbnailURL,
+					PostTextHeadingImageURL = model.PostTextHeadingImageURL
+				};
 
-			await context.BlogPosts.AddAsync(blogPost);
-			await context.SaveChangesAsync();
+				await context.BlogPosts.AddAsync(blogPost);
+				await context.SaveChangesAsync();
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Failed adding a blog post.", ex);
+			}
+
 		}
 
 
@@ -67,20 +82,29 @@
 			var author = await context.Users.FirstOrDefaultAsync(u => u.Id == authorId);
 			var blogPost = await context.BlogPosts.FirstOrDefaultAsync(bp => bp.Id == blogPostId);
 
-			if(blogPost != null && author != null) 
+			if (blogPost != null && author != null)
 			{
-				var comment = new BlogComment()
+				try
 				{
-					CommentText = model.CommentText,
-					AuthorId = authorId,
-					BlogPostId = blogPostId,
-					CreatedOn = DateTime.Now,
-					Author = author,
-					BlogPost = blogPost
-				};
+					var comment = new BlogComment()
+					{
+						CommentText = model.CommentText,
+						AuthorId = authorId,
+						BlogPostId = blogPostId,
+						CreatedOn = DateTime.Now,
+						Author = author,
+						BlogPost = blogPost
+					};
 
-				await context.BlogComments.AddAsync(comment);
-				await context.SaveChangesAsync();
+					await context.BlogComments.AddAsync(comment);
+					await context.SaveChangesAsync();
+				}
+				catch (Exception ex)
+				{
+					logger.LogError(nameof(ex), ex.Message);
+					throw new ApplicationException("Adding a comment to the post failed.", ex);
+				}
+
 			}
 			else
 			{
@@ -101,16 +125,21 @@
 		{
 			var comment = await context.BlogComments.FirstOrDefaultAsync(c => c.BlogPostId == blogPostId && c.Id == commentId);
 
-			if(comment == null)
+			if (comment == null)
 			{
 				throw new ArgumentException("Comment does not exist");
 			}
 
-			context.BlogComments.Remove(comment);
-			await context.SaveChangesAsync();
-
-
-
+			try
+			{
+				context.BlogComments.Remove(comment);
+				await context.SaveChangesAsync();
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Deleting the comment failed.", ex);
+			}
 		}
 
 		/// <summary>
@@ -119,17 +148,25 @@
 		/// <returns>List of blog posts.</returns>
 
 		public async Task<IEnumerable<BlogPostModel>> GetAllAsync()
-			=> await context.BlogPosts
-				.Select(bp => new BlogPostModel()
-				{
-					Id = bp.Id,
-					Title = bp.Title,
-					PostThumbnailURL = bp.PostThumbnailURL,
-					PostText = bp.PostText,
-					CreatedOn = bp.CreatedOn
-				}).ToListAsync();
-
-
+		{
+			try
+			{
+				return await context.BlogPosts
+					.Select(bp => new BlogPostModel()
+					{
+						Id = bp.Id,
+						Title = bp.Title,
+						PostThumbnailURL = bp.PostThumbnailURL,
+						PostText = bp.PostText,
+						CreatedOn = bp.CreatedOn
+					}).ToListAsync();
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Getting all posts failed.", ex);
+			}
+		}
 
 		/// <summary>
 		/// Gets a specific blog post by ID
@@ -139,32 +176,39 @@
 
 		public async Task<BlogPostModel> GetPostAsync(Guid blogPostId)
 		{
-			var postComments = await context.BlogComments
-				.Where(bc => bc.BlogPostId == blogPostId)
-				.Include(a => a.Author)
-				.ToListAsync();
-
-			var post = await context.BlogPosts
-				.Where(bp => bp.Id == blogPostId)
-				.Select(bp => new BlogPostModel()
-				{
-					Id = bp.Id,
-					Title = bp.Title,
-					PostText = bp.PostText,
-					PostTextHeadingImageURL = bp.PostTextHeadingImageURL,
-					PostThumbnailURL = bp.PostThumbnailURL,
-					CreatedOn = bp.CreatedOn,
-					BlogComments = postComments
-				}).FirstOrDefaultAsync();
-
-
-			if(post == null)
+			try
 			{
-				throw new ArgumentException("Invalid post ID!");
+				var postComments = await context.BlogComments
+					.Where(bc => bc.BlogPostId == blogPostId)
+					.Include(a => a.Author)
+					.ToListAsync();
+
+				var post = await context.BlogPosts
+					.Where(bp => bp.Id == blogPostId)
+					.Select(bp => new BlogPostModel()
+					{
+						Id = bp.Id,
+						Title = bp.Title,
+						PostText = bp.PostText,
+						PostTextHeadingImageURL = bp.PostTextHeadingImageURL,
+						PostThumbnailURL = bp.PostThumbnailURL,
+						CreatedOn = bp.CreatedOn,
+						BlogComments = postComments
+					}).FirstOrDefaultAsync();
+
+
+				if (post == null)
+				{
+					throw new ArgumentException("Invalid post ID!");
+				}
+
+				return post;
 			}
-
-			return post;
-
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Failed getting the post by id.", ex);
+			}
 		}
 
 
@@ -181,12 +225,25 @@
 			var postComments = context.BlogComments.Where(c => c.BlogPostId == blogPostId).ToList();
 			if (post != null)
 			{
-				foreach (var comment in postComments)
+
+				try
 				{
-					context.BlogComments.Remove(comment);
+					foreach (var comment in postComments)
+					{
+						context.BlogComments.Remove(comment);
+					}
+					context.Remove(post);
+					await context.SaveChangesAsync();
 				}
-				context.Remove(post);
-				await context.SaveChangesAsync();
+				catch (Exception ex)
+				{
+					logger.LogError(nameof(ex), ex.Message);
+					throw new ApplicationException("Failed getting the post by id.", ex);
+				}
+			}
+			else
+			{
+				throw new ArgumentException("Invalid post ID!");
 			}
 		}
 	}

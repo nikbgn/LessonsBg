@@ -9,15 +9,21 @@
     using LessonsBg.Core.Data.Models;
     using LessonsBg.Core.Models.Trainer;
     using Microsoft.EntityFrameworkCore;
+	using Microsoft.Extensions.Logging;
 
-    public class TrainerService : ITrainerService
+	public class TrainerService : ITrainerService
 	{
 
 		private readonly ApplicationDbContext context;
+		private readonly ILogger<TrainerService> logger;
 
-		public TrainerService(ApplicationDbContext _context)
+		public TrainerService(
+			ApplicationDbContext _context,
+			ILogger<TrainerService> _logger
+			)
 		{
 			context = _context;
+			logger = _logger;
 		}
 
 		/// <summary>
@@ -32,18 +38,27 @@
 			if (training == null) throw new ArgumentException("Invalid training id!");
 			if (trainer == null) throw new ArgumentException("Invalid trainer id!");
 
-			if(!training.ApplicationUsersTrainings.Any(u => u.ApplicationUserId == trainerId))
+			try
 			{
-				trainer.ApplicationUsersTrainings.Add(new ApplicationUserTraining()
+				if (!training.ApplicationUsersTrainings.Any(u => u.ApplicationUserId == trainerId))
 				{
-					TrainingId = training.Id,
-					ApplicationUserId = trainer.Id,
-					ApplicationUser = trainer,
-					Training = training
-				});
+					trainer.ApplicationUsersTrainings.Add(new ApplicationUserTraining()
+					{
+						TrainingId = training.Id,
+						ApplicationUserId = trainer.Id,
+						ApplicationUser = trainer,
+						Training = training
+					});
 
-				await context.SaveChangesAsync();
+					await context.SaveChangesAsync();
+				}
 			}
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Adding training to trainings collection failed.", ex);
+			}
+
 		}
 
 		/// <summary>
@@ -51,18 +66,28 @@
 		/// </summary>
 
 		public async Task<IEnumerable<TrainerCardModel>> GetTrainersCardsForTrainingAsync(string trainingName)
-			=> await context.Users
-				.Include(u => u.ApplicationUsersTrainings)
-				.Where(u => u.ApplicationUsersTrainings
-				.Any(t => t.Training.Name == trainingName))
-				.Select(u => new TrainerCardModel
-				{
-					FirstName = u.FirstName,
-					LastName = u.LastName,
-					PhoneNumber = u.PhoneNumber,
-					ProfileImage = u.ProfileImage
-				})
-				.ToListAsync();
+		{
+			try
+			{
+				return await context.Users
+					.Include(u => u.ApplicationUsersTrainings)
+					.Where(u => u.ApplicationUsersTrainings
+					.Any(t => t.Training.Name == trainingName))
+					.Select(u => new TrainerCardModel
+					{
+						FirstName = u.FirstName,
+						LastName = u.LastName,
+						PhoneNumber = u.PhoneNumber,
+						ProfileImage = u.ProfileImage
+					})
+					.ToListAsync();
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Failed getting trainer cards for training.", ex);
+			}
+		}
 
 		/// <summary>
 		/// Gets trainer's sports
@@ -79,13 +104,21 @@
 
 			if (trainer == null) throw new ArgumentException("Invalid user ID");
 
-			return trainer.ApplicationUsersTrainings
-				.Select(t => new TrainingModel
-				{
-					Id = t.TrainingId,
-					TrainingTypeId = t.Training.TrainingTypeId,
-					Name = t.Training.Name
-				});
+			try
+			{
+				return trainer.ApplicationUsersTrainings
+					.Select(t => new TrainingModel
+					{
+						Id = t.TrainingId,
+						TrainingTypeId = t.Training.TrainingTypeId,
+						Name = t.Training.Name
+					});
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Failed getting trainer's trainings.", ex);
+			}
 		}
 
 		/// <summary>
@@ -107,8 +140,20 @@
 
 			if(training != null)
 			{
-				trainer.ApplicationUsersTrainings.Remove(training);
-				await context.SaveChangesAsync();
+				try
+				{
+					trainer.ApplicationUsersTrainings.Remove(training);
+					await context.SaveChangesAsync();
+				}
+				catch (Exception ex)
+				{
+					logger.LogError(nameof(ex), ex.Message);
+					throw new ApplicationException("Failed removing training from trainings collection.", ex);
+				}
+			}
+			else
+			{
+				throw new ArgumentException("Invalid training ID.");
 			}
 		}
 	}

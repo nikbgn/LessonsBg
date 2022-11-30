@@ -7,15 +7,20 @@
     using LessonsBg.Core.Data;
     using LessonsBg.Core.Models.Subject;
     using Microsoft.EntityFrameworkCore;
+	using Microsoft.Extensions.Logging;
 
-    public class SubjectsService : ISubjectsService
+	public class SubjectsService : ISubjectsService
 	{
 
 		private readonly ApplicationDbContext context;
+		private readonly ILogger<SubjectsService> logger;
 
-		public SubjectsService(ApplicationDbContext _context)
+		public SubjectsService(
+			ApplicationDbContext _context,
+			ILogger<SubjectsService> _logger)
 		{
 			context = _context;
+			logger = _logger;
 		}
 
 		/// <summary>
@@ -23,22 +28,30 @@
 		/// </summary>
 		public async Task<List<AllLessonsModel>> GetAllLessonsAsync(List<string> subjectTypesNames)
 		{
-			var allLessons = new List<AllLessonsModel>();
-
-			foreach (var subjectType in subjectTypesNames)
+			try
 			{
-				var newModel = new AllLessonsModel();
-				newModel.SubjectTypeName = subjectType;
+				var allLessons = new List<AllLessonsModel>();
 
-				newModel.SubjectsOfSubjectTypeName = await context.Subjects
-					.Where(s => s.SubjectType.Type == subjectType)
-					.Select(s => s.Name)
-					.ToListAsync();
+				foreach (var subjectType in subjectTypesNames)
+				{
+					var newModel = new AllLessonsModel();
+					newModel.SubjectTypeName = subjectType;
 
-				allLessons.Add(newModel);
+					newModel.SubjectsOfSubjectTypeName = await context.Subjects
+						.Where(s => s.SubjectType.Type == subjectType)
+						.Select(s => s.Name)
+						.ToListAsync();
+
+					allLessons.Add(newModel);
+				}
+
+				return allLessons;
 			}
-
-			return allLessons;
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Failed getting all lessons.", ex);
+			}
 		}
 
 
@@ -47,16 +60,26 @@
 		/// </summary>
 		/// <returns>All subjects</returns>
 		public async Task<IEnumerable<SubjectModel>> GetAllSubjectsAsync()
-			=> await context
-				.Subjects
-				.Include(s => s.SubjectType)
-				.Select(s => new SubjectModel()
-				{
-					Id = s.Id,
-					Name = s.Name,
-					SubjectTypeId = s.SubjectTypeId
-				})
-				.ToListAsync();
+		{
+			try
+			{
+				return await context
+					.Subjects
+					.Include(s => s.SubjectType)
+					.Select(s => new SubjectModel()
+					{
+						Id = s.Id,
+						Name = s.Name,
+						SubjectTypeId = s.SubjectTypeId
+					})
+					.ToListAsync();
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Failed getting all subjects.", ex);
+			}
+		}
 
 
 		/// <summary>
@@ -64,20 +87,40 @@
 		/// </summary>
 		
 		public async Task<List<string>> GetAllSubjectTypesNamesAsync()
-			=>	await context
-					.SubjectTypes
-					.Select(s => s.Type)
-					.ToListAsync();
+		{
+			try
+			{
+				return	await context
+						.SubjectTypes
+						.Select(s => s.Type)
+						.ToListAsync();
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Failed getting all subject type names.", ex);
+			}
+		}
 
 		/// <summary>
 		/// Gets all subjects names
 		/// </summary>
 
 		public async Task<List<string>> GetAllSubjectNamesAsync()
-			=> await context
-					.Subjects
-					.Select(s => s.Name)
-					.ToListAsync();
+		{
+			try
+			{
+				return await context
+						.Subjects
+						.Select(s => s.Name)
+						.ToListAsync();
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Failed getting all subject names.", ex);
+			}
+		}
 
 
 	}

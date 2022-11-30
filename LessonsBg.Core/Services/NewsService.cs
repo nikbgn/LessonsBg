@@ -9,15 +9,21 @@
     using LessonsBg.Core.Models;
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
 
     public class NewsService : INewsService
     {
 
         private readonly ApplicationDbContext context;
+        private readonly ILogger<NewsService> logger;
 
-        public NewsService(ApplicationDbContext _context)
+        public NewsService(
+            ApplicationDbContext _context,
+            ILogger<NewsService> _logger
+            )
         {
             context = _context;
+            logger = _logger;
         }
 
         /// <summary>
@@ -27,17 +33,25 @@
 
         public async Task AddAsync(NewsArticleModel newsArticleModel)
         {
-
-            var newsArticle = new NewsArticle()
+            try
             {
-                Name = newsArticleModel.Name,
-                Text = newsArticleModel.Text,
-                ImageURL = newsArticleModel.ImageURL,
-                CreatedOn = DateTime.Now
-            };
+			    var newsArticle = new NewsArticle()
+                {
+                    Name = newsArticleModel.Name,
+                    Text = newsArticleModel.Text,
+                    ImageURL = newsArticleModel.ImageURL,
+                    CreatedOn = DateTime.Now
+                };
 
-            await context.AddAsync(newsArticle);
-            await context.SaveChangesAsync();
+                await context.AddAsync(newsArticle);
+                await context.SaveChangesAsync();
+            }
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Failed adding news article.", ex);
+			}
+
         }
 
         /// <summary>
@@ -61,11 +75,11 @@
 
                 return news;
 			}
-            catch (Exception)
-            {
-
-                throw new ApplicationException("Something went wrong while getting all news.");
-            }
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Failed getting all news.", ex);
+			}
 		}
 
 		/// <summary>
@@ -104,8 +118,20 @@
             var articleToDelete = context.NewsArticles.FirstOrDefault(a => a.Id == newsArticleId);
             if(articleToDelete != null)
             {
-                context.NewsArticles.Remove(articleToDelete);
-                await context.SaveChangesAsync();
+                try
+                {
+                    context.NewsArticles.Remove(articleToDelete);
+                    await context.SaveChangesAsync();
+                }
+				catch (Exception ex)
+				{
+					logger.LogError(nameof(ex), ex.Message);
+					throw new ApplicationException("Failed removing a news article.", ex);
+				}
+			}
+            else
+            {
+                throw new ArgumentException("Invalid news article ID!");
             }
         }
 	}

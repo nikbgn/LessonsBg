@@ -1,63 +1,74 @@
 ﻿namespace LessonsBg.Core.Services
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+	using System.Collections.Generic;
+	using System.Threading.Tasks;
 
-    using LessonsBg.Core.Contracts;
-    using LessonsBg.Core.Data;
-    using LessonsBg.Core.Data.Models;
-    using LessonsBg.Core.Models;
-    using LessonsBg.Core.Models.Course;
-    using Microsoft.EntityFrameworkCore;
+	using LessonsBg.Core.Contracts;
+	using LessonsBg.Core.Data;
+	using LessonsBg.Core.Data.Models;
+	using LessonsBg.Core.Models;
+	using LessonsBg.Core.Models.Course;
 
-    public class AcademyService : IAcademyService
+	using Microsoft.EntityFrameworkCore;
+	using Microsoft.Extensions.Logging;
+
+	public class AcademyService : IAcademyService
 	{
 
 		private readonly ApplicationDbContext context;
+		private readonly ILogger<AcademyService> logger;
 
-		public AcademyService(ApplicationDbContext _context)
+		public AcademyService(
+			ApplicationDbContext _context,
+			ILogger<AcademyService> _logger)
 		{
 			context = _context;
+			logger = _logger;
 		}
 
 		/// <summary>
 		/// Creates a course.
 		/// </summary>
 		/// <param name="academyId">The identifier of the academy that is creating the course.</param>s
-		
+
 		public async Task CreateCourse(string academyId, CreateCourseModel model, LocationModel locationModel, CourseTypeModel courseTypeModel)
 		{
 			var academy = await context.Users.Include(c => c.ApplicationUsersCourses).FirstOrDefaultAsync(a => a.Id == academyId);
 
 			if (academy == null) throw new ArgumentException("Invalid academy id!");
 
-			var course = new Course()
+			try
 			{
-				Id = model.CourseModel.Id,
-				CourseName = model.CourseModel.CourseName,
-				CourseImageURL = model.CourseModel.CourseImageURL,
-				CourseDescription = model.CourseModel.CourseDescription,
-				CourseTypeId = courseTypeModel.Id,
-				LocationId = locationModel.Id,
-				Website = model.CourseModel.Website,
-				PhoneNumber = model.CourseModel.PhoneNumber
-			};
-
-			if(!academy.ApplicationUsersCourses.Any(c => c.CourseId == course.Id))
-			{
-				academy.ApplicationUsersCourses.Add(new ApplicationUserCourse()
+				var course = new Course()
 				{
-					ApplicationUser = academy,
-					ApplicationUserId = academy.Id,
-					Course = course,
-					CourseId = course.Id
-				});
+					Id = model.CourseModel.Id,
+					CourseName = model.CourseModel.CourseName,
+					CourseImageURL = model.CourseModel.CourseImageURL,
+					CourseDescription = model.CourseModel.CourseDescription,
+					CourseTypeId = courseTypeModel.Id,
+					LocationId = locationModel.Id,
+					Website = model.CourseModel.Website,
+					PhoneNumber = model.CourseModel.PhoneNumber
+				};
 
-				await context.SaveChangesAsync();
+				if (!academy.ApplicationUsersCourses.Any(c => c.CourseId == course.Id))
+				{
+					academy.ApplicationUsersCourses.Add(new ApplicationUserCourse()
+					{
+						ApplicationUser = academy,
+						ApplicationUserId = academy.Id,
+						Course = course,
+						CourseId = course.Id
+					});
+
+					await context.SaveChangesAsync();
+				}
 			}
-
-
-
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Failed to create course.", ex);
+			}
 		}
 
 
@@ -90,8 +101,8 @@
 			}
 			catch (Exception ex)
 			{
-				//Log the error
-				throw new Exception("Failed to edit course.");
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Failed to edit course.", ex);
 			}
 
 		}
@@ -112,18 +123,27 @@
 
 			if (academy == null) throw new ArgumentException("Invalid academy id!");
 
-			return academy.ApplicationUsersCourses
-				.Select(c => new CourseModel
-				{
-					Id = c.CourseId,
-					CourseDescription = c.Course.CourseDescription,
-					CourseImageURL = c.Course.CourseImageURL,
-					CourseName = c.Course.CourseName,
-					CourseTypeId = c.Course.CourseTypeId,
-					LocationId = c.Course.LocationId,
-					PhoneNumber = c.Course.PhoneNumber,
-					Website = c.Course.Website
-				}).ToList();
+			try
+			{
+				return academy.ApplicationUsersCourses
+					.Select(c => new CourseModel
+					{
+						Id = c.CourseId,
+						CourseDescription = c.Course.CourseDescription,
+						CourseImageURL = c.Course.CourseImageURL,
+						CourseName = c.Course.CourseName,
+						CourseTypeId = c.Course.CourseTypeId,
+						LocationId = c.Course.LocationId,
+						PhoneNumber = c.Course.PhoneNumber,
+						Website = c.Course.Website
+					}).ToList();
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Getting academy courses failed.", ex);
+			}
+
 
 		}
 
@@ -147,8 +167,8 @@
 			}
 			catch (Exception ex)
 			{
-
-				throw new Exception($"Something went wrong in checking in {nameof(CheckAcademyIsAuthorOfCourse)}");
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Checking if the academy is the author of the course failed.", ex);
 			}
 
 		}
@@ -158,7 +178,7 @@
 		/// </summary>
 		/// <param name="courseId">Course ID</param>
 		/// <returns></returns>
-		
+
 		public async Task RemoveCourse(Guid courseId)
 		{
 			var course = await context.Courses.FirstOrDefaultAsync(c => c.Id == courseId);
@@ -170,7 +190,8 @@
 			}
 			catch (Exception ex)
 			{
-				throw new Exception($"Something went wrong in {nameof(RemoveCourse)}");
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Failed removing course.", ex);
 			}
 		}
 	}

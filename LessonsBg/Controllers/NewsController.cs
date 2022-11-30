@@ -12,7 +12,9 @@
 		private readonly INewsService newsService;
 		private readonly ILogger<NewsController> logger;
 
-		public NewsController(INewsService _newsService, ILogger<NewsController> _logger)
+		public NewsController(
+			INewsService _newsService,
+			ILogger<NewsController> _logger)
 		{
 			newsService = _newsService;
 			logger = _logger;
