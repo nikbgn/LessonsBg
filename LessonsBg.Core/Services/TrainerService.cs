@@ -1,17 +1,16 @@
 ﻿namespace LessonsBg.Core.Services
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Threading.Tasks;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
-	using LessonsBg.Core.Contracts;
-	using LessonsBg.Core.Data;
-	using LessonsBg.Core.Data.Models;
-	using LessonsBg.Core.Models;
+    using LessonsBg.Core.Contracts;
+    using LessonsBg.Core.Data;
+    using LessonsBg.Core.Data.Models;
+    using LessonsBg.Core.Models.Trainer;
+    using Microsoft.EntityFrameworkCore;
 
-	using Microsoft.EntityFrameworkCore;
-
-	public class TrainerService : ITrainerService
+    public class TrainerService : ITrainerService
 	{
 
 		private readonly ApplicationDbContext context;

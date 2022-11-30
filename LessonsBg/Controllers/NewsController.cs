@@ -78,7 +78,7 @@
 		}
 
 		[HttpGet]
-		[Route("/News/ViewArticle/newsArticleId={newsArticleId}")]
+		[Route("/News/ViewArticle/{newsArticleId}")]
 		public async Task<IActionResult> ViewArticle(Guid newsArticleId)
 		{
 			try

@@ -1,18 +1,18 @@
 ﻿namespace LessonsBg.Controllers
 {
-	using LessonsBg.Core.Contracts;
-	using LessonsBg.Core.Data;
-	using LessonsBg.Core.Models;
-	using LessonsBg.Extensions;
+    using LessonsBg.Core.Contracts;
+    using LessonsBg.Core.Data;
+    using LessonsBg.Core.Models.Blog;
+    using LessonsBg.Extensions;
 
-	using Microsoft.AspNetCore.Authorization;
-	using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
-	/// <summary>
-	/// Blog with interesting posts.
-	/// </summary>
+    /// <summary>
+    /// Blog with interesting posts.
+    /// </summary>
 
-	public class BlogController : Controller
+    public class BlogController : Controller
 	{
 		private readonly IBlogService blogService;
 		private readonly ILogger<BlogController> logger;
@@ -108,7 +108,7 @@
 			{
 				authorId = User.Id();
 				await blogService.AddCommentAsync(model, authorId, blogPostId);
-				return RedirectToAction(nameof(Index));
+				return RedirectToAction(nameof(ViewPost), new { blogPostId });
 			}
 			catch (Exception ex) { logger.LogError($"ERROR MESSAGE: {ex.Message}"); return BadRequest(); }
 		}
@@ -119,7 +119,7 @@
 			try
 			{
 				await blogService.DeleteCommentAsync(blogPostId, commentId);
-				return RedirectToAction(nameof(Index));
+				return RedirectToAction(nameof(ViewPost), new {blogPostId});
 			}
 			catch (Exception ex) { logger.LogError($"ERROR MESSAGE: {ex.Message}"); return BadRequest(); }
 		}

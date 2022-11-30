@@ -1,16 +1,16 @@
 ﻿namespace LessonsBg.Core.Services
 {
-	using System;
-	using System.Threading.Tasks;
+    using System;
+    using System.Threading.Tasks;
 
-	using LessonsBg.Core.Contracts;
-	using LessonsBg.Core.Data;
-	using LessonsBg.Core.Data.Models;
-	using LessonsBg.Core.Models;
+    using LessonsBg.Core.Contracts;
+    using LessonsBg.Core.Data;
+    using LessonsBg.Core.Data.Models;
+    using LessonsBg.Core.Models.Subject;
+    using LessonsBg.Core.Models.Teacher;
+    using Microsoft.EntityFrameworkCore;
 
-	using Microsoft.EntityFrameworkCore;
-
-	public class TeacherService : ITeacherService
+    public class TeacherService : ITeacherService
 	{
 
 

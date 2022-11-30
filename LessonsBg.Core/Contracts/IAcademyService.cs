@@ -1,13 +1,14 @@
 ﻿namespace LessonsBg.Core.Contracts
 {
-	using LessonsBg.Core.Models;
+    using LessonsBg.Core.Models;
+    using LessonsBg.Core.Models.Course;
 
 
-	/// <summary>
-	/// Interface for Academy service.
-	/// </summary>
+    /// <summary>
+    /// Interface for Academy service.
+    /// </summary>
 
-	public interface IAcademyService
+    public interface IAcademyService
 	{
 		/// <summary>
 		/// Creates a course.

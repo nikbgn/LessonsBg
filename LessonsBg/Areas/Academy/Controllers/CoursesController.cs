@@ -1,15 +1,15 @@
 ﻿namespace LessonsBg.Areas.Academy.Controllers
 {
-	using LessonsBg.Core.Contracts;
-	using LessonsBg.Core.Data;
-	using LessonsBg.Core.Models;
-	using LessonsBg.Extensions;
+    using LessonsBg.Core.Contracts;
+    using LessonsBg.Core.Data;
+    using LessonsBg.Core.Models.Course;
+    using LessonsBg.Extensions;
 
-	using Microsoft.AspNetCore.Authorization;
-	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.Extensions.Logging;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
 
-	[Area("Academy")]
+    [Area("Academy")]
 	[Authorize(Roles = $"{RoleConstants.Administrator}, {RoleConstants.Academy}")]
 	public class CoursesController : Controller
 	{

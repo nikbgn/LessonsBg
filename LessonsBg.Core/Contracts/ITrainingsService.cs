@@ -1,12 +1,12 @@
 ﻿namespace LessonsBg.Core.Contracts
 {
-	using LessonsBg.Core.Models;
+    using LessonsBg.Core.Models.Trainer;
 
-	/// <summary>
-	/// Interface for the Trainings Service.
-	/// </summary>
+    /// <summary>
+    /// Interface for the Trainings Service.
+    /// </summary>
 
-	public interface ITrainingsService
+    public interface ITrainingsService
 	{
 		/// <summary>
 		/// Gets all trainings

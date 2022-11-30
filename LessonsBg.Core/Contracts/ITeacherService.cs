@@ -1,13 +1,14 @@
 ﻿namespace LessonsBg.Core.Contracts
 {
-	using LessonsBg.Core.Models;
+    using LessonsBg.Core.Models.Subject;
+    using LessonsBg.Core.Models.Teacher;
 
 
-	/// <summary>
-	/// Interface for the Teacher Service.
-	/// </summary>
+    /// <summary>
+    /// Interface for the Teacher Service.
+    /// </summary>
 
-	public interface ITeacherService
+    public interface ITeacherService
 	{
 		/// <summary>
 		/// Adds a subject to the teacher's collection of subjects that he can teach.

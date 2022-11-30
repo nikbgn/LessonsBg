@@ -1,23 +1,22 @@
 ﻿namespace LessonsBg.Core.Services
 {
-	using System.Collections.Generic;
-	using System.Threading.Tasks;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
-	using LessonsBg.Core.Contracts;
-	using LessonsBg.Core.Data;
-	using LessonsBg.Core.Data.Models;
-	using LessonsBg.Core.Models;
-
-	using Microsoft.EntityFrameworkCore;
-	using Microsoft.Extensions.Configuration;
-
+    using LessonsBg.Core.Contracts;
+    using LessonsBg.Core.Data;
+    using LessonsBg.Core.Data.Models;
+    using LessonsBg.Core.Models.Blog;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
 
 
-	/// <summary>
-	/// Manipulates blog post data.
-	/// </summary>
 
-	public class BlogService : IBlogService
+    /// <summary>
+    /// Manipulates blog post data.
+    /// </summary>
+
+    public class BlogService : IBlogService
 	{
 		private readonly IConfiguration config;
 		private readonly ApplicationDbContext context;

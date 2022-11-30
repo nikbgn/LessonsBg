@@ -1,12 +1,12 @@
 ﻿namespace LessonsBg.Core.Contracts
 {
-	using LessonsBg.Core.Models;
+    using LessonsBg.Core.Models.Course;
 
-	/// <summary>
-	/// Course service interface.
-	/// </summary>
+    /// <summary>
+    /// Course service interface.
+    /// </summary>
 
-	public interface ICourseService
+    public interface ICourseService
 	{
 		/// <summary>
 		/// Gets a course type by ID.

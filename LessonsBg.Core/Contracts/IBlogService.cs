@@ -1,6 +1,6 @@
 ﻿namespace LessonsBg.Core.Contracts
 {
-    using LessonsBg.Core.Models;
+    using LessonsBg.Core.Models.Blog;
 
     /// <summary>
     /// Manipulates blog post data.

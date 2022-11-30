@@ -1,15 +1,14 @@
 ﻿namespace LessonsBg.Core.Services
 {
-	using System.Collections.Generic;
-	using System.Threading.Tasks;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
-	using LessonsBg.Core.Contracts;
-	using LessonsBg.Core.Data;
-	using LessonsBg.Core.Models;
+    using LessonsBg.Core.Contracts;
+    using LessonsBg.Core.Data;
+    using LessonsBg.Core.Models.Course;
+    using Microsoft.EntityFrameworkCore;
 
-	using Microsoft.EntityFrameworkCore;
-
-	public class CourseService : ICourseService
+    public class CourseService : ICourseService
 	{
 
 		private readonly ApplicationDbContext context;

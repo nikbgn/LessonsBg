@@ -1,12 +1,12 @@
 ﻿namespace LessonsBg.Core.Contracts
 {
-	using LessonsBg.Core.Models;
+    using LessonsBg.Core.Models.Subject;
 
-	/// <summary>
-	/// Interface for the Subjects Service.
-	/// </summary>
+    /// <summary>
+    /// Interface for the Subjects Service.
+    /// </summary>
 
-	public interface ISubjectsService
+    public interface ISubjectsService
 	{
 
 		/// <summary>

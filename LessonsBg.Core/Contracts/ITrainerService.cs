@@ -1,13 +1,13 @@
 ﻿namespace LessonsBg.Core.Contracts
 {
-	using LessonsBg.Core.Models;
+    using LessonsBg.Core.Models.Trainer;
 
 
-	/// <summary>
-	/// Interface for the Trainer Service.
-	/// </summary>
+    /// <summary>
+    /// Interface for the Trainer Service.
+    /// </summary>
 
-	public interface ITrainerService
+    public interface ITrainerService
 	{
 		/// <summary>
 		/// Adds a training to the trainer's collection of sports that he can teach.
