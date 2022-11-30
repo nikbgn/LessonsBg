@@ -5,7 +5,7 @@
 
 @if (!Model.Any())
 {
-	<div class="container push">
+	<div class="container text-center push">
 		<h1 class="display-1">Нямате добавени курсове</h1>
 	</div>
 }
@@ -34,8 +34,9 @@ else
 							</div>
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
-									<form asp-route-courseId="@course.Id" asp-area="Academy" asp-controller="Courses" asp-action="EditCourse" method="get">
-										<input type="submit" class="btn btn-sm btn-success m-1" value="Промени информацията за курса" />
+									<form method="get">
+										<input type="submit" class="btn btn-sm btn-success m-1" value="Промени информацията за курса" asp-route-courseId="@course.Id" asp-area="Academy" asp-controller="Courses" asp-action="EditCourse" />
+										<input type="submit" class="btn btn-sm btn-danger m-1" value="Изтрий курса" asp-route-courseId="@course.Id" asp-area="Academy" asp-controller="Courses" asp-action="Delete" />
 									</form>
 								</div>
 							</div>

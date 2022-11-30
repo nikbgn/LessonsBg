@@ -45,7 +45,7 @@
 			{
 				Title = model.Title,
 				PostText = model.PostText,
-				CreatedOn = DateTime.Now.Date,
+				CreatedOn = DateTime.Now,
 				PostThumbnailURL = model.PostThumbnailURL,
 				PostTextHeadingImageURL = model.PostTextHeadingImageURL
 			};

@@ -72,7 +72,7 @@
 		}
 
 		[HttpGet]
-		[Route("/Blog/ViewPost/blogPostId={blogPostId}")]
+		[Route("/Blog/ViewPost/{blogPostId}")]
 		public async Task<IActionResult> ViewPost(Guid blogPostId)
 		{
 
@@ -81,15 +81,14 @@
 				var post = await blogService.GetPostAsync(blogPostId);
 
 				post.BlogComments = post.BlogComments
-					.OrderByDescending(c => c.CreatedOn.Day)
-					.ThenByDescending(c => c.CreatedOn.Month)
-					.ThenByDescending(c => c.CreatedOn.Year);
+					.OrderByDescending(c => c.CreatedOn);
 
 				return View(post);
 			}
 			catch (Exception ex) { logger.LogError($"ERROR MESSAGE: {ex.Message}"); return BadRequest(); }
 
 		}
+
 
 		[Authorize(Roles = RoleConstants.Administrator)]
 		public async Task<IActionResult> Delete(Guid blogPostId)

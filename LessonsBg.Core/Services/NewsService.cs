@@ -33,7 +33,7 @@
                 Name = newsArticleModel.Name,
                 Text = newsArticleModel.Text,
                 ImageURL = newsArticleModel.ImageURL,
-                CreatedOn = DateTime.Now.Date
+                CreatedOn = DateTime.Now
             };
 
             await context.AddAsync(newsArticle);

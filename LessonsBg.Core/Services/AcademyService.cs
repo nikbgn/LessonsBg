@@ -126,5 +126,52 @@
 				}).ToList();
 
 		}
+
+		/// <summary>
+		/// Checks if the academy is the author of a course.
+		/// </summary>
+		/// 
+		public async Task<bool> CheckAcademyIsAuthorOfCourse(string academyId, Guid courseId)
+		{
+			var academy = await context
+				.Users
+				.Include(u => u.ApplicationUsersCourses)
+				.FirstOrDefaultAsync(u => u.Id == academyId);
+
+			if (academy == null) throw new ArgumentException("Invalid academy ID!");
+
+			try
+			{
+				bool check = academy.ApplicationUsersCourses.Any(c => c.CourseId == courseId);
+				return check;
+			}
+			catch (Exception ex)
+			{
+
+				throw new Exception($"Something went wrong in checking in {nameof(CheckAcademyIsAuthorOfCourse)}");
+			}
+
+		}
+
+		/// <summary>
+		/// Removes a course.
+		/// </summary>
+		/// <param name="courseId">Course ID</param>
+		/// <returns></returns>
+		
+		public async Task RemoveCourse(Guid courseId)
+		{
+			var course = await context.Courses.FirstOrDefaultAsync(c => c.Id == courseId);
+			if (course == null) throw new ArgumentException("Invalid course ID!");
+			try
+			{
+				context.Courses.Remove(course);
+				await context.SaveChangesAsync();
+			}
+			catch (Exception ex)
+			{
+				throw new Exception($"Something went wrong in {nameof(RemoveCourse)}");
+			}
+		}
 	}
 }

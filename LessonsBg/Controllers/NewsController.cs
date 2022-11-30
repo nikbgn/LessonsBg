@@ -26,9 +26,7 @@
 				var news = await newsService.GetAllNewsAsync();
 
 				news = news
-					.OrderByDescending(a => a.CreatedOn.Day)
-					.ThenByDescending(a => a.CreatedOn.Month)
-					.ThenByDescending(a => a.CreatedOn.Year)
+					.OrderByDescending(a => a.CreatedOn)
 					.ToList();
 
 				return View(news);	

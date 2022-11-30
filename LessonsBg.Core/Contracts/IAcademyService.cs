@@ -32,5 +32,18 @@
 		/// <returns></returns>
 		
 		public Task EditCourseAsync(CreateCourseModel model);
+
+		/// <summary>
+		/// Checks if the academy is the author of a course.
+		/// </summary>
+		
+		public Task<bool> CheckAcademyIsAuthorOfCourse(string academyId, Guid courseId);
+
+		/// <summary>
+		/// Removes a course.
+		/// </summary>
+		/// <param name="courseId">Course ID</param>
+		/// <returns></returns>
+		public Task RemoveCourse(Guid courseId);
 	}
 }

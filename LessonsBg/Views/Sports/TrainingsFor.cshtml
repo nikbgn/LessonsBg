@@ -15,17 +15,19 @@ else
 	<h2 class="text-center mt-2">Треньори</h2>
 	<div class="album py-5 push">
 		<div class="container text-center">
-			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 gap-1">
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
 				@foreach (var trainer in Model)
 				{
-					<div class="card  border-success">
-						<div class="card-body">
-							<img class="avatar-image-size rounded-circle mb-2" src="@trainer.ProfileImage" />
-							<hr>
-							<h5 class="card-title">@trainer.FirstName @trainer.LastName</h5>
-							<hr>
-							<h6>@trainer.PhoneNumber</h6>
-							<a href="#" class="btn btn-primary">Изпрати съобщение.</a>
+					<div class="col">
+						<div class="card  border-success">
+							<div class="card-body">
+								<img class="avatar-image-size rounded-circle mb-2" src="@trainer.ProfileImage" />
+								<hr>
+								<h5 class="card-title">@trainer.FirstName @trainer.LastName</h5>
+								<hr>
+								<h6>@trainer.PhoneNumber</h6>
+								<a href="#" class="btn btn-primary">Изпрати съобщение.</a>
+							</div>
 						</div>
 					</div>
 				}

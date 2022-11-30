@@ -37,7 +37,7 @@
 
 
 		[HttpGet]
-		[Route("/Courses/ReadMore/courseId={courseId}")]
+		[Route("/Courses/ReadMore/{courseId}")]
 		public async Task<IActionResult> ReadMore(Guid courseId)
 		{
 			try
