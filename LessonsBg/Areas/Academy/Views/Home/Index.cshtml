@@ -1,0 +1,55 @@
+﻿@{
+	ViewData["Title"] = "Начало";
+	var attentionCard = new AttentionCardModel
+			{
+				Title = "Добре дошли в панела за академии.",
+				CardText = "От тук можете да управлявате всичко свързано с Вашата академия."
+			};
+
+	var createCourseCard = new AreaManagementCardModel
+	{
+		ButtonValue = "Създай курс",
+		CardImage = "https://st2.depositphotos.com/1030956/7518/v/600/depositphotos_75185843-stock-illustration-blue-plus-sign.jpg",
+		CardText = "От тук можете да създадете нов курс!",
+		FormArea = "Academy",
+		FormController = "Courses",
+		FormAction = "CreateCourse"
+	};
+	var myCoursesCard = new AreaManagementCardModel
+	{
+		ButtonValue = "Моите курсове",
+		CardImage = "https://shmector.com/_ph/7/445867899.png",
+		CardText = "От тук можете да управлявате своите курсове!",
+		FormArea = "Academy",
+		FormController = "Courses",
+		FormAction = "MyCourses"
+	};
+}
+
+<div class="container text-center">
+	<partial name="_AttentionOrangeCardPartial"
+			 model="attentionCard" />
+	<div class="text-start">
+		<h1>Готови сте с управлението?</h1>
+		<form asp-area="" asp-controller="Home" asp-action="Index" method="get">
+			<input type="submit" class="btn btn-lg btn-warning m-1 text-white" value="Върнете се към сайта :)" />
+		</form>
+	</div>
+	<section>
+		<div class="album mt-5 push">
+			<div class="container">
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4">
+					<div class="col">
+						<partial name="_AreaManagementCardPartial"
+								 model="createCourseCard" />
+					</div>					
+					<div class="col">
+						<partial name="_AreaManagementCardPartial"
+								 model="myCoursesCard" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</div>

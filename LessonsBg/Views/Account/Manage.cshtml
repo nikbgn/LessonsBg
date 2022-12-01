@@ -27,37 +27,26 @@
 			<h1 class="text-center">За учители:</h1>
 			<hr />
 			<div class="text-center mb-3">
-				<p class="text-opacity-75">От тук можете да изберете учебните предмети по които можете да преподавате. </p>
-				<a class="btn btn-success" asp-area="Teacher" asp-controller="Subjects" asp-action="Add">Добави предмети.</a>
+				<p>От тук можете да управлявате учителският си акаунт.</p>
+				<a class="btn btn-success" asp-area="Teacher" asp-controller="Home" asp-action="Index">Управление на учителски акаунт.</a>
 			</div>
-			<div class="text-center mb-3">
-				<a class="btn btn-success" asp-area="Teacher" asp-controller="Subjects" asp-action="MySubjects">Моите предмети.</a>
-			</div>
-
 		}
 		@if (User.IsInRole(RoleConstants.Trainer))
 		{
-			<h1 class="text-center">За треньори:</h1>
+			<h1 class="text-center">За учители:</h1>
 			<hr />
 			<div class="text-center mb-3">
-				<p class="text-opacity-75">От тук можете да изберете спортовете които можете да преподавате като треньор. </p>
-				<a class="btn btn-success" asp-area="Trainer" asp-controller="Trainings" asp-action="Add">Добави спортове.</a>
+				<p>От тук можете да управлявате треньорският си акаунт.</p>
+				<a class="btn btn-success" asp-area="Trainer" asp-controller="Home" asp-action="Index">Управление на треньорски акаунт.</a>
 			</div>
-			<div class="text-center mb-3">
-				<a class="btn btn-success" asp-area="Trainer" asp-controller="Trainings" asp-action="MyTrainings">Моите спортове.</a>
-			</div>
-
 		}
 		@if (User.IsInRole(RoleConstants.Academy))
 		{
 			<h1 class="text-center">За академии:</h1>
 			<hr />
 			<div class="text-center mb-3">
-				<p class="text-opacity-75">От тук можете да създавате курсове. </p>
-				<a class="btn btn-success" asp-area="Academy" asp-controller="Courses" asp-action="CreateCourse">Добави курс.</a>
-			</div>
-			<div class="text-center mb-3">
-				<a class="btn btn-success" asp-area="Academy" asp-controller="Courses" asp-action="MyCourses">Моите курсове.</a>
+				<p>От тук можете да управлявате своята академия.</p>
+				<a class="btn btn-success" asp-area="Academy" asp-controller="Home" asp-action="Index">Управление на академия.</a>
 			</div>
 
 		}

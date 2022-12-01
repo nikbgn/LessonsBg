@@ -1,0 +1,55 @@
+﻿@{
+	ViewData["Title"] = "Начало";
+	var attentionCard = new AttentionCardModel
+			{
+				Title = "Добре дошли в панела за учители.",
+				CardText = "От тук можете да управлявате своя учителски акаунт."
+			};
+
+	var mySubjectsCard = new AreaManagementCardModel
+			{
+				ButtonValue = "Моите предмети",
+				CardImage = "https://st.depositphotos.com/1727571/1228/i/450/depositphotos_12286666-stock-photo-book-piles-frame.jpg",
+				CardText = "От тук може да прегледате предметите по които преподавате",
+				FormArea = "Teacher",
+				FormController = "Subjects",
+				FormAction = "MySubjects"
+			};
+	var addSubjectsCard = new AreaManagementCardModel
+			{
+				ButtonValue = "Добави предмети",
+				CardImage = "https://st2.depositphotos.com/1518767/7327/i/450/depositphotos_73270381-stock-photo-books-on-desk-in-library.jpg",
+				CardText = "От тук можете да добавите учебните предмети по които преподавате",
+				FormArea = "Teacher",
+				FormController = "Subjects",
+				FormAction = "Add"
+			};
+}
+
+<div class="container text-center">
+	<partial name="_AttentionOrangeCardPartial"
+			 model="attentionCard" />
+	<div class="text-start">
+		<h1>Готови сте с управлението?</h1>
+		<form asp-area="" asp-controller="Home" asp-action="Index" method="get">
+			<input type="submit" class="btn btn-lg btn-warning m-1 text-white" value="Върнете се към сайта :)" />
+		</form>
+	</div>
+	<section>
+		<div class="album mt-5 push">
+			<div class="container">
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4">
+					<div class="col">
+						<partial name="_AreaManagementCardPartial"
+								 model="mySubjectsCard" />
+					</div>
+					<div class="col">
+						<partial name="_AreaManagementCardPartial"
+								 model="addSubjectsCard" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</div>

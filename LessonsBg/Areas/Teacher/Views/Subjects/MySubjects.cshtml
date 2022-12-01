@@ -4,7 +4,13 @@
     ViewData["Title"] = "Моите предмети";
 }
 
-<div class="text-center  push">
+<div class="container text-center">
+    <form method="get">
+        <input type="submit" class="btn btn-lg btn-warning m-1 text-white" value="Обратно към панела за учители." asp-area="Teacher" asp-controller="Home" asp-action="Index" />
+    </form>
+</div>
+
+<div class="text-center container  push">
 	<h1 class="display-3">Моите предмети</h1>
     @foreach (var subject in Model)
     {

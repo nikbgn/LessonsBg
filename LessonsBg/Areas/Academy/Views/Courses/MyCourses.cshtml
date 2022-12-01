@@ -3,6 +3,13 @@
 	ViewData["Title"] = "Моите курсове";
 }
 
+<div class="container text-center">
+
+	<form method="get">
+		<input type="submit" class="btn btn-lg btn-warning m-1 text-white" value="Обратно към панела за управление на курсове." asp-area="Academy" asp-controller="Home" asp-action="Index" />
+	</form>
+</div>
+
 @if (!Model.Any())
 {
 	<div class="container text-center push">
