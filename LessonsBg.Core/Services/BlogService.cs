@@ -83,7 +83,7 @@
 			var blogPost = await context.BlogPosts.FirstOrDefaultAsync(bp => bp.Id == blogPostId);
 
 			if (blogPost != null && author != null)
-			{
+			{ 
 				try
 				{
 					var comment = new BlogComment()

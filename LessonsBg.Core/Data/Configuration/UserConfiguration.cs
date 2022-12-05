@@ -13,7 +13,7 @@
 			builder.HasData(SeedAdmin());
 		}
 
-		private ApplicationUser SeedAdmin()
+		public ApplicationUser SeedAdmin()
 		{
 			var hasher = new PasswordHasher<ApplicationUser>();
 

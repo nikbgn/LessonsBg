@@ -11,7 +11,7 @@
 			builder.HasData(CreateSubjectTypes());
 		}
 
-		private List<SubjectType> CreateSubjectTypes()
+		public List<SubjectType> CreateSubjectTypes()
 		{
 			var subjectTypes = new List<SubjectType>()
 			{

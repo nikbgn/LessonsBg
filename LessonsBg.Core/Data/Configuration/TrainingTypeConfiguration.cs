@@ -11,7 +11,7 @@
 			builder.HasData(CreateTrainingTypes());
 		}
 
-		private List<TrainingType> CreateTrainingTypes()
+		public List<TrainingType> CreateTrainingTypes()
 		{
 			var trainingTypes = new List<TrainingType>()
 			{

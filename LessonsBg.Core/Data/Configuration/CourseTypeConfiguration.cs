@@ -12,7 +12,7 @@
 			builder.HasData(CreateCourseTypes());
 		}
 
-		private List<CourseType> CreateCourseTypes()
+		public List<CourseType> CreateCourseTypes()
 		{
 			var courseTypes = new List<CourseType>()
 			{

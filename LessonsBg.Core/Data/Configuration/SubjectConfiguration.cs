@@ -12,7 +12,7 @@
 			builder.HasData(CreateSubjects());
 		}
 
-		private List<Subject> CreateSubjects()
+		public List<Subject> CreateSubjects()
 		{
 			var subjects = new List<Subject>()
 			{
