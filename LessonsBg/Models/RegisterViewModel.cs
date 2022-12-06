@@ -3,6 +3,8 @@
 	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
 
+	using LessonsBg.Core.Data.Models;
+
 	public class RegisterViewModel
 	{
 		[Required(ErrorMessage = "Попълването на това поле е задължително!")]

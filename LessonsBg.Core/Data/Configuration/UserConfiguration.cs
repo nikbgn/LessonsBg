@@ -29,7 +29,8 @@
 				EmailConfirmed = true,
 				PhoneNumber = "0891111111",
 				PhoneNumberConfirmed = true,
-				ProfileImage = "https://i.imgur.com/zqWjZFV.png"
+				ProfileImage = "https://i.imgur.com/zqWjZFV.png",
+				TeachingLocation = "Онлайн"
 			};
 
 			adminUser.PasswordHash = hasher.HashPassword(adminUser, "Adminche@123");

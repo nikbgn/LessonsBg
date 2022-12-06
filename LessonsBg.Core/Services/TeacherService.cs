@@ -6,7 +6,8 @@
     using LessonsBg.Core.Contracts;
     using LessonsBg.Core.Data;
     using LessonsBg.Core.Data.Models;
-    using LessonsBg.Core.Models.Subject;
+	using LessonsBg.Core.Models;
+	using LessonsBg.Core.Models.Subject;
     using LessonsBg.Core.Models.Teacher;
     using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.Logging;
@@ -68,12 +69,27 @@
 		/// Gets information needed to fill a teacher card for illustration purposes
 		/// </summary>
 		
-		public async Task<IEnumerable<TeacherCardModel>> GetTeachersCardsForSubjectAsync(string subjectName)
+		public async Task<LessonsForQueryModel> GetTeachersCardsForSubjectAsync(string subjectName, string teachingLocation)
 		{
 			try
 			{
-				return await context.Users
+				var locations = await context
+					.Locations.
+					Select(l => new LocationModel
+					{
+						Id = l.Id,
+						Name = l.Name,
+						Region = l.Region
+					}).ToListAsync();
+
+				var result = new LessonsForQueryModel() 
+				{ 
+					TeachingLocation = teachingLocation ,
+					Locations = locations
+				};
+				result.TeacherCards = await context.Users
 					.Include(u => u.ApplicationUsersSubjects)
+					.Where(u => u.TeachingLocation == teachingLocation)
 					.Where(u => u.ApplicationUsersSubjects
 					.Any(s => s.Subject.Name == subjectName))
 					.Select(u => new TeacherCardModel
@@ -84,6 +100,8 @@
 						ProfileImage = u.ProfileImage
 					})
 					.ToListAsync();
+
+				return result;
 			}
 			catch (Exception ex)
 			{

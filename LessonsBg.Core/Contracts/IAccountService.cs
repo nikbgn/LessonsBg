@@ -13,5 +13,13 @@
 		/// <returns></returns>
 		
 		public Task ChangeUserProfileImageAsync(string userId, string newAvatarUrl);
+
+		/// <summary>
+		/// Changes user's teaching location.
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <param name="newTeachingLocation"></param>
+		/// <returns></returns>
+		public Task ChangeUserTeachingLocationAsync(string userId, string newTeachingLocation);
 	}
 }

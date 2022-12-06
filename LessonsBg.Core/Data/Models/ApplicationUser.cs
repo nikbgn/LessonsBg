@@ -21,6 +21,9 @@
         [Url]
         public string ProfileImage { get; set; } = null!;
 
+        [Required]
+        public string TeachingLocation { get; set; } = "Онлайн";
+
 
         public IEnumerable<BlogComment> BlogComments { get; set; } = new List<BlogComment>();
 		public List<ApplicationUserSubject> ApplicationUsersSubjects { get; set; } = new List<ApplicationUserSubject>();

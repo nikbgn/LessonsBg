@@ -1,6 +1,7 @@
 ﻿namespace LessonsBg.Core.Contracts
 {
-    using LessonsBg.Core.Models.Subject;
+	using LessonsBg.Core.Models;
+	using LessonsBg.Core.Models.Subject;
     using LessonsBg.Core.Models.Teacher;
 
 
@@ -32,6 +33,6 @@
 		/// Gets information needed to fill a teacher card for illustration purposes
 		/// </summary>
 
-		public Task<IEnumerable<TeacherCardModel>> GetTeachersCardsForSubjectAsync(string subjectName);
+		public Task<LessonsForQueryModel> GetTeachersCardsForSubjectAsync(string subjectName, string teachingLocation);
 	}
 }

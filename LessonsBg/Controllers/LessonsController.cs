@@ -37,8 +37,10 @@
 
 		}
 
-		[HttpPost]
-		public async Task<IActionResult> LessonsFor(string subjectName)
+		[HttpGet]
+		[Route("/Lessons/LessonsFor/{subjectName}")]
+
+		public async Task<IActionResult> LessonsFor(string subjectName, string teachingLocation = "Онлайн")
 		{
 			var subjectNames = await subjectsService.GetAllSubjectNamesAsync();
 			if (!subjectNames.Any(s => s == subjectName))
@@ -48,7 +50,7 @@
 
 			try
 			{
-				var teachers = await teachersService.GetTeachersCardsForSubjectAsync(subjectName);
+				var teachers = await teachersService.GetTeachersCardsForSubjectAsync(subjectName, teachingLocation);
 				return View(teachers);
 			}
 			catch (Exception ex) { logger.LogError($"ERROR MESSAGE: {ex.Message}"); return BadRequest(); }

@@ -17,7 +17,7 @@
 	@foreach (var item in Model)
 	{
 			<h1>@item.TrainingTypeName</h1>
-			<form method="post">
+			<form method="get">
 			@foreach (var trainingName in item.TrainingsOfTrainingTypeName)
 			{
 				<input type="submit" value="@trainingName" class="btn btn-success" asp-area="" asp-controller="Sports" asp-action="TrainingsFor" asp-route-trainingName="@trainingName" />

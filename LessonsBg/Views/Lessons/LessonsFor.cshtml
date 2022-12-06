@@ -1,14 +1,35 @@
-﻿@model IEnumerable<TeacherCardModel>
+﻿@model LessonsForQueryModel
 
 @{
 	ViewData["Title"] = "Откриване на учители";
 }
 
+<div class="container text-center mt-5">
+	<form method="get">
+
+		<div class="form-group text-start">
+			<div class="form-group">
+				<p class="fw-bold">Място на преподаване</p>
+				<select asp-for="TeachingLocation" class="form-control-sm">
+					@foreach (var location in Model.Locations)
+					{
+						<option value="@location.Name">@location.Name</option>
+					}
+				</select>
+
+			</div>
+			<div class="mt-3">
+				<button class="btn btn-success" type="submit">Филтрирай!</button>
+			</div>
+		</div>
 
 
-@if (!Model.Any())
+	</form>
+</div>
+
+@if (!Model.TeacherCards.Any())
 {
-	<h1 class="text-center display-1 mt-5 push">Към момента нямаме учители преподаващи този предмет.</h1>
+	<h1 class="container text-center display-1 mt-5 push">За съжаление нямаме учители които отговарят на изискванията Ви.</h1>
 }
 else
 {
@@ -16,7 +37,7 @@ else
 	<div class="album py-5 push">
 		<div class="container text-center">
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-				@foreach (var teacher in Model)
+				@foreach (var teacher in Model.TeacherCards)
 				{
 					<div class="col">
 						<div class="card  border-success">

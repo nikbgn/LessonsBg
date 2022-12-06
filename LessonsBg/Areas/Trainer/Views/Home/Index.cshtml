@@ -24,6 +24,15 @@
 				FormController = "Trainings",
 				FormAction = "Add"
 			};
+	var teachingLocationCard = new AreaManagementCardModel
+			{
+				ButtonValue = "Място на преподаване",
+				CardImage = "https://d3ixtcdq6iye11.cloudfront.net/storage/public/article/114/1608792849838647330.jpg",
+				CardText = "От тук можете да зададете къде провеждате тренировки.",
+				FormArea = "Trainer",
+				FormController = "Trainings",
+				FormAction = "ChangeTeachingLocation"
+			};
 }
 
 <div class="container text-center">
@@ -38,6 +47,12 @@
 	<section>
 		<div class="album mt-5 push">
 			<div class="container">
+				<div class="row mb-2">
+					<div class="col">
+						<partial name="_AreaManagementCardPartial"
+								 model="teachingLocationCard" />
+					</div>
+				</div>
 				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4">
 					<div class="col">
 						<partial name="_AreaManagementCardPartial"

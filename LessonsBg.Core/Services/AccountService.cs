@@ -46,5 +46,30 @@
 				throw new ApplicationException("Failed changing the user profile image.", ex);
 			}
 		}
+
+
+		/// <summary>
+		/// Changes user's teaching location.
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <param name="newTeachingLocation"></param>
+		/// <returns></returns>
+		public async Task ChangeUserTeachingLocationAsync(string userId, string newTeachingLocation)
+		{
+			var user = await context.Users.FindAsync(userId);
+
+			if (user == null) throw new ArgumentException("Invalid user ID!");
+
+			try
+			{
+				user.TeachingLocation = newTeachingLocation;
+				await context.SaveChangesAsync();
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(nameof(ex), ex.Message);
+				throw new ApplicationException("Failed changing the user teaching location.", ex);
+			}
+		}
 	}
 }

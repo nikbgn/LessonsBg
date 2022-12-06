@@ -1,6 +1,7 @@
 ﻿namespace LessonsBg.Core.Contracts
 {
-    using LessonsBg.Core.Models.Trainer;
+	using LessonsBg.Core.Models;
+	using LessonsBg.Core.Models.Trainer;
 
 
     /// <summary>
@@ -31,7 +32,7 @@
 		/// Gets information needed to fill a trainer card for illustration purposes
 		/// </summary>
 
-		public Task<IEnumerable<TrainerCardModel>> GetTrainersCardsForTrainingAsync(string trainingName);
+		public Task<TrainingsForQueryModel> GetTrainersCardsForTrainingAsync(string trainingName, string teachingLocation);
 
 	}
 }
