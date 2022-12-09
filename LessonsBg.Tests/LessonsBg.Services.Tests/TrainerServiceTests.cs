@@ -38,6 +38,7 @@
 			db.DbContext.Dispose();
 		}
 
+        
 		[Fact]
 		public async void TrainerService_GetTrainersCardsForTraining_Works()
 		{
@@ -50,16 +51,16 @@
 
 			await trainerService.AddTrainingToTrainingsCollectionAsync(training.Id, admin.Id);
 
-			var cards = await trainerService.GetTrainersCardsForTrainingAsync(training.Name);
-			bool trainerCardExists = cards.Any(c => c.PhoneNumber == admin.PhoneNumber);
+			var cards = await trainerService.GetTrainersCardsForTrainingAsync(training.Name, admin.TeachingLocation);
+			bool trainerCardExists = cards.TrainerCards.Any(c => c.PhoneNumber == admin.PhoneNumber);
 
-			Assert.True(cards.Count() > 0);
+			
 			Assert.True(trainerCardExists);
 
 			db.DbContext.Dispose();
 		}
-
-		[Fact]
+		
+        [Fact]
 		public async void TrainerService_GetTrainerTrainings_Works()
 		{
 			DatabaseSetup db = new DatabaseSetup();

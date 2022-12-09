@@ -14,5 +14,16 @@
 			Assert.NotNull(result);
 			Assert.IsType<ViewResult>(result);
 		}
-	}
+
+        [Fact]
+        public void About_Should_Return_View()
+        {
+            var homeController = new HomeController();
+
+            var result = homeController.About();
+
+            Assert.NotNull(result);
+            Assert.IsType<ViewResult>(result);
+        }
+    }
 }

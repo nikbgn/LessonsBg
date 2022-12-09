@@ -40,6 +40,7 @@
 			db.DbContext.Dispose();
 		}
 
+        
 		[Fact]
 		public async void TeacherService_GetTeachersCardsForSubject_Works()
 		{
@@ -52,16 +53,16 @@
 
 			await teacherService.AddSubjectToSubjectsCollectionAsync(subject.Id, admin.Id);
 
-			var cards = await teacherService.GetTeachersCardsForSubjectAsync(subject.Name);
-			bool teacherCardExists = cards.Any(c => c.PhoneNumber == admin.PhoneNumber);
+			var cards = await teacherService.GetTeachersCardsForSubjectAsync(subject.Name,admin.TeachingLocation);
+			bool teacherCardExists = cards.TeacherCards.Any(c => c.PhoneNumber == admin.PhoneNumber);
 
-			Assert.True(cards.Count() > 0);
 			Assert.True(teacherCardExists);
 
 			db.DbContext.Dispose();
 		}
+		
 
-		[Fact]
+        [Fact]
 		public async void TeacherService_GetTeacherSubjectsAsync_Works()
 		{
 			DatabaseSetup db = new DatabaseSetup();
