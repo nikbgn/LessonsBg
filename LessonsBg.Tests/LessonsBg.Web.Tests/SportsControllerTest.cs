@@ -37,26 +37,6 @@ namespace LessonsBg.Tests.LessonsBg.Web.Tests
             Assert.IsType<BadRequestResult>(result);
         }
 
-        /*
-         		[HttpGet]
-		[Route("/Sports/TrainingsFor/{trainingName}")]
-		public async Task<IActionResult> TrainingsFor(string trainingName, string teachingLocation = "Онлайн")
-		{
-			var trainingNames = await trainingsService.GetAllTrainingsNamesAsync();
-			if (!trainingNames.Any(t => t == trainingName))
-			{
-				return BadRequest();
-			}
-
-			try
-			{
-				var trainers = await trainerService.GetTrainersCardsForTrainingAsync(trainingName, teachingLocation);
-				return View(trainers);
-			}
-			catch (Exception ex) { logger.LogError($"ERROR MESSAGE: {ex.Message}"); return BadRequest(); }
-		}
-         */
-
         [Fact]
         public async Task TrainingsFor_Should_Return_View()
         {
