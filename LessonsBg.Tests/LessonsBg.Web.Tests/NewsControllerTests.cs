@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using Moq;
+using System;
 
 namespace LessonsBg.Tests.LessonsBg.Web.Tests
 {
@@ -84,6 +85,48 @@ namespace LessonsBg.Tests.LessonsBg.Web.Tests
             var result = await newsController.Delete(Guid.NewGuid());
             Assert.IsType<RedirectToActionResult>(result);
         }
+
+        [Fact]
+        public async Task Delete_Should_Return_BadRequest()
+        {
+            var mock = new Mock<INewsService>();
+            var guid = Guid.NewGuid();
+            mock.Setup(g => g.RemoveAsync(guid)).ThrowsAsync(new Exception());
+            var newsArticleMock = new Mock<NewsArticleModel>().Object;
+            var newsController = new NewsController(mock.Object, mockILoggerService.Object);
+            var result = await newsController.Delete(guid);
+            Assert.IsType<BadRequestResult>(result);
+        }
+
+
+        [Fact]
+        public async Task ViewArticle_Should_Return_View()
+        {
+            var mock = new Mock<INewsService>();
+            var guid = Guid.NewGuid();
+            var newsArticleMock = new Mock<NewsArticleModel>().Object;
+            mock.Setup(g => g.GetNewsArticleAsync(guid)).ReturnsAsync(newsArticleMock);
+            var newsController = new NewsController(mock.Object, mockILoggerService.Object);
+
+            var result = await newsController.ViewArticle(guid);
+
+            Assert.IsType<ViewResult>(result);
+        }
+
+        [Fact]
+        public async Task ViewArticle_Should_Return_BadRequest()
+        {
+            var mock = new Mock<INewsService>();
+            var guid = Guid.NewGuid();
+            mock.Setup(g => g.GetNewsArticleAsync(guid)).ThrowsAsync(new Exception());
+            var newsArticleMock = new Mock<NewsArticleModel>().Object;
+            var newsController = new NewsController(mock.Object, mockILoggerService.Object);
+
+            var result = await newsController.ViewArticle(guid);
+
+            Assert.IsType<BadRequestResult>(result);
+        }
+
 
     }
 }
