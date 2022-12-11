@@ -3,6 +3,7 @@ using LessonsBg.Core.Data.Models;
 
 
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -31,9 +32,19 @@ builder.Services.ConfigureApplicationCookie(options =>
 	options.AccessDeniedPath = "/Account/AccessDenied";
 });
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options => 
+{
+    options.CacheProfiles.Add("DefaultCacheProfile30s",
+         new CacheProfile()
+         {
+             Duration = 30
+         });
+
+	options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+});
+
 builder.Services.AddApplicationServices();
-builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+builder.Services.AddResponseCaching();
 var app = builder.Build();
 
 //Check for roles existing, and create them if they do not.
@@ -62,6 +73,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseResponseCaching();
 
 app.MapControllerRoute(
 	name: "Teacher",

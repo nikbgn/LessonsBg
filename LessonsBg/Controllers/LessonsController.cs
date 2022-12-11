@@ -5,7 +5,8 @@
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.Extensions.Logging;
 
-	public class LessonsController : Controller
+    [AutoValidateAntiforgeryToken]
+    public class LessonsController : Controller
 	{
 
 		private readonly ISubjectsService subjectsService;

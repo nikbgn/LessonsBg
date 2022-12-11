@@ -13,7 +13,8 @@
 	using static LessonsBg.Core.Data.ApplicationErrorMessages;
 
 	[Authorize]
-	public class AccountController : Controller
+    [AutoValidateAntiforgeryToken]
+    public class AccountController : Controller
 	{
 		private readonly UserManager<ApplicationUser> userManager;
 		private readonly SignInManager<ApplicationUser> signInManager;

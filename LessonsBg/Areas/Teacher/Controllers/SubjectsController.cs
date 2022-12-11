@@ -10,7 +10,8 @@
 
 	[Area("Teacher")]
 	[Authorize(Roles = $"{RoleConstants.Administrator},{RoleConstants.Teacher}")]
-	public class SubjectsController : Controller
+    [AutoValidateAntiforgeryToken]
+    public class SubjectsController : Controller
 	{
 
 		private readonly ISubjectsService subjectsService;

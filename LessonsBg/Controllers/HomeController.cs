@@ -6,13 +6,16 @@
 
 	using Microsoft.AspNetCore.Mvc;
 
+	[AutoValidateAntiforgeryToken]
 	public class HomeController : Controller
 	{
-		public IActionResult Index()
+        [ResponseCache(CacheProfileName = "DefaultCacheProfile30s")]
+        public IActionResult Index()
 		{
 			return View();
 		}
 
+        [ResponseCache(CacheProfileName = "DefaultCacheProfile30s")]
         public IActionResult About()
         {
             return View();

@@ -4,7 +4,8 @@
 
 	using Microsoft.AspNetCore.Mvc;
 
-	public class CoursesController : Controller
+    [AutoValidateAntiforgeryToken]
+    public class CoursesController : Controller
 	{
 
 		private readonly ICourseService courseService;

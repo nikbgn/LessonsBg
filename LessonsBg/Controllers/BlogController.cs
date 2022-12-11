@@ -12,6 +12,7 @@
     /// Blog with interesting posts.
     /// </summary>
 
+    [AutoValidateAntiforgeryToken]
     public class BlogController : Controller
 	{
 		private readonly IBlogService blogService;

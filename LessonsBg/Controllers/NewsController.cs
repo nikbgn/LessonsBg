@@ -21,7 +21,8 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Index()
+        [ResponseCache(CacheProfileName = "DefaultCacheProfile30s")]
+        public async Task<IActionResult> Index()
 		{
 			try
 			{

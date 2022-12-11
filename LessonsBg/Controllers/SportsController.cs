@@ -4,7 +4,8 @@
 
 	using Microsoft.AspNetCore.Mvc;
 
-	public class SportsController : Controller
+    [AutoValidateAntiforgeryToken]
+    public class SportsController : Controller
 	{
 		private readonly ITrainingsService trainingsService;
 		private readonly ITrainerService trainerService;

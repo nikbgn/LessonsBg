@@ -11,7 +11,8 @@
 
     [Area("Academy")]
 	[Authorize(Roles = $"{RoleConstants.Administrator}, {RoleConstants.Academy}")]
-	public class CoursesController : Controller
+    [AutoValidateAntiforgeryToken]
+    public class CoursesController : Controller
 	{
 
 		private readonly IAcademyService academyService;

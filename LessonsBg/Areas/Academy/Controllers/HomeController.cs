@@ -7,6 +7,7 @@
 
     [Area("Academy")]
     [Authorize(Roles = $"{RoleConstants.Administrator}, {RoleConstants.Academy}")]
+    [AutoValidateAntiforgeryToken]
     public class HomeController : Controller
     {
         public IActionResult Index()

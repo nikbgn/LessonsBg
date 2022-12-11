@@ -11,7 +11,8 @@
 
 	[Area("Trainer")]
 	[Authorize(Roles = $"{RoleConstants.Administrator}, {RoleConstants.Trainer}")]
-	public class TrainingsController : Controller
+    [AutoValidateAntiforgeryToken]
+    public class TrainingsController : Controller
 	{
 		private readonly ITrainingsService trainingsService;
 		private readonly ITrainerService trainerService;
