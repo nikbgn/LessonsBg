@@ -20,7 +20,7 @@
 		<form method="get">
 			@foreach (var subjectName in item.SubjectsOfSubjectTypeName)
 			{
-				<input type="submit" value="@subjectName" class="btn btn-success" asp-area="" asp-controller="Lessons" asp-action="LessonsFor" asp-route-subjectName="@subjectName" />
+				<input type="submit" value="@subjectName" class="btn btn-success m-1" asp-area="" asp-controller="Lessons" asp-action="LessonsFor" asp-route-subjectName="@subjectName" />
 			}
 		</form>
 	}
