@@ -6,5 +6,4 @@ The main idea of LessonsBG is to be a website that lets you easily find teachers
 *Please note that in the images of the project that you are going to see, all testiomonials, people names, phone numbers and images are mocks.*
 
 
-###*Here are some screenshots of the main parts of the website :*
-
+### *Here are some screenshots of the main parts of the website :*
