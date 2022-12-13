@@ -23,7 +23,7 @@
 			logger = _logger;
 		}
 
-
+		[ResponseCache(CacheProfileName = "DefaultCacheProfile30s")]
 		public async Task<IActionResult> All()
 		{
 
