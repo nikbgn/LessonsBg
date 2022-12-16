@@ -39,18 +39,15 @@ else
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
 				@foreach (var teacher in Model.TeacherCards)
 				{
-					<div class="col">
-						<div class="card  border-success">
-							<div class="card-body">
-								<img class="avatar-image-size rounded-circle mb-2" src="@teacher.ProfileImage" />
-								<hr>
-								<h5 class="card-title">@teacher.FirstName @teacher.LastName</h5>
-								<hr>
-								<h6>@teacher.PhoneNumber</h6>
-								<a href="#" class="btn btn-primary">Изпрати съобщение.</a>
-							</div>
-						</div>
-					</div>
+					var card = new TeaceherTrainerInfomrationCardModel()
+					{
+						ProfileImage = teacher.ProfileImage,
+						FirstName = teacher.FirstName,
+						LastName = teacher.LastName,
+						Email = teacher.Email,
+						PhoneNumber = teacher.PhoneNumber
+					};
+					<partial name="_TeacherTrainerInformationCard" model="card" />
 				}
 			</div>
 		</div>

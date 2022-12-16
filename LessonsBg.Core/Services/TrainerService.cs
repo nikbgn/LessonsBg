@@ -94,7 +94,8 @@
 						FirstName = u.FirstName,
 						LastName = u.LastName,
 						PhoneNumber = u.PhoneNumber,
-						ProfileImage = u.ProfileImage
+						ProfileImage = u.ProfileImage,
+						Email = u.Email,
 					})
 					.ToListAsync();
 

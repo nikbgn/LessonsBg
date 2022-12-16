@@ -1,0 +1,14 @@
+﻿@model TeaceherTrainerInfomrationCardModel
+
+<div class="col">
+	<div class="card  border-success">
+		<div class="card-body">
+			<img class="avatar-image-size rounded-circle mb-2" src="@Model.ProfileImage" />
+			<hr>
+			<h5 class="card-title">@Model.FirstName @Model.LastName</h5>
+			<hr>
+			<h6>@Model.PhoneNumber</h6>
+			<a href="mailto:@Model.Email?subject=Съобщение от УРОЦИ БГ" class="btn btn-success">Изпрати съобщение.</a>
+		</div>
+	</div>
+</div>
